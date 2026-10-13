@@ -38,8 +38,22 @@ class Settings(BaseSettings):
     access_token_minutes: int = Field(default=15, ge=1, le=120)
     refresh_token_days: int = Field(default=14, ge=1, le=60)
     cookie_secure: bool = False
+    refresh_grace_seconds: int = Field(default=10, ge=0, le=60)
+    # argon2id cost (security.md section 1). Tests lower these, production keeps the defaults.
+    argon2_time_cost: int = Field(default=3, ge=1, le=10)
+    argon2_memory_cost_kib: int = Field(default=65536, ge=8, le=262144)
+    argon2_parallelism: int = Field(default=2, ge=1, le=8)
     cors_origins: Annotated[list[str], NoDecode] = Field(default_factory=list)
     job_token: SecretStr = SecretStr(DEV_JOB_TOKEN)
+
+    rate_limit_enabled: bool = True
+    rate_limit_login_ip: str = "10/minute"
+    rate_limit_login_email: str = "10/minute"
+    rate_limit_refresh_ip: str = "30/minute"
+    rate_limit_register_ip: str = "3/hour"
+    rate_limit_demo_ip: str = "10/hour"
+    rate_limit_user: str = "120/minute"
+    idempotency_ttl_hours: int = Field(default=48, ge=1, le=168)
 
     allow_registration: bool = False
     demo_login_enabled: bool = False

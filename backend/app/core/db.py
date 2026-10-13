@@ -16,6 +16,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.core.config import Settings, get_settings
 
 POOL_RECYCLE_SECONDS = 1800
+_DEPTH_KEY = "transaction_depth"
 
 
 def make_engine(settings: Settings, **overrides: Any) -> Engine:
@@ -50,7 +51,7 @@ def get_session_factory() -> sessionmaker[Session]:
 def get_session() -> Iterator[Session]:
     """FastAPI dependency: one session per request, closed afterwards.
 
-    Services own the transaction (`with session.begin():`), so nothing commits here.
+    Services own the transaction (`with transaction(session):`), so nothing commits here.
     """
     with get_session_factory()() as session:
         yield session
@@ -61,6 +62,27 @@ def session_scope() -> Iterator[Session]:
     """One transaction for scripts and jobs: commit on success, roll back on error."""
     with get_session_factory()() as session, session.begin():
         yield session
+
+
+@contextmanager
+def transaction(session: Session) -> Iterator[Session]:
+    """Commit when the outermost block succeeds, roll back when any block raises.
+
+    Services open one around their work. Blocks nest (the idempotency wrapper around a service
+    call), and only the outermost one commits, so a request is always one transaction.
+    """
+    depth: int = session.info.get(_DEPTH_KEY, 0)
+    session.info[_DEPTH_KEY] = depth + 1
+    try:
+        yield session
+        if depth == 0:
+            session.commit()
+    except BaseException:
+        if depth == 0:
+            session.rollback()
+        raise
+    finally:
+        session.info[_DEPTH_KEY] = depth
 
 
 def dispose_engine() -> None:

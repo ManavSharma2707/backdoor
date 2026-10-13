@@ -69,3 +69,13 @@ DEFAULT_MESSAGES: dict[ErrorCode, str] = {
     ErrorCode.QUOTA_EXHAUSTED: "The assistant is busy right now. Try again in a minute. You can still read the reason on each line.",
     ErrorCode.INTERNAL: "Something went wrong on our side. Try again. If it keeps happening, tell us the time it happened.",
 }
+
+# Fixed texts for the auth flows. They are generic on purpose: a failed sign in never says
+# whether the email exists.
+LOGIN_FAILED = "Email or password is not right."
+SIGNED_OUT = "You were signed out. Sign in to continue."
+CURRENT_PASSWORD_WRONG = "Current password is not right."
+NEW_PASSWORD_SAME = "Choose a password that is different from the current one."
+PASSWORD_REJECTED = "Use at least 12 characters and avoid common passwords."
+EMAIL_TAKEN = "That email is already in use."
+REQUEST_NOT_ALLOWED = "That request was not allowed."

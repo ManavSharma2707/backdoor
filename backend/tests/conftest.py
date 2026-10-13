@@ -9,7 +9,7 @@ import os
 import re
 from collections.abc import Iterator
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import pytest
 from sqlalchemy import Engine, create_engine, text
@@ -129,6 +129,7 @@ class TenantBundle:
     category: Category
     product: Product
     supplier: Supplier
+    headers: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -137,21 +138,24 @@ class TwoTenants:
     b: TenantBundle
 
 
-def _bundle(db: Session, slug_hint: str) -> TenantBundle:
+def _bundle(db: Session, settings: Settings, slug_hint: str) -> TenantBundle:
     tenant = factories.make_tenant(db, slug=f"{slug_hint}-{factories.short_id()}")
+    user = factories.make_user(db, tenant)
+    category = factories.make_category(db, tenant)
     return TenantBundle(
         tenant=tenant,
-        user=factories.make_user(db, tenant),
-        category=(category := factories.make_category(db, tenant)),
+        user=user,
+        category=category,
         product=factories.make_product(db, tenant, category=category),
         supplier=factories.make_supplier(db, tenant),
+        headers=factories.auth_headers(settings, user),
     )
 
 
 @pytest.fixture
-def two_tenants(db: Session) -> TwoTenants:
+def two_tenants(db: Session, test_settings: Settings) -> TwoTenants:
     """Two tenants, each with an owner, a category, a product and a supplier."""
-    return TwoTenants(a=_bundle(db, "alpha"), b=_bundle(db, "bravo"))
+    return TwoTenants(a=_bundle(db, test_settings, "alpha"), b=_bundle(db, test_settings, "bravo"))
 
 
 @pytest.fixture
@@ -160,5 +164,11 @@ def test_settings(test_database_url: str) -> Settings:
         app_env="test",
         database_url=test_database_url,
         cors_origins=["http://localhost:5173"],
+        # Cheap password hashing keeps the suite fast. Production keeps the spec parameters.
+        argon2_time_cost=1,
+        argon2_memory_cost_kib=8,
+        argon2_parallelism=1,
+        # Rate limit tests switch this on for themselves.
+        rate_limit_enabled=False,
         _env_file=None,  # type: ignore[call-arg]
     )

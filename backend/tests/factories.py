@@ -8,6 +8,9 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.core.clock import now_utc
+from app.core.config import Settings
+from app.core.security import PasswordService, issue_access_token
 from app.models.catalogue import Category, Product
 from app.models.intelligence import (
     ForecastRun,
@@ -25,7 +28,7 @@ from app.models.tenancy import Tenant, User
 
 BUSINESS_DATE = date(2026, 10, 12)
 SOME_INSTANT = datetime(2026, 10, 12, 4, 30, tzinfo=UTC)
-PLACEHOLDER_HASH = "not-a-real-hash"  # Auth arrives in Prompt 2, tests here never log in.
+TEST_PASSWORD = "correct-horse-battery-staple"
 
 
 def short_id() -> str:
@@ -52,14 +55,38 @@ def make_tenant(db: Session, **overrides: Any) -> Tenant:
     return _save(db, Tenant(**{**values, **overrides}))
 
 
+_TEST_HASH: dict[str, str] = {}
+
+
+def password_hash(password: str = TEST_PASSWORD) -> str:
+    """A real argon2 hash at the cheapest cost, computed once per password."""
+    if password not in _TEST_HASH:
+        settings = Settings(
+            argon2_time_cost=1,
+            argon2_memory_cost_kib=8,
+            argon2_parallelism=1,
+            _env_file=None,  # type: ignore[call-arg]
+        )
+        _TEST_HASH[password] = PasswordService(settings).hash(password)
+    return _TEST_HASH[password]
+
+
 def make_user(db: Session, tenant: Tenant, **overrides: Any) -> User:
     values: dict[str, Any] = {
         "tenant_id": tenant.id,
         "email": f"owner-{short_id()}@example.com",
-        "password_hash": PLACEHOLDER_HASH,
+        "password_hash": password_hash(),
         "full_name": "Test Owner",
     }
     return _save(db, User(**{**values, **overrides}))
+
+
+def auth_headers(settings: Settings, user: User) -> dict[str, str]:
+    """A valid bearer header for `user`, signed with the test secret."""
+    token, _ = issue_access_token(
+        settings, user_id=user.id, tenant_id=user.tenant_id, role=user.role, now=now_utc()
+    )
+    return {"Authorization": f"Bearer {token}"}
 
 
 def make_category(db: Session, tenant: Tenant, **overrides: Any) -> Category:

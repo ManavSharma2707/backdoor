@@ -43,7 +43,7 @@ Notation: `col type [null] [default] - note`. `PK`, `UQ`, `FK` marked. All colum
 
 **tenants**: `id PK`, `slug text UQ`, `name text`, `business_type text` (`fmcg|medical`), `profile_key text null`, `timezone text default 'Asia/Kolkata'`, `currency char(3) default 'INR'`, `is_synthetic boolean default false`, `is_active boolean default true`, `created_at`, `updated_at`.
 
-**users**: `id PK`, `tenant_id FK`, `email citext UQ` (global), `password_hash text`, `full_name text`, `role text default 'owner'` (`owner|manager|staff`), `is_active boolean default true`, `failed_login_count int default 0`, `locked_until timestamptz null`, `last_login_at timestamptz null`, `password_changed_at timestamptz`, `created_at`, `updated_at`. `UQ (tenant_id, id)`.
+**users**: `id PK`, `tenant_id FK`, `email citext UQ` (global), `password_hash text`, `full_name text`, `role text default 'owner'` (`owner|manager|staff`), `is_active boolean default true`, `failed_login_count int default 0`, `locked_until timestamptz null`, `last_login_at timestamptz null`, `last_failed_login_at timestamptz null` (added in `0011`, time of the latest failure, for the 15 minute window), `password_changed_at timestamptz`, `created_at`, `updated_at`. `UQ (tenant_id, id)`.
 
 **refresh_tokens**: `id PK`, `tenant_id`, `user_id` (composite FK to users), `family_id uuid`, `token_hash char(64) UQ` (SHA-256 of the opaque token), `issued_at`, `expires_at`, `last_used_at null`, `rotated_at null`, `revoked_at null`, `revoked_reason text null` (`logout|logout_all|reuse_detected|password_change|expired`), `replaced_by_id uuid null`, `user_agent text null`, `ip inet null`. Indexes: `(user_id)`, `(family_id)`, `(expires_at)`.
 
@@ -95,7 +95,7 @@ Notation: `col type [null] [default] - note`. `PK`, `UQ`, `FK` marked. All colum
 
 **stock_counts**: `id PK`, `tenant_id`, `count_date date`, `status text default 'draft'` (`draft|posted|void`), `note text null`, `created_by null`, `posted_at null`, `created_at`. `UQ (tenant_id, id)`.
 
-**stock_count_lines**: `id PK`, `tenant_id`, `count_id`, `product_id`, `batch_id null`, `system_qty numeric(14,3)`, `counted_qty numeric(14,3)`, `variance numeric(14,3) GENERATED ALWAYS AS (counted_qty - system_qty) STORED`. `UQ NULLS NOT DISTINCT (tenant_id, count_id, product_id, batch_id)`.
+**stock_count_lines**: `id PK`, `tenant_id`, `count_id`, `product_id`, `batch_id null`, `system_qty numeric(14,3)`, `counted_qty numeric(14,3) null` (null until counted, nullable since `0011`), `variance numeric(14,3) null GENERATED ALWAYS AS (counted_qty - system_qty) STORED`. `UQ NULLS NOT DISTINCT (tenant_id, count_id, product_id, batch_id)`.
 
 **stock_adjustments**: `id PK`, `tenant_id`, `product_id`, `batch_id null`, `quantity_delta numeric(14,3)`, `reason_code text` (`damage|expiry_writeoff|theft_loss|found|correction|supplier_return|other`), `note text null`, `business_date date`, `movement_id bigint`, `idempotency_key text null`, `created_by null`, `created_at`. `CHECK quantity_delta <> 0`.
 
@@ -243,6 +243,7 @@ Naming `NNNN_slug.py`. Sequence:
 8. `0008_ops_audit` (job_runs, audit, idempotency, immutability trigger)
 9. `0009_agents_rag` (chat, agent tables, knowledge, HNSW and GIN)
 10. `0010_rls_views_grants` (enable RLS everywhere, revoke grants, views)
+11. `0011_auth_lockout_counts` (`users.last_failed_login_at`, `stock_count_lines.counted_qty` nullable, `D-055`)
 
 Migrations must be reversible where practical, and run clean on an empty database and on top of seeded data. Test: `alembic upgrade head`, `downgrade base`, `upgrade head`.
 

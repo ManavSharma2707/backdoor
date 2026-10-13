@@ -158,6 +158,33 @@ Consequence: `testing-strategy.md` amended.
 Context: `uv lock` on 2026-10-13 resolved SQLAlchemy 2.1.4, FastAPI 0.143, Pydantic 2.14, pandas 3.0.6, LangGraph 1.2.15, Alembic 1.20 and ruff 0.17. The suite passes on all of them.
 Choice: keep the resolved versions (table in section 5). `libraries.md` says "SQLAlchemy 2.0" for the API style; 2.1 is compatible with every call used.
 
+### D-054 (2026-10-13) Password minimum is 12 characters
+Context: `security.md` said 10, the Prompt 2 brief says 12.
+Choice: 12 (maximum 128). The common password list is matched after lowercasing, letter swaps and trimming digits and symbols from both ends, and repeated blocks are refused. The list is a curated file of about 575 entries because most of the "top 1,000" are under 12 characters and already fail the length rule.
+Alternatives: keep 10 (weaker), a full 100k breach list (size, and no source we can vouch for).
+Consequence: `security.md`, `core/security.py`, `app/assets/common_passwords.txt`. Spec change.
+
+### D-055 (2026-10-13) Migration 0011: `last_failed_login_at` and nullable `counted_qty`
+Context: "5 failures within 15 minutes" needs the time of the last failure, and a draft stock count needs a way to say "not counted yet".
+Choice: `users.last_failed_login_at timestamptz null`, and `stock_count_lines.counted_qty` nullable (the generated `variance` is then NULL). Posting a count only touches counted lines.
+Alternatives: store failure times in a new table (more rows for no gain), default `counted_qty` to `system_qty` (cannot tell counted from untouched).
+Consequence: `database.md` amended, models updated. Spec change.
+
+### D-056 (2026-10-13) Access token times are checked against our clock
+Context: PyJWT validates `exp`, `nbf` and `iat` with the system clock, which tests cannot move and `CLAUDE.md` forbids reading directly.
+Choice: signature, algorithm (HS256 only), issuer, audience and presence of all nine claims are checked by PyJWT, the three time claims by `core/security.py` against `now_utc()` with a 10 second leeway. `get_current_user` also loads the user and tenant, so a deactivated account is refused at once, and the database role (not the token role) is used for `require_role`.
+Consequence: `core/security.py`, `core/deps.py`.
+
+### D-057 (2026-10-13) Refresh rotation details
+Context: `security.md` asks for a 10 second grace window that returns 401 without revoking.
+Choice: the grace branch returns 401 and leaves the cookie alone (the browser already holds the winner's newer cookie). Any other presentation of a rotated or revoked token revokes the family and clears the cookie. Rotation locks the token row (`FOR UPDATE`), so two simultaneous refreshes are serialised and exactly one wins. Logout revokes the whole family. Change password keeps the family of the refresh cookie sent with the request and revokes the rest (all of them when no cookie is sent).
+Consequence: `services/auth_service.py`.
+
+### D-058 (2026-10-13) Rate limiting design
+Context: slowapi key functions only see the request, but login must be limited per email, and signed in users have a general limit.
+Choice: slowapi decorators for per IP limits (login, refresh, register, demo login), the `limits` library directly (`KeyedLimits`) for per email and per user limits. Limit strings come from settings (`RATE_LIMIT_*`), `RATE_LIMIT_ENABLED=false` switches everything off (tests). 429 uses the error envelope with `Retry-After`. In memory, one instance.
+Consequence: `core/ratelimit.py`, `Settings`.
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).

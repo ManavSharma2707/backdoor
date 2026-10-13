@@ -68,6 +68,7 @@ class User(IdMixin, TenantMixin, CreatedAtMixin, UpdatedAtMixin, Base):
     is_active: Mapped[bool] = mapped_column(server_default=true())
     failed_login_count: Mapped[int] = mapped_column(Integer, server_default="0")
     locked_until: Mapped[datetime | None] = mapped_column(TZ)
+    last_failed_login_at: Mapped[datetime | None] = mapped_column(TZ)
     last_login_at: Mapped[datetime | None] = mapped_column(TZ)
     password_changed_at: Mapped[datetime] = mapped_column(TZ, server_default=func.now())
 

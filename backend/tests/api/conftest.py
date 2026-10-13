@@ -17,6 +17,9 @@ def app(test_settings: Settings, db: Session) -> FastAPI:
     application = create_app(test_settings)
 
     def override_session() -> Iterator[Session]:
+        # Release whatever the test arranged, so a rollback inside the request (a refused
+        # sale, say) undoes only the request and not the test's own setup.
+        db.commit()
         yield db
 
     application.dependency_overrides[get_session] = override_session

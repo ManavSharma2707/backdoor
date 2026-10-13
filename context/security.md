@@ -9,15 +9,15 @@ Goal: a production-grade auth and tenancy design for a small multi-tenant SaaS. 
 ### Passwords
 - Hash: **argon2id** via `argon2-cffi` `PasswordHasher` with parameters `time_cost=3, memory_cost=65536 (64 MiB), parallelism=2, hash_len=32, salt_len=16`. On Render free (512 MB, 0.1 CPU) 64 MiB is acceptable for a few logins, benchmark and record in `memory.md`. Lower `memory_cost` to 32768 if hashing exceeds 800 ms there.
 - Rehash on login when `check_needs_rehash` is true.
-- Policy: at least 10 characters, at most 128, must not equal the email or business name, must not be in a bundled list of the 1,000 most common passwords, no composition rules (length matters more). Show a plain error: "Use at least 10 characters and avoid common passwords."
+- Policy: at least **12** characters (`D-054`), at most 128, must not equal the email or business name, must not be a common password (bundled list `app/assets/common_passwords.txt`, matched after lowercasing, letter swaps such as `@` for `a`, and trimming digits and symbols from the ends) or one character or block repeated, no composition rules (length matters more). Show a plain error: "Use at least 12 characters and avoid common passwords."
 - Change password requires the current password and revokes all other sessions.
 - No password hints, no security questions. Password reset by email is deferred. Owner reset is a CLI script for now (`python -m app.jobs.run reset-password --email ...`), logged.
 
 ### Login
 - `POST /auth/login`: normalise email (lowercase, trim). Constant-time path: always run a hash verification, using a dummy hash when the user does not exist, so timing does not reveal accounts.
 - Generic failure message for any credential error: "Email or password is not right."
-- Lockout: after 5 consecutive failures within 15 minutes, `locked_until = now + 15 minutes`. During lock return the same generic message with `Retry-After`, do not confirm the lock to unknown emails. Reset counter on success. Inactive users and inactive tenants cannot log in.
-- IP rate limit 10 per minute (slowapi, in-memory, single instance). Document that multi-instance needs a shared store.
+- Lockout: after 5 consecutive failures within 15 minutes (the time of the latest failure is `users.last_failed_login_at`, `D-055`), `locked_until = now + 15 minutes`. Emails with no account are counted in memory the same way, so a locked answer never proves that an account exists. During lock return the same generic message with `Retry-After`, do not confirm the lock to unknown emails. Reset counter on success. Inactive users and inactive tenants cannot log in.
+- Rate limits (slowapi and the `limits` library, in memory, single instance): login 10 per minute per IP and 10 per minute per email, refresh 30 per minute per IP, register 3 per hour per IP, demo login 10 per hour per IP, 120 per minute per signed in user for everything else. Answer 429 with `Retry-After` in the error envelope. Multi-instance needs a shared store (`D-058`).
 - Audit: `auth.login.success`, `auth.login.failure` (email hash only, never the password), `auth.lockout`.
 
 ### Tokens

@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 import anyio.to_thread
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi.errors import RateLimitExceeded
 
 from app.api.v1 import health
 from app.api.v1.router import api_router
@@ -19,6 +20,8 @@ from app.core.middleware import (
     SecurityHeadersMiddleware,
     UnhandledErrorMiddleware,
 )
+from app.core.ratelimit import configure_rate_limits, handle_rate_limit_exceeded
+from app.core.security import PasswordService
 from app.schemas.common import ErrorEnvelope
 from app.version import APP_VERSION
 
@@ -36,6 +39,7 @@ same envelope: `{"error": {"code", "message", "details", "request_id"}}`.
 
 TAGS_METADATA = [
     {"name": "health", "description": "Liveness and readiness probes."},
+    {"name": "auth", "description": "Sign in, refresh token rotation, sign out and password."},
 ]
 
 
@@ -67,6 +71,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         },
     )
     install_error_handlers(app)
+    app.add_exception_handler(RateLimitExceeded, handle_rate_limit_exceeded)
+    app.state.settings = settings
+    app.state.password_service = PasswordService(settings)
+    configure_rate_limits(settings)
 
     # Each call wraps the previous ones, so the last added runs outermost. Request id wraps
     # everything, so every response has one, including a 500 from an unexpected exception.

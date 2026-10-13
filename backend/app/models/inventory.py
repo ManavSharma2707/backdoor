@@ -167,8 +167,8 @@ class StockCountLine(IdMixin, TenantMixin, Base):
     product_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
     batch_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     system_qty: Mapped[Decimal] = mapped_column(QTY)
-    counted_qty: Mapped[Decimal] = mapped_column(QTY)
-    variance: Mapped[Decimal] = mapped_column(
+    counted_qty: Mapped[Decimal | None] = mapped_column(QTY)
+    variance: Mapped[Decimal | None] = mapped_column(
         QTY, Computed("counted_qty - system_qty", persisted=True)
     )
 
