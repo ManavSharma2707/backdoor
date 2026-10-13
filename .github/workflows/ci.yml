@@ -1,0 +1,84 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: backroom
+          POSTGRES_PASSWORD: backroom
+          POSTGRES_DB: backroom
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U backroom -d backroom"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      APP_ENV: test
+      DATABASE_URL: postgresql+psycopg://backroom:backroom@localhost:5432/backroom
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - name: Install
+        run: uv sync --frozen
+      - name: Lint
+        run: |
+          uv run ruff check . ../scripts
+          uv run ruff format --check . ../scripts
+      - name: Types
+        run: uv run mypy app/engine app/core
+      - name: Tests
+        run: uv run pytest -m "not agent_eval_live" --cov=app --cov-report=term
+      - name: Dependency audit
+        run: uv run pip-audit --progress-spinner off
+
+  copy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/check_copy.py
+
+  # Switched on in Prompt 5 (P5.13) when the Vite project exists: replace `false` with `true`.
+  frontend:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test -- --run
+      - run: npm run build
+      - run: npm audit --audit-level=high

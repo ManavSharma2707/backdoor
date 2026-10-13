@@ -61,8 +61,8 @@ def test_2027_rows_are_marked_approximate(db: Session) -> None:
 def test_no_dashes_in_stored_text(db: Session) -> None:
     for row in db.execute(select(CalendarEvent)).scalars():
         for text in (row.name, row.source_note or ""):
-            assert "—" not in text
-            assert "–" not in text
+            assert "\u2014" not in text
+            assert "\u2013" not in text
 
 
 def test_upsert_is_idempotent(db: Session) -> None:

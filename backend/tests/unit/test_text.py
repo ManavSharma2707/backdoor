@@ -6,8 +6,8 @@ from hypothesis import strategies as st
 
 from app.core.text import BANNED_WORDS, LONG_DASHES, contains_long_dash, humanize_text
 
-EM = "—"
-EN = "–"
+EM = "\u2014"
+EN = "\u2013"
 
 
 def _banned_pattern(word: str) -> re.Pattern[str]:

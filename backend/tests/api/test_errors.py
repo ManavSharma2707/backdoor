@@ -78,7 +78,7 @@ def routes(app: FastAPI) -> FastAPI:
 
     @app.get("/api/v1/_t/dashy")
     def dashy() -> None:
-        raise AppError(ErrorCode.CONFLICT, "Stock is low — order today, it is simply easy!")
+        raise AppError(ErrorCode.CONFLICT, "Stock is low \u2014 order today, it is simply easy!")
 
     return app
 

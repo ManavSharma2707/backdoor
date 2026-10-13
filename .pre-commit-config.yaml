@@ -1,0 +1,30 @@
+# Local hooks only, so they work offline and use the project's own tool versions.
+# They run inside backend/ so results match `make lint` and `make typecheck` exactly.
+# Install once:  uv run --directory backend pre-commit install
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run --directory backend ruff check . ../scripts
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: ruff-format
+        name: ruff format
+        entry: uv run --directory backend ruff format --check . ../scripts
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: mypy
+        name: mypy (app.core and app.engine, strict)
+        entry: uv run --directory backend mypy app/core app/engine
+        language: system
+        files: ^backend/app/(core|engine)/
+        pass_filenames: false
+      - id: check-copy
+        name: copy rules (dashes, banned words)
+        entry: python scripts/check_copy.py
+        language: system
+        pass_filenames: false
+        always_run: true

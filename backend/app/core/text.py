@@ -8,7 +8,7 @@ list.
 
 import re
 
-LONG_DASHES = ("—", "–")  # em dash, en dash
+LONG_DASHES = ("\u2014", "\u2013")  # em dash, en dash
 
 # Words and phrases that must never appear in user-facing copy (ui-copywriting.md section 3).
 BANNED_WORDS: tuple[str, ...] = (
@@ -113,9 +113,9 @@ _REWRITES: tuple[tuple[str, str], ...] = (
 # Marks "the next letter starts a sentence" after a dropped word that was capitalised.
 _CAPITALISE_NEXT = "\x00"
 
-_EMOJI = re.compile("[\U0001f000-\U0001faff☀-➿️‍]")
-_RANGE_DASH = re.compile(r"(?<=\d)\s*[–—]\s*(?=\d)")
-_ANY_DASH = re.compile(r"\s*[–—]\s*")
+_EMOJI = re.compile("[\U0001f000-\U0001faff\u2600-\u27bf\ufe0f\u200d]")
+_RANGE_DASH = re.compile(r"(?<=\d)\s*[\u2013\u2014]\s*(?=\d)")
+_ANY_DASH = re.compile(r"\s*[\u2013\u2014]\s*")
 _SPACES = re.compile(r"[ \t]{2,}")
 _SPACE_BEFORE_PUNCT = re.compile(r"\s+([,.;:?%)])")
 _COMMA_RUN = re.compile(r"(?:,\s*){2,}")
