@@ -40,6 +40,8 @@ same envelope: `{"error": {"code", "message", "details", "request_id"}}`.
 TAGS_METADATA = [
     {"name": "health", "description": "Liveness and readiness probes."},
     {"name": "auth", "description": "Sign in, refresh token rotation, sign out and password."},
+    {"name": "settings", "description": "Business settings that shape the weekly plan."},
+    {"name": "catalogue", "description": "Categories, products, prices, equivalents, GST rates."},
 ]
 
 

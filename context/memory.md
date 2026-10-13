@@ -185,6 +185,11 @@ Context: slowapi key functions only see the request, but login must be limited p
 Choice: slowapi decorators for per IP limits (login, refresh, register, demo login), the `limits` library directly (`KeyedLimits`) for per email and per user limits. Limit strings come from settings (`RATE_LIMIT_*`), `RATE_LIMIT_ENABLED=false` switches everything off (tests). 429 uses the error envelope with `Retry-After`. In memory, one instance.
 Consequence: `core/ratelimit.py`, `Settings`.
 
+### D-059 (2026-10-13) Catalogue and settings rules
+Context: `database.md` and `api-spec.md` leave several product rules open.
+Choice: selling price may not exceed MRP (Legal Metrology). Medicine fields (generic name, strength, form, manufacturer, schedule flag) are accepted only for medical tenants. SKU and barcode are unique per tenant (barcode in the service, SKU also in the database). Batch tracking cannot be changed once a product has any movement. A price change closes the open `product_prices` row (`effective_to` the day before) and opens a new one, and a second change on the same day edits that day's row. References to a foreign category, tax rate or product in a body answer 404 with the field named. Categories have two levels. Product list `status` is `active` (default), `inactive` or `all`. Equivalents are deleted by link id (`DELETE /products/{id}/equivalents/{link_id}`). `GET /products` fills `days_of_cover` and `plan_status` with null until a plan exists. Settings ranges: service level 0.50 to 0.999, review 1 to 28, lead time 0 to 60, near expiry 7 to 365, non moving 14 to 365, slow cover 14 to 730, excess horizon 7 to 180, forecast horizon 14 to 56, backtest origins 4 to 26, stale count 7 to 180, shelf life fraction 0.10 to 1.00, weights add up to 1.
+Consequence: `api-spec.md` amended. Spec change.
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).

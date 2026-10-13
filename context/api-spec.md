@@ -49,7 +49,7 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 
 | Method and path | Purpose |
 |---|---|
-| GET, PATCH `/settings` | Business settings. PATCH validates ranges, audit logs diffs |
+| GET, PATCH `/settings` | Business settings. PATCH changes only the fields sent (`weekly_budget: null` clears the limit), validates ranges (`D-059`), audit logs diffs |
 | GET `/calendar/events?from=&to=&kind=` | Events with verified flag |
 | POST, PATCH, DELETE `/calendar/events/{id}` | Owner managed events. Seeded verified events cannot be deleted, only hidden by setting `is_active` false (add column if needed) |
 | GET `/calendar/effects?event_key=&category_id=` | Learned and configured effects with evidence |
@@ -66,7 +66,8 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | POST `/products/{id}/deactivate`, `/activate` | Soft state |
 | GET `/products/{id}/stock` | Balances per batch with expiry and days to expiry |
 | GET `/products/{id}/history?from=&to=` | Daily sales, receipts, stock line, plan and decision history, forecast versus actual |
-| GET, POST, DELETE `/products/{id}/equivalents` | Retailer defined equivalents |
+| GET, POST `/products/{id}/equivalents`, DELETE `/products/{id}/equivalents/{link_id}` | Retailer defined equivalents (`D-059`) |
+| GET `/products/{id}/prices` | Price history, newest first |
 | GET, POST `/suppliers`, GET, PATCH `/suppliers/{id}` | Suppliers |
 | GET `/suppliers/{id}/scorecard` | Delay rate, avg delay, fill rate, price drift |
 | GET, POST `/suppliers/{id}/terms`, PATCH `/supplier-terms/{id}` | Effective dated terms. Creating a new primary term end-dates the previous one |
