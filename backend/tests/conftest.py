@@ -7,7 +7,8 @@ runs inside a transaction that is rolled back, with the session in savepoint mod
 
 import os
 import re
-from collections.abc import Iterator
+import uuid
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 
@@ -19,6 +20,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import Settings, get_settings
 from app.jobs.migrate import run_migrations
+from app.models.base import Base
 from app.models.catalogue import Category, Product
 from app.models.suppliers import Supplier
 from app.models.tenancy import Tenant, User
@@ -156,6 +158,43 @@ def _bundle(db: Session, settings: Settings, slug_hint: str) -> TenantBundle:
 def two_tenants(db: Session, test_settings: Settings) -> TwoTenants:
     """Two tenants, each with an owner, a category, a product and a supplier."""
     return TwoTenants(a=_bundle(db, test_settings, "alpha"), b=_bundle(db, test_settings, "bravo"))
+
+
+def purge_tenants(engine: Engine, tenant_ids: list[uuid.UUID]) -> None:
+    """Delete everything that belongs to the given tenants, for tests that must commit.
+
+    Foreign keys are switched off for the session (test database only, superuser), so rows can go
+    in any order. The audit log is append only and is left alone.
+    """
+    if not tenant_ids:
+        return
+    with engine.begin() as conn:
+        conn.execute(text("SET session_replication_role = replica"))
+        for table in reversed(Base.metadata.sorted_tables):
+            if table.name == "audit_logs" or "tenant_id" not in table.c:
+                continue
+            conn.execute(table.delete().where(table.c.tenant_id.in_(tenant_ids)))
+        conn.execute(Tenant.__table__.delete().where(Tenant.id.in_(tenant_ids)))
+        conn.execute(text("SET session_replication_role = DEFAULT"))
+
+
+@pytest.fixture
+def committed(engine: Engine) -> Iterator[Callable[[], Session]]:
+    """Sessions that really commit, for concurrency tests. Tenants made through them are
+    deleted afterwards. Use `make_session()` once per thread."""
+    created: list[uuid.UUID] = []
+    sessions: list[Session] = []
+
+    def make_session() -> Session:
+        session = Session(bind=engine, expire_on_commit=False)
+        sessions.append(session)
+        return session
+
+    make_session.track = created.append  # type: ignore[attr-defined]
+    yield make_session
+    for session in sessions:
+        session.close()
+    purge_tenants(engine, created)
 
 
 @pytest.fixture
