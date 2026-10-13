@@ -98,40 +98,106 @@ Alternatives: what we rejected and why
 Consequence: what this changes, files touched
 ```
 
-(No entries yet beyond the locked list above.)
+### D-043 (2026-10-13) Composite aware constraint naming
+Context: nearly every tenant scoped constraint starts with `tenant_id`, so the naming convention in `libraries.md` (`column_0_name`) produced duplicate names, and the two foreign keys of `product_equivalents` to `products` would have collided.
+Choice: `ix`, `uq` and `fk` patterns use `column_0_N_name` (all columns joined). Every `Index` and `CheckConstraint` has an explicit name. SQLAlchemy shortens names over 63 characters with a hash.
+Alternatives: hand naming every constraint (noisy, easy to forget).
+Consequence: `models/base.py`, `database.md` section 1 and `libraries.md` amended. Spec change.
+
+### D-044 (2026-10-13) `product_batches` is created in migration 0003
+Context: `sale_lines`, `sale_return_lines` and `receipt_lines` hold composite foreign keys to `product_batches`, but `database.md` created it in `0006`, after those tables.
+Choice: create `product_batches` in `0003_catalogue_suppliers`. The other `0006` tables are unchanged.
+Alternatives: add the foreign keys later with `ALTER TABLE` (more code, a window with no integrity).
+Consequence: `database.md` section 7 amended. Spec change.
+
+### D-045 (2026-10-13) Health endpoints and one extra error code
+Context: `api-spec.md` lists `/health` and `/health/ready` without a prefix, while Render, the Dockerfile and `deployment.md` use `/api/v1/health`. Starlette also answers wrong methods with 405, which had no code.
+Choice: serve both at `/api/v1/health*` (documented) and as undocumented root aliases. Readiness checks the database and that `alembic_version` equals the newest revision on disk, and answers 503 with a small status body (not the error envelope) so uptime tools can read it. Add `METHOD_NOT_ALLOWED` 405 to the error codes.
+Alternatives: root only (breaks the Render health path), envelope for 503 (harder for monitors).
+Consequence: `api-spec.md` sections 1 and 10 amended. Spec change.
+
+### D-046 (2026-10-13) Which foreign keys are not composite
+Context: "every intra-tenant foreign key is composite" cannot hold where `tenant_id` is nullable or the parent does not exist yet.
+Choice: plain keys only to `tenants`, `users`, `model_versions`, `tax_rates` and `knowledge_documents` (nullable tenant). Soft uuid columns without a key: `purchase_orders.recommendation_run_id`, `purchase_order_lines.recommendation_line_id`, `data_quality_issues.run_id`, `chat_messages.agent_run_id`. `audit_logs` has no keys at all so it survives demo resets. Added `UNIQUE (tenant_id, id)` to `refresh_tokens`, `inventory_movements`, `promotions` and `chat_threads` so `replaced_by_id`, `reverses_movement_id`, `stock_adjustments.movement_id`, `sale_return_lines.sale_line_id` and `agent_runs.thread_id` are composite. A structural test enforces the rule.
+Alternatives: leave those columns unconstrained.
+Consequence: `database.md` section 10 added. Spec change.
+
+### D-047 (2026-10-13) Reference data semantics
+Context: `india-calendar.md` marks festival dates `verify` and seasons `seasonal`; the prompt says unverified dates are `is_verified = false`.
+Choice: festivals `false`, seasons `true` (a convention, not a moon dependent date), 2027 rows `false` with an "approximate" note. The upsert (`app/jobs/reference_data.py`, keyed by slug) never turns a verified row back to unverified, never changes `is_active`, and skips rows whose `source_note` is `owner`. Includes `summer-2025`, which the calendar mentions for completeness. 28 events and 4 GST slabs.
+Alternatives: overwrite everything on each deploy (would undo the Prompt 3 verification).
+Consequence: Prompt 3 flips `is_verified` in the code table, not only in the database.
+
+### D-048 (2026-10-13) Expiry days use the IST date
+Context: `v_batch_stock` used `CURRENT_DATE`, which is the server (UTC) date.
+Choice: `(now() AT TIME ZONE 'Asia/Kolkata')::date`, so batches expire at IST midnight.
+Consequence: `database.md` section 10 notes it. Spec change.
+
+### D-049 (2026-10-13) CORS sends no credentials header
+Context: `security.md` allows credentials only for refresh and logout. The cookie strategy (D-008) is same origin through the Vercel rewrite, so no cross-origin credentialed request exists, and Starlette's CORS middleware is global.
+Choice: `allow_credentials=False`, explicit methods and headers, exposed headers `X-Request-ID`, `Idempotent-Replay`, `Retry-After`.
+Alternatives: a per-route CORS layer (complexity with no user).
+Consequence: if the chat stream goes direct to Render (D-008) it uses the bearer token, which needs no credentials. `api-spec.md` amended.
+
+### D-050 (2026-10-13) Tooling layout
+Context: the repo sits in OneDrive on Windows; a `.venv` inside it fails on file locks; compose bind mounts `./backend` over `/app`.
+Choice: `[tool.uv] package = false` (no editable install, code imported from the working directory), docker venv at `/opt/venv`, uv image pinned to 0.13.0, host venv kept outside OneDrive through `UV_PROJECT_ENVIRONMENT`. Lint, types and tests run on the host, the stack runs in Docker. Pre-commit hooks run inside `backend/`.
+Alternatives: run everything in containers (slow feedback on Windows), a venv in the repo.
+Consequence: `libraries.md`, `deployment.md` amended. Spec change.
+
+### D-051 (2026-10-13) Local default secrets and production checks
+Context: the app must start on a clean checkout, but production must never run with a default secret.
+Choice: `JWT_SECRET` and `JOB_TOKEN` default to long `dev-only-...` strings. In production the process refuses to start (`ConfigError`, all problems listed together) if a secret is under 32 characters or starts with `replace-with`, `change-me`, `dev-only` or `example`, if `COOKIE_SECURE` is false, `CORS_ORIGINS` is empty or `*`, or `DATABASE_URL` is the local default.
+Consequence: `.env.example` uses the `replace-with` placeholders.
+
+### D-052 (2026-10-13) Test database rules
+Choice: the test database name must end in `_test` (the fixture exits otherwise), the public schema is dropped and rebuilt from the real migrations once per session, and tests that run migrations use a throwaway database. Source files write the long dash characters as `\u2014` and `\u2013` escapes because `check_copy.py` scans for the literal characters.
+Consequence: `testing-strategy.md` amended.
+
+### D-053 (2026-10-13) Dependency versions are newer than the planning notes
+Context: `uv lock` on 2026-10-13 resolved SQLAlchemy 2.1.4, FastAPI 0.143, Pydantic 2.14, pandas 3.0.6, LangGraph 1.2.15, Alembic 1.20 and ruff 0.17. The suite passes on all of them.
+Choice: keep the resolved versions (table in section 5). `libraries.md` says "SQLAlchemy 2.0" for the API style; 2.1 is compatible with every call used.
 
 ## 5. Pinned versions
 
-Fill in at install time (`uv pip list`, `npm ls --depth=0`).
+Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).
 
-| Package | Version | Date | Note |
-|---|---|---|---|
-| python | 3.12.x | | |
-| node | 22.x | | |
-| fastapi | | | |
-| sqlalchemy | | | |
-| psycopg | | | |
-| alembic | | | |
-| pydantic | | | |
-| pyjwt | | | |
-| argon2-cffi | | | |
-| pandas | | | |
-| numpy | | | |
-| scikit-learn | | | |
-| lightgbm | | | |
-| reportlab | | | |
-| xlsxwriter | | | |
-| langgraph | (1.2.x line confirmed in planning) | 2026-10-13 | |
-| langchain-core | | | |
-| langchain-google-genai | | | |
-| google-genai | | | |
-| react | | | |
-| vite | | | |
-| tailwindcss | | | |
-| @tanstack/react-query | | | |
-| recharts | | | |
-| zod | | | |
-| react-router | | | |
+| Package | Version | Note |
+|---|---|---|
+| python | 3.12.15 | Docker image python:3.12-slim, host uv python |
+| uv | 0.13.0 | Docker image pinned. Host 0.13.0 |
+| node | 22 (image node:22-alpine) | Host 22.13.1. Frontend arrives in Prompt 5 |
+| postgres (pgvector/pgvector:pg16) | 16.15, pgvector 0.8.7 | citext 1.6, pg_trgm 1.6, pgcrypto 1.3 |
+| fastapi | 0.143.0 | starlette 1.8.0, uvicorn 0.54.0 |
+| sqlalchemy | 2.1.4 |  |
+| psycopg | 3.3.6 | psycopg-binary 3.3.6, psycopg-pool 3.3.3 |
+| alembic | 1.20.0 |  |
+| pydantic | 2.14.1 | pydantic-settings 2.15.0 |
+| pyjwt | 2.15.1 | not used yet |
+| argon2-cffi | 25.1.0 | not used yet |
+| pandas | 3.0.6 |  |
+| numpy | 2.5.4 |  |
+| scikit-learn | 1.9.1 |  |
+| lightgbm | 4.7.0 |  |
+| reportlab | 5.0.1 |  |
+| xlsxwriter | 3.2.9 |  |
+| langgraph | 1.2.15 | langgraph-checkpoint-postgres 3.1.3 |
+| langchain-core | 1.6.10 |  |
+| langchain-google-genai | 4.4.1 |  |
+| google-genai | 2.30.0 |  |
+| pgvector (python) | 0.5.1 |  |
+| structlog | 26.1.0 |  |
+| slowapi | 0.1.10 | not used yet |
+| sse-starlette | 3.5.0 | not used yet |
+| tenacity | 9.1.4 | not used yet |
+| cachetools | 7.2.1 | not used yet |
+| email-validator | 2.3.0 | not used yet |
+| faker, pyyaml | 40.43.0, 6.0.3 | seed, Prompt 3 |
+| pytest, pytest-cov, hypothesis | 9.1.1, 7.1.0, 6.169.0 |  |
+| httpx, openpyxl, pypdf | 0.28.1, 3.1.5, 6.20.1 |  |
+| ruff, mypy | 0.17.0, 2.4.0 |  |
+| pre-commit, pip-audit | 4.7.0, 2.10.1 | pip-audit found no known vulnerabilities on 2026-10-13 |
+| react, vite, tailwindcss, @tanstack/react-query, recharts, zod, react-router |  | Prompt 5 |
 
 ## 6. Known issues and gotchas
 
@@ -152,23 +218,49 @@ Seeded from planning. Add more as they appear.
 - Free Gemini tier may use inputs for product improvement. Synthetic data only.
 - Lunar festival dates can differ by one day across sources. Keep `is_verified` honest.
 
+Found while building Prompt 1:
+
+- The system drive was at 99 percent. A full disk makes Docker Desktop fail with "read-only file system" during image extraction and then hang. Keep several GB free before building the API image, and `docker builder prune` reclaims cache without touching images or volumes.
+- OneDrive locks files inside a `.venv` in the repo and `uv run` then fails with "Access is denied". Keep the virtualenv outside the synced folder (`UV_PROJECT_ENVIRONMENT`), and keep `[tool.uv] package = false` so uv never rebuilds the project.
+- Compose bind mounts `./backend` over `/app`, so the Docker virtualenv must not live in `/app/.venv`. It is `/opt/venv`.
+- On Windows, GNU Make and uv may not be on PATH in a fresh shell. `winget install ezwinports.make` needs a new shell, and `make ... UV="python -m uv"` works when only the pip installed uv exists.
+- FastAPI 0.143 mounts included routers lazily, so `scope["route"].path` is relative to the prefix (`/health` instead of `/api/v1/health`). `core/middleware.py::route_template` rebuilds the full template.
+- An exception that escapes every middleware is answered by Starlette `ServerErrorMiddleware`, outside our stack, so that 500 would lack the request id, security and CORS headers. `UnhandledErrorMiddleware` sits innermost and converts it to the envelope first.
+- `pydantic-settings` only wraps `ValueError` in `ValidationError`. `ConfigError` is a `RuntimeError`, so a bad production config fails at import with the full list of problems.
+- A recreated `public` schema has no `USAGE` for `PUBLIC`, unlike a fresh database. The test reset grants it, otherwise a probe role cannot even see the tables.
+- `PUBLIC` keeps `USAGE` on schema `public`, so `has_schema_privilege('anon', 'public', 'USAGE')` stays true after revoking from `anon`. Check the explicit ACL instead.
+- `window` is a reserved word. SQLAlchemy quotes the column, but raw text in a CHECK must quote it too (`enum_check` does).
+- Alembic `env.py` calls `fileConfig`, which replaces the application logging. Programmatic runs set `config.attributes["configure_logger"] = False`.
+- ruff isort treats `alembic` as first party because `backend/alembic/` exists. `known-third-party = ["alembic"]` fixes it.
+- `alembic downgrade base` followed by `upgrade head` leaves `tax_rates` and `calendar_events` empty. Reference data comes from `python -m app.jobs.run migrate`, not from Alembic.
+- Text written through some editor and shell tools can turn a typed unicode escape for a long dash into the real character. Verify with `scripts/check_copy.py` after writing any source or doc that mentions the long dashes, and build such characters with `chr()` in scripts.
+- Apostrophes inside a shell heredoc can break the command wrapper. Write files with the editor tools.
+
 ## 7. Measurements (fill in as you go)
 
 | Item | Value | Date |
 |---|---|---|
 | Argon2 hash time on Render free | | |
-| API resident memory (idle, after export) | | |
+| API resident memory (idle, after export) | 178 MiB for the whole dev container (reload watcher plus worker), before any export. Budget is 400 MB | 2026-10-13 |
 | Full seed size (MB) | | |
 | Light pipeline time per tenant | | |
 | Full pipeline time per tenant | | |
 | Tenant WAPE vs baseline WAPE | | |
 | Agent eval grounding pass rate | | |
-| Test counts and coverage per prompt | | |
+| Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s | 2026-10-13 |
+| API dev image size | 1.29 GB (includes ml and agents packages) | 2026-10-13 |
+| API runtime image size | 1.0 GB. Verified: runs as uid 10001, migrates on start, Docker healthcheck healthy, lightgbm imports (libgomp) | 2026-10-13 |
+| Migration upgrade from empty | about 3 s for 10 revisions | 2026-10-13 |
 
 ## 8. Session handoff (rewrite at the end of every session)
 
-- State: planning complete, context files written, **no code exists yet**.
-- Last action: context files created on 2026-10-13.
-- Next step: Prompt 1 (Foundation and database). Start with `progress.md` P1.01.
-- Open problems: none.
-- Notes for the next session: none.
+- State: **Prompt 1 complete** (P1.01 to P1.16). `make up` starts Postgres (pgvector), the API and a placeholder web page. `make migrate` builds all 51 tables, RLS, views and reference data. Health endpoints respond. 352 tests, lint, strict types and the copy check are green. Nothing is pushed (there is no remote).
+- Last action: verification gate run on a fresh volume on 2026-10-13, then context files updated.
+- Next step: **Prompt 2, auth and transactional core**. Start with `progress.md` P2.01. The pieces it plugs into already exist: `TenantRepo`, `AppError` and the envelope, `create_app`, `api/v1/router.py` (add routers there), `tests/api/conftest.py` fixtures, `two_tenants` and the factories in `tests/factories.py` (users have a placeholder password hash today), `core/clock.py` for token times.
+- Open problems: none blocking. The host system drive is nearly full (see section 6), tell the human.
+- Notes for the next session:
+  - Run commands from `backend/` with `UV_PROJECT_ENVIRONMENT` pointing outside OneDrive, or use `make ... UV="python -m uv"`.
+  - Never write the long dash characters literally in source or docs, use escapes (`D-052`).
+  - Prompt 3 must flip `is_verified` for the calendar in `app/jobs/reference_data.py` (`D-047`), and Prompt 7 must run the RLS statement from migration 0010 after `PostgresSaver.setup()`.
+  - The `frontend` CI job is switched off with `if: false` until P5.13.
+  - `rejected(db, ...)` in `tests/conftest.py` is the way to assert database refusals.

@@ -10,7 +10,7 @@ The database is the system of record. Normalised to third normal form, with thre
 
 | Topic | Rule |
 |---|---|
-| Names | `snake_case`, plural table names, singular column names. Constraint names via SQLAlchemy `naming_convention`: `pk_`, `fk_`, `uq_`, `ix_`, `ck_` prefixes |
+| Names | `snake_case`, plural table names, singular column names. Constraint names via SQLAlchemy `naming_convention`: `pk_`, `fk_`, `uq_`, `ix_`, `ck_` prefixes. The `fk`, `uq` and `ix` patterns use `column_0_N_name` (all columns, underscore joined) because almost every constraint starts with `tenant_id`. Every `Index` and `CheckConstraint` is given an explicit name (`D-043`) |
 | Primary keys | `id uuid default gen_random_uuid()` everywhere, except bigint identity for high volume append-only tables: `sale_lines`, `inventory_movements`, `forecast_values`, `audit_logs`, `agent_steps`. Composite PK for `daily_product_stats`, `synthetic_true_demand`, `business_settings` (PK = `tenant_id`) |
 | Tenancy | Every tenant-owned table has `tenant_id uuid not null references tenants(id)`. Parents expose `UNIQUE (tenant_id, id)`. **Every intra-tenant foreign key is composite** `(tenant_id, parent_id) -> parent(tenant_id, id)` so a row can never point at another tenant's data. `created_by` / `user_id` columns are plain FKs to `users(id)` |
 | Enums | `text` with `CHECK (col IN (...))`. No native enum types (easier migrations) |
@@ -235,10 +235,10 @@ All three must return zero rows after seeding and after every test scenario.
 Naming `NNNN_slug.py`. Sequence:
 1. `0001_extensions_reference` (extensions, `set_updated_at`, tax_rates, calendar_events, model_versions)
 2. `0002_tenancy_auth` (tenants, users, refresh_tokens, business_settings)
-3. `0003_catalogue_suppliers`
+3. `0003_catalogue_suppliers` (also creates `product_batches`, because sales, returns and receipt lines reference it before `0006` would run, `D-044`)
 4. `0004_sales`
 5. `0005_purchasing`
-6. `0006_inventory`
+6. `0006_inventory` (movements, balances, counts, adjustments, stockouts)
 7. `0007_derived_intelligence` (daily stats, synthetic demand, forecast, backtests, effects, recommendations, reports, notes, DQ)
 8. `0008_ops_audit` (job_runs, audit, idempotency, immutability trigger)
 9. `0009_agents_rag` (chat, agent tables, knowledge, HNSW and GIN)
@@ -263,6 +263,29 @@ Migrations must be reversible where practical, and run clean on an empty databas
 
 `seed/size_report.py` prints per table size. If total exceeds 400 MB, lower `--scale` or history length, do not delete indexes blindly. Reclaim space with `VACUUM FULL` only on demo reset.
 
-## 9. Indexing rules
+## 9. Indexing rules (as built)
 
 Every foreign key used in joins has a leading `tenant_id` index. Time series tables index `(tenant_id, product_id, date)`. Use `EXPLAIN` on the five heaviest queries (rollup, stock levels list, product history, report lines, expiry list) and record findings in `memory.md`.
+
+Prompt 1 built only the indexes listed in section 2, plus `(tenant_id, parent_id)` style indexes on `sale_return_lines`, `receipt_lines`, `agent_steps` and `chat_messages`. The `UNIQUE (tenant_id, ...)` constraints already give a leading `tenant_id` index for parent lookups. The remaining child foreign key indexes are decided by the `EXPLAIN` pass in P8.02, not guessed now.
+
+---
+
+## 10. As built in Prompt 1 (schema decisions beyond the tables above)
+
+These were needed to make the schema creatable and are logged in `memory.md`.
+
+| Topic | What was built |
+|---|---|
+| Extra `UNIQUE (tenant_id, id)` | `refresh_tokens`, `inventory_movements`, `promotions` and `chat_threads`, on top of the parents the tables above already list, so `replaced_by_id`, `reverses_movement_id`, `stock_adjustments.movement_id` and `sale_return_lines.sale_line_id` are composite as well (`D-046`) |
+| Plain foreign keys by design | To `tenants`, `users`, `model_versions`, `tax_rates`, `knowledge_documents` only. `created_by`, `voided_by`, `decided_by`, `resolved_by`, `author_user_id` are plain keys to `users(id)` as the convention says |
+| Soft references (plain uuid, no foreign key) | `purchase_orders.recommendation_run_id`, `purchase_order_lines.recommendation_line_id` (plans are created in a later migration), `data_quality_issues.run_id` (the DQ step runs before any plan row exists), `chat_messages.agent_run_id` |
+| `audit_logs` | `tenant_id` and `user_id` are plain columns, not keys, so the immutable log never blocks deleting a tenant on demo reset. A trigger rejects `UPDATE`, `DELETE` and `TRUNCATE` |
+| Knowledge tables | `tenant_id` is nullable (global documents), so keys stay plain. `knowledge_chunks.document_id` is `ON DELETE CASCADE` so re-ingestion can replace a document |
+| Defaults added | `server_default '{}'` on jsonb config columns that are objects (`config`, `settings_snapshot`, `summary`, `evidence`, `provenance`, `agent_runs.input`, `limits`), `'[]'` for `weekly_reports.warnings`, `'{}'` for text array columns, `users.password_changed_at` defaults to `now()` |
+| `window` column | `event_category_effects.window` is a reserved word in PostgreSQL. SQLAlchemy quotes it, and the CHECK helper quotes every column name |
+| Tables without `created_at` | Follow the table definitions literally: `categories`, `business_settings` (has `updated_at`), `refresh_tokens` (has `issued_at`) and the append-only line tables have none |
+| Views | `days_to_expiry` counts from the IST business date, `(now() AT TIME ZONE 'Asia/Kolkata')::date`, not `CURRENT_DATE` (`D-048`). Both views use `security_invoker = true` |
+| RLS step | Enabled on every table in `public` at migration time, including `alembic_version`. LangGraph checkpoint tables are created later by `PostgresSaver.setup()`, so P7 must run the same RLS statement after setup |
+| Supabase roles | The revoke step checks that `anon` and `authenticated` exist, so it is a no-op on plain local Postgres. `PUBLIC` keeps `USAGE` on schema `public` by default, which is why the migration revokes table, sequence and function grants and the test checks the explicit ACL |
+| Extensions | `vector`, `citext`, `pg_trgm`, `pgcrypto`. `gen_random_uuid()` is built in from PostgreSQL 13, `pgcrypto` stays for any later digest use |

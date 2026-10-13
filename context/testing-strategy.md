@@ -21,10 +21,13 @@ Tests are written with the code, not after. A feature is not done until its test
 
 ## 2. Fixtures and database setup
 
-- `conftest.py` creates database `backroom_test` once per session, runs `alembic upgrade head`, and provides a `db` fixture that opens a connection, begins a transaction, binds a Session with `join_transaction_mode="create_savepoint"`, and rolls back after each test.
+- `conftest.py` creates database `backroom_test` once per session (it refuses any database whose name does not end in `_test`), empties the public schema, runs the real migrations plus the reference data upsert, and provides a `db` fixture that opens a connection, begins a transaction, binds a Session with `join_transaction_mode="create_savepoint"`, and rolls back after each test.
 - Factories (plain functions, not a heavy library): `make_tenant`, `make_user`, `make_category`, `make_product`, `make_supplier`, `make_terms`, `make_batch`, `make_sale`, `make_po`. Two tenants in an `two_tenants` fixture with tokens for each.
 - Small deterministic seed: `seed.run --tenants fmcg_a,med_a --scale 0.05 --end-date 2026-10-11 --no-knowledge` (session scoped, used by pipeline and golden tests, cached in a separate database `backroom_seeded` that is rebuilt only when seed code changes, hash of the seed package files as the cache key).
 - Time: tests pass `as_of` and use a `FakeClock` in `core/clock.py`. No `freezegun`.
+- HTTP fixtures (`app`, `client`) live in `tests/api/conftest.py` and override `get_session` with the rolled back `db` session. The `client` returns the 500 envelope instead of raising.
+- `rejected(db, exc, match)` asserts that the database refuses a block of statements without breaking the test transaction. Use it for constraint, trigger and RLS tests.
+- Source files must write the long dash characters as `\u2014` and `\u2013` escapes, because `scripts/check_copy.py` scans the source for the literal characters.
 
 ## 3. Mandatory invariants (property tests)
 

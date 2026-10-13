@@ -52,12 +52,14 @@ backroom/
     pyproject.toml  uv.lock  Dockerfile  start.sh  alembic.ini
     alembic/env.py  alembic/versions/
     app/
-      main.py                       app factory, middleware, router mount
+      main.py version.py            app factory, middleware, router mount, version string
       core/   config.py security.py db.py deps.py errors.py logging.py ratelimit.py
               audit.py idempotency.py pagination.py clock.py money.py timeutil.py repo.py
+              messages.py middleware.py text.py   (built in Prompt 1: error codes and default
+              messages, request id and security headers, humanize_text and the banned word list)
       models/ base.py reference.py tenancy.py catalogue.py suppliers.py sales.py
               purchasing.py inventory.py intelligence.py ops.py agents.py
-      schemas/                      Pydantic models per domain
+      schemas/ common.py            Pydantic models per domain (error envelope, health)
       api/v1/ router.py auth.py settings.py catalogue.py suppliers.py sales.py purchasing.py
               inventory.py reports.py insights.py calendar.py jobs.py chat.py actions.py
               dashboard.py exports.py health.py
@@ -72,7 +74,7 @@ backroom/
               pipeline.py scenario.py
       agents/ graph.py state.py llm.py quota.py guardrails.py verifier.py blocks.py
               nodes/  tools/  rag/  prompts/  evals/
-      jobs/ run.py monday.py rollup_job.py simulate_week.py
+      jobs/ run.py migrate.py reference_data.py monday.py rollup_job.py simulate_week.py
       assets/fonts/                 IBM Plex Sans and Mono TTF (for PDF)
     seed/ run.py generator/ catalogs/*.yaml corpus/ validate.py size_report.py
     tests/ unit/ engine/ integration/ api/ seed/ agents/ conftest.py

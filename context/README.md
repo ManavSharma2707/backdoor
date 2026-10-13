@@ -23,3 +23,22 @@ These files are the source of truth for building Backroom. Keep them current. Re
 | `memory.md` | Locked decisions, defaults, decision log, pinned versions, gotchas, session handoff |
 
 Adding a file? Add a row here.
+
+## Code files a future session must know about
+
+Built in Prompt 1. Paths are from the repo root.
+
+| File | What it is |
+|---|---|
+| `Makefile` | Every developer command (`make help`). Host `uv` for lint, types and tests, `docker compose` for the stack |
+| `docker-compose.yml`, `backend/Dockerfile`, `backend/start.sh` | Local stack (db, api dev target, placeholder web) and the production image. `start.sh` runs `python -m app.jobs.run migrate`, then uvicorn |
+| `scripts/db_init.sql` | Creates `backroom_test` and the extensions when the db volume is first made |
+| `scripts/check_copy.py` | Copy rules: long dashes, banned words, exclamation marks, emoji. Runs in CI, pre-commit and `make check-copy`. Imports the banned list from `backend/app/core/text.py` |
+| `.pre-commit-config.yaml`, `.github/workflows/ci.yml` | Local hooks and the CI workflow (backend, copy, frontend switched off until P5.13) |
+| `backend/pyproject.toml`, `backend/uv.lock` | Dependencies (runtime, `ml`, `agents`, `dev` groups), ruff, strict mypy for `app.core` and `app.engine`, pytest markers, coverage |
+| `backend/app/main.py` | `create_app(settings)` factory and the module level `app` |
+| `backend/app/core/` | `config` (settings, production checks), `logging` (JSON, redaction), `clock` (only reader of the system clock, `FakeClock`), `money`, `timeutil` (IST, Monday weeks), `text` (`humanize_text`, `BANNED_WORDS`), `errors` and `messages` (envelope, codes), `middleware` (request id, security headers, catch-all 500), `db` (engine, sessions), `repo` (`TenantRepo`) |
+| `backend/app/models/` | All 51 tables. `base.py` has the naming convention, `TenantMixin`, `composite_fk`, `tenant_unique`, `enum_check` |
+| `backend/alembic/versions/0001` to `0010` | The schema. `0010` holds RLS, revokes and views |
+| `backend/app/jobs/` | `run.py` (CLI, only `migrate` so far), `migrate.py` (alembic under an advisory lock, `head_revision`), `reference_data.py` (GST slabs and the India calendar upsert) |
+| `backend/tests/conftest.py`, `backend/tests/factories.py` | Test database, rollback `db` fixture, `rejected()`, `scratch_database()`, `two_tenants`, plain factory functions |

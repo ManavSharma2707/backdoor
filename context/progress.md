@@ -5,31 +5,31 @@ Single checklist for the whole build. Tick items as soon as they are done and ve
 Format: `- [ ] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`.
 
 **Status header (update every session)**
-- Current prompt: not started
-- Last commit: none
-- Last updated: 2026-10-13 (context files created, no code yet)
-- Blockers: none
+- Current prompt: Prompt 1 complete, Prompt 2 (auth and transactional core) is next
+- Last commit: `b4b91bd` (last code commit), followed by the `docs(context)` commit that closes Prompt 1. Nothing pushed
+- Last updated: 2026-10-13 (Prompt 1 done: 352 tests green, `make up` and `make migrate` verified on a fresh volume)
+- Blockers: none. The host system drive is nearly full, see `memory.md` section 6
 
 ---
 
 ## Prompt 1: Foundation and database
 
-- [ ] P1.01 Repo skeleton, folders per `architecture.md`, `.gitignore`, `.editorconfig`, `.env.example`
-- [ ] P1.02 `pyproject.toml` with uv, dependencies from `libraries.md`, ruff, mypy, pytest config
-- [ ] P1.03 Backend Dockerfile (multi stage, libgomp1), `start.sh`, `docker-compose.yml` (db, api, web), DB init script (test db, extensions)
-- [ ] P1.04 `core/config.py` (pydantic-settings, production strict checks), `core/logging.py` (structlog, redaction), `core/clock.py`, `core/money.py`, `core/timeutil.py`, `core/text.py` (humanize_text)
-- [ ] P1.05 `core/db.py` (engine, session, pool), `core/repo.py` (TenantRepo), `models/base.py` (naming convention, TenantMixin, composite FK helper)
-- [ ] P1.06 All SQLAlchemy models per `database.md` (reference, tenancy, catalogue, suppliers, sales, purchasing, inventory, intelligence, ops, agents)
-- [ ] P1.07 Alembic setup and migrations 0001 to 0010 (extensions, triggers, views, RLS, grants, HNSW and GIN indexes)
-- [ ] P1.08 Reference data seeding: tax rates and calendar events (`india-calendar.md`) as idempotent upsert
-- [ ] P1.09 FastAPI app factory, error envelope, request id middleware, security headers, CORS, health endpoints
-- [ ] P1.10 Makefile targets from `CLAUDE.md`
-- [ ] P1.11 `scripts/check_copy.py` and pre-commit config
-- [ ] P1.12 Test infrastructure: `conftest.py`, transaction rollback fixture, factories, two-tenant fixture
-- [ ] P1.13 Tests: migrations up, down, up. Composite FK cross-tenant rejection. CHECK constraints. Partial unique indexes. Audit log immutability. RLS deny test
-- [ ] P1.14 CI workflow `ci.yml` (backend, copy; frontend job stubbed until P5)
-- [ ] P1.15 Gate: `make up` works, `make migrate` clean, `make lint test` green, health endpoints respond
-- [ ] P1.16 Context updates (memory pinned versions, README index, progress)
+- [x] P1.01 Repo skeleton, folders per `architecture.md`, `.gitignore`, `.editorconfig`, `.env.example` (2026-10-13)
+- [x] P1.02 `pyproject.toml` with uv, dependencies from `libraries.md`, ruff, mypy, pytest config (2026-10-13)
+- [x] P1.03 Backend Dockerfile (multi stage, libgomp1), `start.sh`, `docker-compose.yml` (db, api, web), DB init script (test db, extensions) (2026-10-13)
+- [x] P1.04 `core/config.py` (pydantic-settings, production strict checks), `core/logging.py` (structlog, redaction), `core/clock.py`, `core/money.py`, `core/timeutil.py`, `core/text.py` (humanize_text) (2026-10-13)
+- [x] P1.05 `core/db.py` (engine, session, pool), `core/repo.py` (TenantRepo), `models/base.py` (naming convention, TenantMixin, composite FK helper) (2026-10-13)
+- [x] P1.06 All SQLAlchemy models per `database.md` (reference, tenancy, catalogue, suppliers, sales, purchasing, inventory, intelligence, ops, agents) (2026-10-13)
+- [x] P1.07 Alembic setup and migrations 0001 to 0010 (extensions, triggers, views, RLS, grants, HNSW and GIN indexes) (2026-10-13)
+- [x] P1.08 Reference data seeding: tax rates and calendar events (`india-calendar.md`) as idempotent upsert (2026-10-13)
+- [x] P1.09 FastAPI app factory, error envelope, request id middleware, security headers, CORS, health endpoints (2026-10-13)
+- [x] P1.10 Makefile targets from `CLAUDE.md` (2026-10-13)
+- [x] P1.11 `scripts/check_copy.py` and pre-commit config (2026-10-13)
+- [x] P1.12 Test infrastructure: `conftest.py`, transaction rollback fixture, factories, two-tenant fixture (2026-10-13)
+- [x] P1.13 Tests: migrations up, down, up. Composite FK cross-tenant rejection. CHECK constraints. Partial unique indexes. Audit log immutability. RLS deny test (2026-10-13)
+- [x] P1.14 CI workflow `ci.yml` (backend, copy; frontend job stubbed until P5) (2026-10-13)
+- [x] P1.15 Gate: `make up` works, `make migrate` clean, `make lint test` green, health endpoints respond (2026-10-13)
+- [x] P1.16 Context updates (memory pinned versions, README index, progress) (2026-10-13)
 
 ## Prompt 2: Auth and transactional core
 

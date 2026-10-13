@@ -22,7 +22,9 @@ Facts checked on 13 Oct 2026 (re-check when deploying, plans change):
 
 `make up` starts all, `make seed` runs `docker compose exec api python -m seed.run --tenants all` (needs `DEMO_OWNER_PASSWORD` in `.env`), `make job-monday` runs `docker compose exec api python -m app.jobs.run monday --profile full --all-tenants`.
 
-Local secrets: `.env` copied from `.env.example`, git ignored.
+Local secrets: `.env` copied from `.env.example`, git ignored. Compose reads it when present (`required: false`), so the stack also starts without one.
+
+Host tooling: `make lint`, `make typecheck` and `make test` run `uv` on the host against the database published on `localhost:5432`, so run `make up` (or `docker compose up -d db`) first. Docker only runs the stack. On Windows install GNU Make (`winget install ezwinports.make`) and `uv` (`pip install uv` or the uv installer), and keep the virtualenv outside any OneDrive folder. Free about 5 GB on the system drive before the first image build: the API image carries pandas, scikit-learn, LightGBM and the LangChain packages.
 
 ## 2. Environment variables
 
@@ -33,6 +35,8 @@ Local secrets: `.env` copied from `.env.example`, git ignored.
 | `APP_ENV` | `local`, `production` | Production enables strict checks |
 | `DATABASE_URL` | `postgresql+psycopg://user:pass@aws-0-ap-south-1.pooler.supabase.com:5432/postgres` | Session pooler string from Supabase (user is `postgres.<project-ref>`). Local: `postgresql+psycopg://backroom:backroom@db:5432/backroom` |
 | `DATABASE_POOL_SIZE` | 5 | Keep small, Supabase free has limited connections |
+| `DATABASE_MAX_OVERFLOW` | 2 | Extra connections allowed above the pool size |
+| `DATABASE_TRANSACTION_POOLER` | false | Set true only with a Supabase transaction pooler (port 6543). Turns off prepared statements |
 | `JWT_SECRET` | 32+ random bytes base64 | Required in production |
 | `JWT_ISSUER` | `backroom` | |
 | `JWT_AUDIENCE` | `backroom-web` | |
@@ -67,8 +71,8 @@ Local secrets: `.env` copied from `.env.example`, git ignored.
 ## 3. Backend image
 
 `backend/Dockerfile` (multi stage):
-- Stage `builder`: `python:3.12-slim`, copy `uv` from `ghcr.io/astral-sh/uv:latest`, copy `pyproject.toml` and `uv.lock`, `uv sync --frozen --no-dev --no-install-project`, copy source, `uv sync --frozen --no-dev`.
-- Stage `runtime`: `python:3.12-slim`, `apt-get install -y --no-install-recommends libgomp1 libpq5 curl` (LightGBM needs libgomp), copy the virtualenv and source, create user `app`, `ENV PATH=/app/.venv/bin:$PATH PYTHONUNBUFFERED=1`, `HEALTHCHECK CMD curl -fsS http://localhost:${PORT:-8000}/api/v1/health || exit 1`, `CMD ["./start.sh"]`.
+- Stage `builder`: `python:3.12-slim`, copy `uv` from `ghcr.io/astral-sh/uv:0.13.0` (pinned), copy `pyproject.toml` and `uv.lock`, `uv sync --frozen --no-dev --no-install-project`, copy source, `uv sync --frozen --no-dev`.
+- Stage `runtime`: `python:3.12-slim`, `apt-get install -y --no-install-recommends libgomp1 libpq5 curl` (LightGBM needs libgomp), copy the virtualenv (`/opt/venv`, outside `/app` so the dev bind mount cannot hide it) and source, create user `app` (uid 10001), `ENV PATH=/opt/venv/bin:$PATH PYTHONUNBUFFERED=1 MALLOC_ARENA_MAX=2`, `HEALTHCHECK CMD curl -fsS http://localhost:${PORT:-8000}/api/v1/health || exit 1`, `CMD ["./start.sh"]`.
 - Dev target adds dev dependencies and `--reload`.
 - Fonts in `app/assets/fonts/` are copied in (needed for PDF).
 
