@@ -1,0 +1,109 @@
+[project]
+name = "backroom"
+version = "0.1.0"
+description = "Backroom API: multi-tenant retail inventory and procurement platform"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic",
+  "pydantic-settings",
+  "email-validator",
+  "sse-starlette",
+  "slowapi",
+  "structlog",
+  "tenacity",
+  "cachetools",
+  "python-dateutil",
+  "tzdata",
+  "sqlalchemy>=2.0",
+  "psycopg[binary,pool]>=3.2",
+  "alembic",
+  "pgvector",
+  "pyjwt",
+  "argon2-cffi",
+  "pyyaml",
+  "faker",
+  "numpy",
+  "pandas",
+  "reportlab",
+  "xlsxwriter",
+]
+
+[dependency-groups]
+ml = [
+  "scikit-learn",
+  "lightgbm",
+]
+agents = [
+  "google-genai",
+  "langchain-core",
+  "langchain-google-genai",
+  "langgraph",
+  "langgraph-checkpoint-postgres",
+]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "hypothesis",
+  "httpx",
+  "openpyxl",
+  "pypdf",
+  "ruff",
+  "mypy",
+  "pre-commit",
+  "pip-audit",
+  "types-PyYAML",
+  "types-cachetools",
+]
+
+[tool.uv]
+package = false
+default-groups = ["ml", "agents", "dev"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "RUF", "S", "T20", "PT", "DTZ", "TID"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S608"]
+"app/core/clock.py" = ["DTZ"]
+"alembic/versions/*" = ["E501", "S608", "RUF012"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+warn_unused_ignores = true
+explicit_package_bases = true
+mypy_path = "."
+
+[[tool.mypy.overrides]]
+module = ["app.engine.*", "app.core.*"]
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+markers = [
+  "agent_eval_live: live Gemini evaluation suite, run manually with -m agent_eval_live",
+]
+filterwarnings = ["error::DeprecationWarning:app.*"]
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+omit = ["app/agents/evals/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]
