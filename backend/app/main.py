@@ -42,6 +42,7 @@ TAGS_METADATA = [
     {"name": "auth", "description": "Sign in, refresh token rotation, sign out and password."},
     {"name": "settings", "description": "Business settings that shape the weekly plan."},
     {"name": "catalogue", "description": "Categories, products, prices, equivalents, GST rates."},
+    {"name": "suppliers", "description": "Suppliers and effective dated prices and terms."},
 ]
 
 

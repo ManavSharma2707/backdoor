@@ -69,8 +69,8 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | GET, POST `/products/{id}/equivalents`, DELETE `/products/{id}/equivalents/{link_id}` | Retailer defined equivalents (`D-059`) |
 | GET `/products/{id}/prices` | Price history, newest first |
 | GET, POST `/suppliers`, GET, PATCH `/suppliers/{id}` | Suppliers |
-| GET `/suppliers/{id}/scorecard` | Delay rate, avg delay, fill rate, price drift |
-| GET, POST `/suppliers/{id}/terms`, PATCH `/supplier-terms/{id}` | Effective dated terms. Creating a new primary term end-dates the previous one |
+| GET `/suppliers/{id}/scorecard` | Delay rate, avg delay, fill rate, price drift (built in Prompt 4 with the insights, `D-060`) |
+| GET, POST `/suppliers/{id}/terms`, PATCH `/supplier-terms/{id}` | Effective dated terms. A new open ended term end-dates the earlier open ended one, overlaps are a 409, a started term's price is history (`D-060`) |
 | GET `/tax-rates` | Reference list |
 
 ## 5. Sales
