@@ -21,4 +21,8 @@ class ErrorEnvelope(BaseModel):
 
 class HealthStatus(BaseModel):
     status: str
+    version: str | None = None
     database: str | None = None
+    migration: str | None = Field(
+        default=None, description="current when the database is at the migration head"
+    )

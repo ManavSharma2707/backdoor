@@ -20,9 +20,9 @@ from app.core.middleware import (
     UnhandledErrorMiddleware,
 )
 from app.schemas.common import ErrorEnvelope
+from app.version import APP_VERSION
 
 API_PREFIX = "/api/v1"
-API_VERSION = "0.1.0"
 # Starlette defaults to 40 worker threads. Render free has 512 MB, so keep it small.
 THREAD_LIMIT = 10
 
@@ -54,7 +54,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="Backroom API",
-        version=API_VERSION,
+        version=APP_VERSION,
         description=DESCRIPTION,
         openapi_tags=TAGS_METADATA,
         docs_url=f"{API_PREFIX}/docs",

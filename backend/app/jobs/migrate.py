@@ -1,9 +1,11 @@
 """Run Alembic programmatically, under an advisory lock, then refresh reference data."""
 
+from functools import lru_cache
 from pathlib import Path
 
 from alembic import command
 from alembic.config import Config
+from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 
@@ -25,6 +27,12 @@ def alembic_config(database_url: str | None = None) -> Config:
     if database_url:
         config.attributes["database_url"] = database_url
     return config
+
+
+@lru_cache
+def head_revision() -> str | None:
+    """The newest revision in alembic/versions, which the database should be at."""
+    return ScriptDirectory.from_config(alembic_config()).get_current_head()
 
 
 def upgrade(database_url: str | None = None, revision: str = "head") -> None:
