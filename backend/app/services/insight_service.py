@@ -134,6 +134,52 @@ class InsightService:
             )
         return out
 
+    def activity(self, limit: int) -> dict[str, Any]:
+        """The newest bills, orders and deliveries, read from the records themselves."""
+        rows = self._rows(
+            """
+            SELECT * FROM (
+              SELECT CASE WHEN s.status = 'void' THEN 'bill_voided' ELSE 'bill_saved' END AS kind,
+                     s.sold_at AS at, s.id::text AS entity_id, s.bill_no AS ref,
+                     NULL::text AS party, s.total AS amount
+              FROM sales s WHERE s.tenant_id = :t
+              ORDER BY s.sold_at DESC LIMIT :n
+            ) a
+            UNION ALL
+            SELECT * FROM (
+              SELECT 'goods_received', g.created_at, g.id::text, g.receipt_no, sp.name, g.invoice_total
+              FROM goods_receipts g JOIN suppliers sp
+                ON sp.tenant_id = g.tenant_id AND sp.id = g.supplier_id
+              WHERE g.tenant_id = :t
+              ORDER BY g.created_at DESC LIMIT :n
+            ) b
+            UNION ALL
+            SELECT * FROM (
+              SELECT 'order_created', o.created_at, o.id::text, o.po_number, sp.name,
+                     o.subtotal_estimated
+              FROM purchase_orders o JOIN suppliers sp
+                ON sp.tenant_id = o.tenant_id AND sp.id = o.supplier_id
+              WHERE o.tenant_id = :t
+              ORDER BY o.created_at DESC LIMIT :n
+            ) c
+            ORDER BY at DESC LIMIT :n
+            """,
+            n=limit,
+        )
+        return {
+            "items": [
+                {
+                    "kind": r.kind,
+                    "at": r.at.isoformat().replace("+00:00", "Z"),
+                    "entity_id": r.entity_id,
+                    "ref": r.ref,
+                    "party": r.party,
+                    "amount": None if r.amount is None else money(r.amount),
+                }
+                for r in rows
+            ]
+        }
+
     def trends(self, weeks: int) -> dict[str, Any]:
         last_full = week_start(today_ist()) - timedelta(days=1)
         end = last_full if self._current_report() is None else max(last_full, self._max_stat_date())

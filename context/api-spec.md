@@ -42,6 +42,7 @@ Codes: `VALIDATION_ERROR` 422, `UNAUTHENTICATED` 401, `FORBIDDEN` 403, `NOT_FOUN
 | POST `/auth/change-password` | `{current_password, new_password}`, revokes other sessions | Policy in `security.md` |
 | POST `/auth/register` | Creates tenant plus owner | Only when `ALLOW_REGISTRATION=true`, else 404 |
 | POST `/auth/demo-login` | `{profile_key}` -> same as login | Only when `DEMO_LOGIN_ENABLED=true` and tenant `is_synthetic`. Rate limited |
+| GET `/auth/config` | `{demo_login_enabled, demo_profiles:[{key, name}]}` | Public. The sign in page uses it to decide whether to show the demo buttons. The list is empty unless the flag is on, and holds active synthetic businesses only (`D-084`) |
 
 Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`), `SameSite=Lax`, `Path=/api/v1/auth`, `Max-Age` 14 days.
 
@@ -50,7 +51,7 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | Method and path | Purpose |
 |---|---|
 | GET, PATCH `/settings` | Business settings. PATCH changes only the fields sent (`weekly_budget: null` clears the limit), validates ranges (`D-059`), audit logs diffs |
-| GET `/calendar/events?from=&to=&kind=` | Events with verified flag |
+| GET `/calendar/events?from=&to=&kind=` | Active events with the verified flag, ordered by start date. Events are shared reference data, so there is no per business toggle (`D-084`) |
 | POST, PATCH, DELETE `/calendar/events/{id}` | Owner managed events. Seeded verified events cannot be deleted, only hidden by setting `is_active` false (add column if needed) |
 | GET `/calendar/effects?event_key=&category_id=` | Learned and configured effects with evidence |
 | PUT `/calendar/effects/configured` | Set or clear a configured multiplier for category and event |
@@ -78,7 +79,7 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | Method and path | Purpose |
 |---|---|
 | POST `/sales` (I) | `{sold_at?, payment_mode, lines:[{product_id, quantity, unit_price?, discount_amount?, batch_id?}], bill_no?}`. Server allocates FEFO batches, computes totals, writes movements. Returns the bill. 409 `INSUFFICIENT_STOCK` lists short products. Soft warning field `warnings:[{"code":"POSSIBLE_DUPLICATE","message","sale_id"}]`, the bill is saved either way. Prices include GST, `tax_total` is the tax contained (`D-061`) |
-| GET `/sales?from=&to=&q=&status=&page=` | List |
+| GET `/sales?from=&to=&q=&status=&product_id=&page=` | List. `product_id` keeps bills that include the product |
 | GET `/sales/{id}` | Bill with lines and returns |
 | POST `/sales/{id}/void` | `{reason}`. Whole bill. Reversal movements. 409 when the bill has returns or is already void |
 | POST `/sales/{id}/returns` (I) | `{reason, lines:[{sale_line_id, quantity, disposition}]}` |
@@ -137,6 +138,7 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 |---|---|
 | GET `/dashboard/summary` | KPIs, needs-attention list, DQ counts |
 | GET `/dashboard/trends?weeks=12` | Weekly sales with festival bands |
+| GET `/dashboard/activity?limit=8` | Newest bills (saved or voided), goods receipts and purchase orders, read from the records. `{items:[{kind, at, entity_id, ref, party, amount}]}` (`D-084`) |
 | GET `/dashboard/cover-by-category` | Days of cover per category |
 | GET `/insights/movers?window=90` | ABC, fast, slow, non-moving lists |
 | GET `/insights/forecast-accuracy?segment=` | Backtest metrics, baseline comparison, bias |

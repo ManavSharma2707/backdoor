@@ -17,6 +17,7 @@ from app.jobs.openapi import OPENAPI_PATH, build_schema, render
 PUBLIC = {
     ("get", "/api/v1/health"),
     ("get", "/api/v1/health/ready"),
+    ("get", "/api/v1/auth/config"),
     ("post", "/api/v1/auth/login"),
     ("post", "/api/v1/auth/refresh"),
     ("post", "/api/v1/auth/logout"),

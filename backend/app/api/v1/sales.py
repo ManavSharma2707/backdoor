@@ -67,10 +67,13 @@ def list_sales(
     end: Annotated[date | None, Query(alias="to", description="Last business date")] = None,
     q: Annotated[str | None, Query(max_length=40, description="Part of a bill number")] = None,
     status: SaleStatus | None = None,
+    product_id: Annotated[
+        uuid.UUID | None, Query(description="Bills that include a product")
+    ] = None,
     sort: Annotated[str | None, Query(description="sold_at, bill_no, total")] = None,
 ) -> Page[SaleListItem]:
     items, total = SalesService(session, ctx).search(
-        page=page, start=start, end=end, q=q, status=status, sort=sort
+        page=page, start=start, end=end, q=q, status=status, product_id=product_id, sort=sort
     )
     return Page[SaleListItem](items=items, total=total, page=page.page, page_size=page.page_size)
 

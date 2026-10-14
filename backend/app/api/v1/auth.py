@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import Annotated
 
 from fastapi import APIRouter, Cookie, Depends, Request, Response
+from pydantic import BaseModel
 from sqlalchemy import select
 
 from app.core.config import Settings
@@ -257,6 +258,36 @@ def register(
     )
     set_refresh_cookie(response, settings, issued.refresh_token)
     return _login_response(issued)
+
+
+class DemoProfile(BaseModel):
+    key: str
+    name: str
+
+
+class AuthConfig(BaseModel):
+    demo_login_enabled: bool
+    demo_profiles: list[DemoProfile]
+
+
+@router.get("/config", response_model=AuthConfig, summary="What the sign in page may offer")
+def auth_config(session: SessionDep, settings: SettingsDep) -> AuthConfig:
+    """Tells the sign in page whether to show the demo buttons. Names only, no ids."""
+    if not settings.demo_login_enabled:
+        return AuthConfig(demo_login_enabled=False, demo_profiles=[])
+    rows = session.execute(
+        select(Tenant.profile_key, Tenant.name)
+        .where(
+            Tenant.is_synthetic.is_(True),
+            Tenant.is_active.is_(True),
+            Tenant.profile_key.is_not(None),
+        )
+        .order_by(Tenant.created_at, Tenant.name)
+    ).all()
+    return AuthConfig(
+        demo_login_enabled=True,
+        demo_profiles=[DemoProfile(key=str(key), name=name) for key, name in rows],
+    )
 
 
 @router.post(

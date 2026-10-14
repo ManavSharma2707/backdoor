@@ -588,6 +588,7 @@ class SalesService:
         end: date | None,
         q: str | None,
         status: str | None,
+        product_id: uuid.UUID | None = None,
         sort: str | None,
     ) -> tuple[list[SaleListItem], int]:
         counts = (
@@ -616,6 +617,16 @@ class SalesService:
             stmt = stmt.where(Sale.business_date <= end)
         if status is not None:
             stmt = stmt.where(Sale.status == status)
+        if product_id is not None:
+            stmt = stmt.where(
+                select(SaleLine.id)
+                .where(
+                    SaleLine.tenant_id == self.ctx.tenant_id,
+                    SaleLine.sale_id == Sale.id,
+                    SaleLine.product_id == product_id,
+                )
+                .exists()
+            )
         term = (q or "").strip()
         if term:
             stmt = stmt.where(Sale.bill_no.ilike(f"%{escape_like(term)}%", escape="\\"))

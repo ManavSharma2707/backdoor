@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from app.api.v1 import (
     auth,
+    calendar,
     catalogue,
     health,
     insights,
@@ -20,6 +21,7 @@ api_router = APIRouter()
 api_router.include_router(health.router)
 api_router.include_router(auth.router)
 api_router.include_router(settings.router)
+api_router.include_router(calendar.router)
 api_router.include_router(catalogue.categories)
 api_router.include_router(catalogue.products)
 api_router.include_router(catalogue.tax_rates)

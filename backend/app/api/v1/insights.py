@@ -50,6 +50,13 @@ def dashboard_trends(
     return InsightService(session, ctx).trends(weeks)
 
 
+@dashboard.get("/activity", summary="Newest bills, orders and deliveries")
+def dashboard_activity(
+    ctx: OwnerCtx, session: SessionDep, limit: Annotated[int, Query(ge=1, le=30)] = 8
+) -> dict[str, Any]:
+    return InsightService(session, ctx).activity(limit)
+
+
 @dashboard.get("/cover-by-category", summary="Days of cover per category")
 def cover_by_category(ctx: OwnerCtx, session: SessionDep) -> dict[str, Any]:
     return InsightService(session, ctx).cover_by_category()

@@ -297,6 +297,12 @@ The seed loader commits the tenant, then runs `RollupService` on a separate engi
 ### D-083 (2026-10-14) Backfill design
 Eight Mondays before the plan week, planned oldest first with `live=False`. Synthetic owner: 70 percent approved, 20 percent edited (10 to 40 percent fewer packs) with a reason, 10 percent rejected, only for synthetic tenants. Reasons become `decision_memory` documents and each report gets a `report_narrative`. Embeddings stay empty until Prompt 7.
 
+### D-084 (2026-10-14) Endpoints added for the first screens
+Context: the Prompt 5 screens needed four things the API did not have: a way for the sign in page to learn whether demo login is on, the calendar list, a recent activity list for the overview, and bills by product for the product page.
+Choice: `GET /auth/config` (public, demo profiles only when the flag is on), `GET /calendar/events` (read only), `GET /dashboard/activity` (a union of the newest bills, goods receipts and purchase orders, read from the records, because the demo tenants have almost no audit rows) and a `product_id` filter on `GET /sales`. The prompt asked to toggle calendar events, but events are shared reference data with no tenant column and the engine does not read a per business switch, so a toggle would change every business. The Settings calendar tab is read only.
+Alternatives: toggle `is_active` globally (wrong for other businesses), a new per tenant override table plus engine support (a migration and engine change that belongs to a later prompt), `GET /audit` for recent activity (sparse on seeded data).
+Consequence: `api-spec.md` amended. `test_contract.py` lists `/auth/config` as public. Tests in `tests/api/test_screens_support.py`.
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).
