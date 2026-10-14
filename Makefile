@@ -10,7 +10,8 @@ PYTHON ?= python
 COMPOSE ?= docker compose
 export UV_LINK_MODE ?= copy
 
-.PHONY: help up down logs migrate revision seed seed-reset job-monday \
+.PHONY: help up down logs migrate revision seed seed-reset seed-validate seed-size seed-checksum \
+	seed-realism catalog job-monday \
 	test test-backend test-frontend lint lint-backend lint-frontend format typecheck \
 	check-copy openapi openapi-types dump
 
@@ -19,6 +20,8 @@ help:
 	@echo "make migrate                 alembic upgrade head and reference data"
 	@echo "make revision m=\"message\"    alembic autogenerate"
 	@echo "make seed | seed-reset       demo data for all four tenants"
+	@echo "make seed-validate | seed-size | seed-checksum | seed-realism   checks and reports"
+	@echo "make catalog                 rewrite the catalogue YAML files"
 	@echo "make job-monday              run the Monday pipeline locally"
 	@echo "make test | test-backend | test-frontend"
 	@echo "make lint | format | typecheck | check-copy"
@@ -48,6 +51,21 @@ seed:
 
 seed-reset:
 	$(COMPOSE) exec api python -m seed.run --tenants all --reset
+
+seed-validate:
+	$(COMPOSE) exec api python -m seed.validate --tenants all
+
+seed-size:
+	$(COMPOSE) exec api python -m seed.size_report
+
+seed-checksum:
+	$(COMPOSE) exec api python -m seed.checksum --tenants all --twice
+
+seed-realism:
+	$(COMPOSE) exec api python -m seed.realism
+
+catalog:
+	$(COMPOSE) exec api python -m seed.catalog.builder
 
 job-monday:
 	$(COMPOSE) exec api python -m app.jobs.run monday --profile full --all-tenants
