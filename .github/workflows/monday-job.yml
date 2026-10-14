@@ -1,0 +1,64 @@
+name: monday-job
+
+# Monday 06:00 IST is 00:30 UTC. The runner has 2 vCPU and 7 GB, which is why the full profile
+# (backtests and the global model) runs here and not on the free Render instance.
+on:
+  schedule:
+    - cron: "30 0 * * 1"
+  workflow_dispatch:
+    inputs:
+      tenant:
+        description: "Business slug or all"
+        default: "all"
+      profile:
+        description: "light or full"
+        default: "full"
+      force:
+        description: "Create a new version of this week's report (true or false)"
+        default: "false"
+
+concurrency:
+  group: monday-job
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: backend
+    # The job serves no requests, so it runs as a local script and needs only the database.
+    env:
+      APP_ENV: local
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      AGENTS_ENABLED: "true"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - run: uv sync --frozen
+      - name: Optional demo week
+        if: ${{ vars.SIMULATE_WEEKLY == 'true' }}
+        run: uv run python -m app.jobs.run simulate-week
+      - name: Run Monday pipeline
+        env:
+          INPUT_TENANT: ${{ inputs.tenant || 'all' }}
+          INPUT_PROFILE: ${{ inputs.profile || 'full' }}
+          INPUT_FORCE: ${{ inputs.force || 'false' }}
+        run: |
+          args=(--tenant "$INPUT_TENANT" --profile "$INPUT_PROFILE")
+          if [ "$INPUT_FORCE" = "true" ]; then args+=(--force); fi
+          uv run python -m app.jobs.run monday "${args[@]}"
+      - name: Keep the API warm
+        if: ${{ always() }}
+        env:
+          API_URL: ${{ secrets.API_URL }}
+        run: |
+          if [ -n "$API_URL" ]; then
+            curl -fsS --retry 5 --retry-delay 20 --max-time 120 "$API_URL/api/v1/health" || true
+          fi
