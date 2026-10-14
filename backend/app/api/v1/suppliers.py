@@ -1,7 +1,7 @@
 """Suppliers and effective dated terms (`api-spec.md` section 4)."""
 
 import uuid
-from typing import Annotated
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Query
 
@@ -15,6 +15,7 @@ from app.schemas.suppliers import (
     TermOut,
     TermPatch,
 )
+from app.services.insight_service import InsightService
 from app.services.supplier_service import SupplierService, TermService
 
 guard = [Depends(owner_context)]
@@ -43,6 +44,14 @@ def create_supplier(body: SupplierCreate, ctx: OwnerCtx, session: SessionDep) ->
 @suppliers.get("/{supplier_id}", response_model=SupplierOut, summary="Supplier detail")
 def get_supplier(supplier_id: uuid.UUID, ctx: OwnerCtx, session: SessionDep) -> SupplierOut:
     return SupplierService(session, ctx).get(supplier_id)
+
+
+@suppliers.get("/{supplier_id}/scorecard", summary="Delivery, fill rate and price record")
+def supplier_scorecard(
+    supplier_id: uuid.UUID, ctx: OwnerCtx, session: SessionDep
+) -> dict[str, Any]:
+    """Delay rate, average delay, fill rate, price drift and pack friction, from past orders."""
+    return InsightService(session, ctx).supplier_scorecards(supplier_id)[0]
 
 
 @suppliers.patch("/{supplier_id}", response_model=SupplierOut, summary="Edit a supplier")

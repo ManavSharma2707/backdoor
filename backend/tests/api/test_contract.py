@@ -54,7 +54,8 @@ def test_every_non_public_operation_requires_a_bearer_token(app: FastAPI) -> Non
     for method, path, op in operations(app):
         if (method, path) in PUBLIC:
             continue
-        assert {"BearerAuth": []} in op.get("security", []), (method, path)
+        security = op.get("security", [])
+        assert {"BearerAuth": []} in security or {"JobToken": []} in security, (method, path)
 
 
 def test_public_operations_are_exactly_the_documented_ones(app: FastAPI) -> None:
@@ -76,6 +77,8 @@ def test_no_endpoint_takes_a_tenant_id(app: FastAPI) -> None:
         assert "tenant" not in path, path
         for op in item.values():
             for parameter in op.get("parameters", []):
+                if path.startswith("/api/v1/jobs/"):
+                    continue  # job token calls name a business by slug, as api-spec.md section 10 says
                 assert "tenant" not in parameter["name"].lower(), (path, parameter["name"])
     for name, model in schema["components"]["schemas"].items():
         if name.endswith(("Create", "Patch", "In", "Request")):

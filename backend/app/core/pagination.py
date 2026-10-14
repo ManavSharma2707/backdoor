@@ -72,5 +72,7 @@ def parse_sort(
                 details=[ErrorDetail(field="sort", issue=f"cannot sort by {part.strip()!r}")],
             )
         column = allowed[name]
-        clauses.append(column.desc() if direction == "desc" else column.asc())
+        clauses.append(
+            column.desc().nulls_last() if direction == "desc" else column.asc().nulls_last()
+        )
     return clauses
