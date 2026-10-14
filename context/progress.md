@@ -5,10 +5,10 @@ Single checklist for the whole build. Tick items as soon as they are done and ve
 Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`.
 
 **Status header (update every session)**
-- Current prompt: Prompt 2 complete (auth and transactional core), Prompt 3 (seed data) is next
-- Last commit: the `docs(context)` commit that closes Prompt 2, after `b5286ec` (inventory). Nothing pushed
-- Last updated: 2026-10-14 (Prompt 2 done: 904 tests green, auth and ledger coverage above 90 percent, smoke test on the docker stack passed)
-- Blockers: none. The host system drive is nearly full (3.8 GB free), see `memory.md` section 6
+- Current prompt: Prompt 3 complete (seed data), Prompt 4 (intelligence engine and report) is next
+- Last commit: the `docs(context)` commit that closes Prompt 3, after the `feat(seed)` commits. Nothing pushed
+- Last updated: 2026-10-14 (Prompt 3 done: four tenants seeded at 359 MB, validation green, 110 seed tests in about 2 minutes)
+- Blockers: none. The host system drive is nearly full (about 5 GB free), see `memory.md` section 6
 
 ---
 
@@ -54,19 +54,19 @@ Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`
 
 ## Prompt 3: Seed data
 
-- [ ] P3.01 Catalogue YAML for fmcg_a (92), fmcg_b (118), med_a (150), med_b (152) with counts per category as in `seed-data-spec.md`
-- [ ] P3.02 Verify calendar dates marked `verify` using two sources, update `india-calendar.md` and the seed rows, log in memory
-- [ ] P3.03 Generator core: RNG, demand model (weekday, month-day, season, events, promotions, price effect, trend), true demand
-- [ ] P3.04 Simulation loop: receipts, stock-limited sales, bills, returns, adjustments, ordering policy, counts, stockouts, promotions, price changes
-- [ ] P3.05 Medical batch logic (batches, FEFO issue, expiry write-offs, supplier returns)
-- [ ] P3.06 Planted scenarios S01 to S21 with `scenarios.yaml`
-- [ ] P3.07 Bulk loader (COPY), balances rebuild, daily rollup run, `synthetic_true_demand`
-- [ ] P3.08 Users and settings creation (owner per tenant, password from env), budgets per scenario
-- [ ] P3.09 Knowledge corpus generator (supplier docs, product notes, app knowledge) and text-only ingestion
-- [ ] P3.10 `seed.validate`, `seed.size_report`, `--reset`, `--scale`, determinism checksum
-- [ ] P3.11 Seed tests at scale 0.1 and realism report
-- [ ] P3.12 Gate: full seed of all four tenants under 400 MB, validation green
-- [ ] P3.13 Context updates (record actual volumes and sizes)
+- [x] P3.01 Catalogue YAML for fmcg_a (92), fmcg_b (118), med_a (150), med_b (152) with counts per category as in `seed-data-spec.md` (2026-10-14)
+- [x] P3.02 Verify calendar dates marked `verify` using two sources, update `india-calendar.md` and the seed rows, log in memory (2026-10-14)
+- [x] P3.03 Generator core: RNG, demand model (weekday, month-day, season, events, promotions, price effect, trend), true demand (2026-10-14)
+- [x] P3.04 Simulation loop: receipts, stock-limited sales, bills, returns, adjustments, ordering policy, counts, stockouts, promotions, price changes (2026-10-14)
+- [x] P3.05 Medical batch logic (batches, FEFO issue, expiry write-offs, supplier returns) (2026-10-14)
+- [x] P3.06 Planted scenarios S01 to S21 with `scenarios.yaml` (2026-10-14)
+- [x] P3.07 Bulk loader (COPY), balances rebuild, daily rollup run, `synthetic_true_demand` (2026-10-14)
+- [x] P3.08 Users and settings creation (owner per tenant, password from env), budgets per scenario (2026-10-14)
+- [x] P3.09 Knowledge corpus generator (supplier docs, product notes, app knowledge) and text-only ingestion (2026-10-14)
+- [x] P3.10 `seed.validate`, `seed.size_report`, `--reset`, `--scale`, determinism checksum (2026-10-14)
+- [x] P3.11 Seed tests at scale 0.1 and realism report (2026-10-14)
+- [x] P3.12 Gate: full seed of all four tenants under 400 MB, validation green (2026-10-14)
+- [x] P3.13 Context updates (record actual volumes and sizes) (2026-10-14)
 
 ## Prompt 4: Intelligence engine and report
 
@@ -93,6 +93,9 @@ Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`
 - [ ] P4.21 `monday-job.yml` workflow
 - [ ] P4.22 Gate: full pipeline for all tenants within time budgets, coverage targets, lint and types green
 - [ ] P4.23 Context updates (thresholds, backtest results, timings)
+- [ ] P4.24 Replace `seed/rollup_sql.py` (the SQL fallback written in Prompt 3) with the rollup service of P4.01, and make `seed.run` call the service
+- [ ] P4.25 Check the planted budgets (S08 at 70 percent, S09 at 105 percent of need) against the engine's unconstrained need and adjust `accounts.weekly_budget` if the ratios differ
+- [ ] P4.26 Add the backfill documents to the corpus (`decision_memory`, `report_narrative`) when the eight retrospective plans exist, and keep the database under 400 MB (about 41 MB of headroom after the seed)
 
 ## Prompt 5: Frontend foundation and core screens
 

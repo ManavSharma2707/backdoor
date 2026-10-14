@@ -260,7 +260,7 @@ Migrations must be reversible where practical, and run clean on an empty databas
 | `recommendation_lines` (9 weeks) | about 5k | 5 MB |
 | `knowledge_chunks` with vectors | about 3k | 15 MB |
 | Everything else | small | under 20 MB |
-| **Total** | | **about 260 to 320 MB** |
+| **Total** | | **about 260 to 320 MB planned, 359 MB measured after the Prompt 3 seed (see section 12)** |
 
 `seed/size_report.py` prints per table size. If total exceeds 400 MB, lower `--scale` or history length, do not delete indexes blindly. Reclaim space with `VACUUM FULL` only on demo reset.
 
@@ -305,3 +305,18 @@ These were needed to make the schema creatable and are logged in `memory.md`.
 | Idempotency | `idempotency_keys` unique on tenant, key and scope (`POST /sales`, `POST /sales/<id>/returns` and so on). `sales.idempotency_key` stays null when an expired key is reused |
 | Reconciliation | `services/reconciliation.py` runs the three queries of section 6 plus a returned quantity check, scoped to a tenant |
 
+
+---
+
+## 12. As built in Prompt 3
+
+| Topic | What was built |
+|---|---|
+| Migration `0012` | Partial index `ix_inventory_movements_tenant_reverses` on `(tenant_id, reverses_movement_id) WHERE reverses_movement_id IS NOT NULL`. Needed because the column is a foreign key to the same table, and a delete scanned the whole table once per row (`D-066`) |
+| Seeded rows | `sales.source = 'seed'`. Ids are deterministic uuids `5eed{tenant}-{kind}-4000-8000-{n}`, identity ids for sale lines, movements and return lines are offset by the tenant index times 10 million. Document numbers follow the service formats (`B{YYMM}-{seq:05d}`, `R`, `PO`, `GR`) and restart each month |
+| Movements | Same types and sign rules as `engine/ledger_rules.py`. Sale movements carry the batch cost (or the running average cost). A void posts `void_reversal` at the bill's own time. Counts post `count_correction`, adjustments post one movement plus one `stock_adjustments` row whose id is the movement's `source_id` |
+| Balances | Rebuilt from the ledger with one `INSERT ... SELECT` after the load, average cost taken from the simulation and checked by the reconciliation queries. Batch tracked products have one row per batch, others one row with a null batch |
+| Null batch stock | The S10 product that is batch tracked but has no batch keeps its stock under a null batch, which is how `MISSING_EXPIRY` shows up |
+| `daily_product_stats` | Written by the SQL fallback `seed/rollup_sql.py` for the whole history (546 days per product). Replaced by the rollup service in P4.24 |
+| Reset | `seed.run --reset` deletes the chosen tenants from every tenant owned base table, children first (order read from the foreign keys), keeps `audit_logs`, then runs `VACUUM FULL` on the large tables |
+| Sizes after the full seed | `inventory_movements` 110 MB, `sale_lines` 85 MB, `daily_product_stats` 59 MB, `sales` 44 MB, `synthetic_true_demand` 38 MB, everything else about 25 MB. Total 359.0 MB (370 MB on disk) |

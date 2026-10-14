@@ -57,3 +57,18 @@ Built in Prompt 2.
 | `backend/tests/api/helpers.py` | Stock, batch and bill helpers for API tests. `conftest.py` has `committed` for concurrency tests |
 | `backend/tests/integration/test_ledger_properties.py` | 200 sequence stateful property test of the ledger invariants |
 
+
+Built in Prompt 3. Everything is under `backend/seed/` (run with `python -m seed.<module>` from `backend/`).
+
+| File | What it is |
+|---|---|
+| `seed/catalogs/*.yaml` | The four reviewable catalogues (suppliers, categories, products with GST code, pack rules and demand traits). Rewritten by `python -m seed.catalog.builder` from the templates in `seed/catalog/` |
+| `seed/scenarios.yaml` | Planted scenarios S01 to S21 per tenant with SKUs and expected engine behaviour. Written by a full scale `seed.run` and compared with the plan by a test |
+| `seed/realism_report.md` | Generated realism numbers per tenant (`python -m seed.realism`) |
+| `seed/run.py` | Seed CLI: generate in memory, then bulk load. `--tenants --scale --end-date --seed --reset --no-knowledge` |
+| `seed/generate.py`, `sim.py`, `demand.py`, `pricing.py`, `scenarios.py`, `traits.py`, `rng.py`, `model.py`, `profiles.py` | The generator: tenant profiles, seeded streams, category traits, price and promotion timelines, true demand, scenario planner, the day by day simulation |
+| `seed/loader.py`, `schema.py`, `static_rows.py`, `rollup_sql.py`, `accounts.py` | COPY loader, column orders, catalogue side rows, SQL rollup fallback (replaced in P4.24), owner users, settings and budgets |
+| `seed/corpus/generator.py` | Knowledge corpus text from templates (supplier notes, medical operational notes, app glossary and guides) and the chunker |
+| `seed/validate.py`, `size_report.py`, `realism.py`, `checksum.py` | Validators, size table, realism report, determinism checksum |
+| `backend/tests/seed/` | Catalogue tests, and DB backed tests at scale 0.1 (session fixture seeds all four tenants into a throwaway database) |
+| `backend/alembic/versions/0012_movement_reversal_index.py` | Partial index on `inventory_movements.reverses_movement_id` (a reset took minutes without it) |

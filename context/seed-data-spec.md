@@ -40,14 +40,16 @@ The password comes from env `DEMO_OWNER_PASSWORD` (the seed refuses to run witho
 
 ## 4. Volume targets
 
-| Tenant | Bills per day (avg) | Lines per bill (avg) | Lines per day | History lines |
-|---|---|---|---|---|
-| fmcg_a | 55 | 2.4 | about 130 | about 71k |
-| fmcg_b | 110 | 2.9 | about 320 | about 175k |
-| med_a | 55 | 1.7 | about 90 | about 49k |
-| med_b | 90 | 1.9 | about 170 | about 93k |
+The first full run of the original targets (2.4, 2.9, 1.7 and 1.9 lines per bill) came to 391 MB after compaction, which left no room for the Prompt 4 tables (`D-067`). Lines per bill were lowered, bills per day were kept.
 
-Total about 390k sale lines, about 140k bills, about 420k movements. `--scale 0.5` halves the volume for quick runs. `size_report.py` must show total under 400 MB.
+| Tenant | Bills per day (avg) | Lines per bill (avg) | Lines per day | History lines (actual) | Bills (actual) |
+|---|---|---|---|---|---|
+| fmcg_a | 55 | 2.0 | about 110 | 59,138 | 29,404 |
+| fmcg_b | 110 | 2.4 | about 264 | 144,078 | 58,588 |
+| med_a | 55 | 1.4 | about 77 | 43,182 | 28,856 |
+| med_b | 90 | 1.55 | about 140 | 78,048 | 47,449 |
+
+Totals as built: 324,446 sale lines, 164,297 bills, 345,850 movements, 279,552 daily stat rows and 279,552 true demand rows. `--scale 0.5` halves the volume for quick runs. `size_report.py` shows 359.0 MB for the tables and indexes (370 MB for the database on disk), under the 400 MB limit.
 
 Bill times: FMCG peak 9 to 11 am and 5 to 9 pm, quiet 2 to 4 pm. Medical peak 10 am to 1 pm and 6 to 9 pm. Shops closed on no day except selected holidays (Diwali Lakshmi Puja evening, Holi afternoon): reduce volume to 40 percent, not zero.
 
@@ -246,13 +248,17 @@ All tables in `database.md` that apply: tenants, users, settings, categories, pr
 - Runtime target: under 10 minutes for all four tenants locally, under 25 minutes against Supabase from a laptop.
 - CLI:
   ```
-  python -m seed.run --tenants all|fmcg_a,... [--scale 1.0] [--end-date 2026-10-11] [--reset] [--no-backfill] [--no-knowledge]
-  python -m seed.validate          # reconciliation and scenario presence checks
+  python -m seed.run --tenants all|fmcg_a,... [--scale 1.0] [--end-date 2026-10-11] [--seed N] [--reset] [--no-backfill] [--no-knowledge]
+  python -m seed.validate [--tenants all] [--scale 1.0] [--skip-sim]   # ledger, FEFO, scenarios, rollup checks
   python -m seed.size_report
-  python -m seed.ingest_knowledge  # embeddings
-  python -m app.jobs.simulate_week
+  python -m seed.realism           # writes seed/realism_report.md
+  python -m seed.checksum --tenants all --twice   # determinism
+  python -m seed.catalog.builder   # rewrites seed/catalogs/*.yaml
+  python -m seed.ingest_knowledge  # embeddings (Prompt 7)
+  python -m app.jobs.simulate_week (Prompt 4)
   ```
-- `--reset` drops tenant data for the chosen tenants in FK-safe order (never touches other tenants) and refuses to run if `APP_ENV=production` unless `ALLOW_DEMO_RESET=true`.
+- `--reset` drops tenant data for the chosen tenants in FK-safe order (never touches other tenants, never the audit log) and refuses to run if `APP_ENV=production` unless `ALLOW_DEMO_RESET=true`. The order comes from the foreign keys in the database. After a reset the large tables get `VACUUM FULL`, otherwise the deleted rows keep using space (473 MB instead of 359 MB).
+- The package is `backend/seed` and the command is `python -m seed.run` (`D-065`).
 
 ## 15. Validation (`seed.validate`, also run in tests with `--scale 0.1`)
 
@@ -266,3 +272,55 @@ All tables in `database.md` that apply: tenants, users, settings, categories, pr
 8. Determinism: two runs with the same seed produce identical checksum of the key tables.
 9. Realism checks printed as a report: average bills per day, share of zero-sale days by class, festival lift ratios, weekday profile, share of days stocked out (target 2 to 6 percent for fmcg_a, 1 to 3 for others).
 10. Size report under 400 MB.
+
+---
+
+## 16. As built in Prompt 3
+
+### 16.1 Measurements (full seed, 2026-10-14)
+
+| Item | Value |
+|---|---|
+| Generation in memory, all four tenants | about 35 to 45 seconds |
+| Bulk load per tenant (COPY, balances, rollup) | fmcg_a 21 s, fmcg_b 41 s, med_a 21 s, med_b 28 s |
+| `make seed-reset` wall time (generate, reset, load, compact, reconcile) | 323 s on a quiet machine, 435 to 443 s when other work was running |
+| Rows | 512 products, 164,297 bills, 324,446 sale lines, 345,850 movements, 10,663 batches, 2,528 purchase orders, 2,835 receipts, 2,205 returns, 4,986 count lines |
+| Size | 359.0 MB tables and indexes. `inventory_movements` 110, `sale_lines` 85, `daily_product_stats` 59, `sales` 44, `synthetic_true_demand` 38 |
+| Headroom for Prompt 4 | about 41 MB |
+| Seed tests at scale 0.1 | 110 tests in 86 to 108 s |
+
+### 16.2 How the simulation differs from the sketch in section 8
+
+- **Owner ordering.** The owner reviews each supplier on its order weekdays (one or two a week). The reorder point is demand times (delivery time plus the wait for the next delivery day plus the review gap plus 2.5 days, or 3.8 days for most tenants, 4.6 for med_a), with lognormal noise (sd 0.25). The order up to level adds 8 or 9 days. The owner's idea of demand is recent sales plus half of the customers turned away, counted over days the product was on the shelf, never below 85 percent of the 56 day figure. The literal formula in section 8 (lead time plus 3 days) gave 15 percent stock-outs because of the weekly review gap.
+- **Minimum order top up.** When an order is under the supplier minimum, fast movers are topped up one pack at a time, never past 40 days of cover. Without the cap one item piled up to 1,000 units.
+- **Cash constraint.** fmcg_a funds the most urgent lines up to 70 percent of the value of the need.
+- **Stock-out rate** (share of product days out all day) is 4.5 percent for fmcg_a (target 2 to 6), 2.6, 2.9 and 2.6 percent for the others (target 1 to 3). Bills per day are within 4 percent of the targets.
+- **Returns** 0.9 percent of FMCG lines and 0.3 percent of medical lines, restock 80, damaged 15, expired 5. Voids 0.15 percent of bills, posted at the same time as the bill so the ledger replay never dips below zero.
+- **Stock removed otherwise.** Damage 0.1 to 0.2 percent of cost of goods sold. Expiry write-offs are 0.06 and 0.13 percent for the FMCG tenants and 1.5 and 1.7 percent for the pharmacies, which have a history of short dated bulk deals (4 for med_a, 12 for med_b) that mostly expired. Supplier returns 20 percent of near-expiry batches where the supplier accepts them.
+- **Counts** every 31 days (17 rounds). A class products are always in a round, other products 15 percent of the time, except the three S17 products in the last 50 days. About 12 percent of lines get a difference of -2 to +1.
+- **Receipts** arrive at 06:30 to 06:50, counts are at 07:00, bills from 08:00, so a replay by time never goes negative. Unit costs follow the supplier term in force.
+- **Dated FMCG goods** (biscuits, namkeen, dry fruits, packaged foods, dairy) are batch tracked, 26 to 35 products per FMCG tenant. All medicines with a shelf life are batch tracked.
+- **Event curves** are described in `india-calendar.md` section 2.1. Two categories per FMCG tenant have no effect for some events (S02), and each pharmacy has one chance uplift of 1.35 for Diwali 2025 in one category (vitamins for med_a, hydration for med_b).
+
+### 16.3 How the scenarios are planted
+
+| Scenario | Mechanism |
+|---|---|
+| S03, S06 | A supply gap (blackout) for the product: deliveries in the window arrive empty, the product is not reordered, the shelf empties by itself. S06 starts about 120 days before the end and lasts past the end. At scale below 0.5 the stock left at the start is written off as damaged, otherwise the shelf would take months to empty |
+| S04, S12, S13, S14 | Bulk purchases that arrive on a chosen day. Near-expiry ones get a short remaining shelf life and a quantity of about 2 times the demand until expiry, so about half is left. The planted expired batch of S12 is never written off |
+| S05 | Demand drops to zero 85 to 110 days before the end while stock remains |
+| S07 | The first order of a chosen supplier in the last 18 days never arrives. Its expected date is at least 6 days before the first plan date |
+| S10 | Two products on a cash vendor with no delivery time at all, one product bought over the counter with no supplier term and no PO (exception receipts), one batch tracked product whose stock has no batch (movements and balances with a null batch) |
+| S11 | Supplier price +9 percent on 12 Jan 2026 for edible oils (FMCG) or three chronic products from one maker (medical). The oils MRP follows +5 percent four weeks later |
+| S15 | Launched 34 days before the end (`launched_on` set, 21 day ramp), first order 5 days before launch |
+| S16 | Pack 48 (FMCG) or 100 (medical) with a minimum of two packs on slow products |
+| S17 | Three A class products left out of every count in the last 50 days |
+| S20 | Demand x1.5 from 190 days before the end, three other products get smaller steps |
+| S08, S09 | `business_settings.weekly_budget` is 70 percent (fmcg_a) or 105 percent of the last 8 weeks of cost of goods sold plus 10 percent. Prompt 4 checks the ratio against the engine (P4.25) |
+
+### 16.4 What is not in the seed yet
+
+- The eight retrospective plans with synthetic decisions (section 12) need the engine, so they arrive in Prompt 4. The corpus types `decision_memory` and `report_narrative` follow them (P4.26).
+- Embeddings (`seed.ingest_knowledge`) arrive in Prompt 7. Chunks are stored with `embedding = NULL`: 117 chunks, of which 25 are global app knowledge.
+- The daily rollup is a SQL fallback (`seed/rollup_sql.py`) with the same rules as `engine-spec.md` section 3. P4.24 replaces it.
+- Tax rates use one mapping for the whole history, so sales before 22 Sep 2025 carry the new slab (representative data, not tax advice).

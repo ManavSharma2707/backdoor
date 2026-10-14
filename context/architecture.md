@@ -76,7 +76,7 @@ backroom/
               nodes/  tools/  rag/  prompts/  evals/
       jobs/ run.py migrate.py reference_data.py monday.py rollup_job.py simulate_week.py
       assets/fonts/                 IBM Plex Sans and Mono TTF (for PDF)
-    seed/ run.py generator/ catalogs/*.yaml corpus/ validate.py size_report.py
+    seed/ run.py generate.py sim.py demand.py pricing.py scenarios.py loader.py catalogs/*.yaml catalog/ corpus/ validate.py size_report.py realism.py checksum.py
     tests/ unit/ engine/ integration/ api/ seed/ agents/ conftest.py
   frontend/
     package.json  vite.config.ts  tsconfig*.json  eslint.config.js  vercel.json  index.html

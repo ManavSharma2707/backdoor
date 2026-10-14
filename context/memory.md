@@ -84,7 +84,7 @@ Change one only with a new log entry in section 4 that references its id.
 2. Enable `DEMO_LOGIN_ENABLED` on the public demo? (default: off until the human decides).
 3. Enable `SIMULATE_WEEKLY` so the demo stays fresh? (default: off).
 4. Email domain for demo owners is `backroom-demo.com` (no mail is ever sent). Change if the user prefers another.
-5. Confirm festival dates marked "verify" (Prompt 3 does this and logs the result).
+5. ~~Confirm festival dates marked "verify"~~ Done in Prompt 3 (2026-10-14), see the verification log before section 8.
 
 ## 4. Decision log (append only)
 
@@ -215,6 +215,61 @@ Context: services must be atomic, concurrent requests must not oversell, and `ar
 Choice: `core.db.transaction(session)` is a re-entrant context manager (commit at the outermost exit, roll back on any exception), `get_session` never commits. Refusals that must be remembered (failed logins, token reuse) finish their transaction and raise afterwards. `LedgerService` locks every balance row of the products involved in one ordered statement before it reads or writes, takes `populate_existing`, and dry runs a whole batch before writing, so a shortfall writes nothing. Sale, receipt and return numbers take a per tenant advisory lock so sequences cannot repeat. The OpenAPI document is `backend/openapi.json`, written by `python -m app.jobs.run openapi` (`make openapi`) and checked for staleness by `tests/api/test_contract.py`.
 Consequence: `architecture.md` repo layout amended.
 
+### D-065 (2026-10-14) Seed package is `backend/seed`, command `python -m seed.run`
+Context: the Prompt 3 brief says `python -m app.seed.run`, while `architecture.md`, the Makefile and CI already name `backend/seed` and `python -m seed.run`.
+Choice: keep `backend/seed` (a top level package next to `app`). Extra commands: `seed.validate`, `seed.size_report`, `seed.realism`, `seed.checksum`, `seed.catalog.builder`.
+Alternatives: move it under `app/` (touches Makefile, docs and CI for no gain).
+Consequence: `seed-data-spec.md` section 14 lists the commands. Spec change.
+
+### D-066 (2026-10-14) Migration 0012: partial index on `inventory_movements.reverses_movement_id`
+Context: `--reset` deleted movements for minutes. A self referencing foreign key without an index makes PostgreSQL scan the table once per deleted row.
+Choice: `ix_inventory_movements_tenant_reverses (tenant_id, reverses_movement_id) WHERE reverses_movement_id IS NOT NULL`. Only voids set the column, so the index is tiny.
+Alternatives: disable foreign key triggers during reset (needs superuser rights, not available on Supabase).
+Consequence: model and migration changed, `database.md` section 12 notes it.
+
+### D-067 (2026-10-14) Lines per bill lowered to stay under 400 MB
+Context: with the original 2.4, 2.9, 1.7 and 1.9 lines per bill the tables and indexes came to 391 MB after compaction (473 MB before), which left no room for the Prompt 4 tables (forecast values, recommendation lines, reports, embeddings, about 30 MB).
+Choice: 2.0, 2.4, 1.4 and 1.55 lines per bill. Bills per day, history length and SKU counts are unchanged. Result 359.0 MB, 324,446 sale lines.
+Alternatives: shorter history (D-025 is locked), dropping indexes (database.md forbids doing it blindly), `--scale` below 1 for the shipped demo.
+Consequence: `seed-data-spec.md` section 4 amended. Daily stats and true demand (97 MB together) do not shrink with basket size, so the headroom is about 41 MB.
+
+### D-068 (2026-10-14) Owner ordering policy as built
+Context: the spec formula (reorder point at lead time plus 3 days) gave 15 to 26 percent out of stock days, because the owner only reviews each supplier once or twice a week and the owner's average counted days with an empty shelf as zero demand.
+Choice: reorder point = estimated daily demand x (delivery time + wait for the delivery weekday + review gap + 2.5 days, 3.8 for most tenants), order up to + 8 or 9 days, demand estimate from days on the shelf plus half the lost sales, top ups to the supplier minimum capped at 40 days of cover, fmcg_a funds 70 percent of the need. Details in `seed-data-spec.md` section 16.2.
+Alternatives: keep the spec numbers and accept a 20 percent stock-out rate (fails the spec's own realism target of 2 to 6 percent).
+Consequence: stock-out rates 4.5, 2.6, 2.9 and 2.6 percent.
+
+### D-069 (2026-10-14) How planted scenarios are produced
+Context: scenarios must hold at every scale and must not depend on lucky draws.
+Choice: supply gaps, bulk purchases, discontinued items, launches, step changes and count exclusions are explicit hooks in the plan (`seed/scenarios.py`), applied by the simulation. S10 uses a cash vendor supplier without a default delivery time (a tenth supplier in each catalogue), over the counter receipts for the missing cost product, and null batch stock for the missing expiry product. Below scale 0.5 a supply gap writes off the shelf stock as damaged at its start, because 0.1 scale demand would take months to empty a shelf. Tests assert the planted multipliers (`event_multiplier`) rather than noisy small scale draws.
+Alternatives: pick products by whatever the random run produced (not reproducible when the generator changes).
+Consequence: `seed-data-spec.md` section 16.3.
+
+### D-070 (2026-10-14) A weak demo password warns, it does not stop the seed
+Context: the password policy of Prompt 2 refuses common passwords, and the demo password in `.env` is on that list. Owners are created by writing a hash directly, which the policy never sees.
+Choice: `seed.run` prints a warning and continues. The human decides if a public demo should use a stronger password.
+Alternatives: refuse to seed (blocks all demo work), invent a password (forbidden).
+Consequence: tell the human in the final report. The password is never printed.
+
+### D-071 (2026-10-14) Budgets for S08 and S09 are an estimate
+Context: the unconstrained need is an engine output that does not exist yet.
+Choice: weekly budget = factor x (average weekly cost of goods sold of the last 8 weeks x 1.10), rounded to 500. Factor 0.70 for fmcg_a and 1.05 for the others. Values: fmcg_a 47,500, fmcg_b 315,000, med_a 72,500, med_b 151,500.
+Consequence: P4.25 checks the ratios against the engine and adjusts `accounts.weekly_budget`.
+
+### D-072 (2026-10-14) Parts of the corpus and the backfill wait for the engine
+Context: `decision_memory` and `report_narrative` documents describe the eight retrospective plans, which need the Prompt 4 engine. Embeddings need Prompt 7.
+Choice: the seed stores `supplier_policy` (3 per supplier), `product_note` (medical, 8 to 11) and global `app_knowledge` (25 chunks), text only. No `recommendation_*` rows are seeded.
+Consequence: P4.18 and P4.26 in `progress.md`.
+
+### D-073 (2026-10-14) Rollup is a SQL fallback with a statistics step
+Context: `services/rollup.py` does not exist until P4.01.
+Choice: `seed/rollup_sql.py` implements the rules of `engine-spec.md` section 3 in one `INSERT ... SELECT`. The loader runs `ANALYZE` on its inputs first, because on freshly loaded tables the planner chose a plan that ran for more than 14 minutes instead of 5 seconds.
+Consequence: P4.24 replaces it.
+
+### D-074 (2026-10-14) One GST mapping for the whole history
+Context: products have a single tax rate and the slab table holds only the structure from 22 Sep 2025.
+Choice: sales before that date also carry the new slab. The data is representative, not tax advice (`D-042`).
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).
@@ -308,18 +363,30 @@ Found while building Prompt 2:
 - A generated (stored) column inherits NOT NULL from its definition. `stock_count_lines.variance` needed `DROP NOT NULL` in migration 0011 as well as the nullable `counted_qty`.
 - Idempotency keys expire after 48 hours, but `sales.idempotency_key` has a partial unique index. A reused key leaves the sale column null so a legitimate second use does not hit the index.
 
+Found while building Prompt 3:
+
+- Freshly loaded tables have no statistics. A rollup `INSERT ... SELECT` over them ran for 14 minutes; after `ANALYZE` it takes 5 seconds. Always `ANALYZE` after a bulk load (`seed/loader.py` does).
+- A foreign key that references the same table (`reverses_movement_id`) needs an index, or every delete scans the table once per row (`D-066`). Child foreign keys without an index are otherwise harmless for COPY loads.
+- A reset leaves dead rows: 473 MB before and 359 MB after `VACUUM FULL`. The size gate is measured after compaction.
+- `information_schema.columns` lists views too. Filter on `information_schema.tables.table_type = 'BASE TABLE'` before deleting from "tables with tenant_id".
+- Compare ledger replays by `(occurred_at, id)`. A void posted a few minutes after its bill made the replay dip below zero for one sale. Receipts at 06:30, counts at 07:00, bills from 08:00 keep every day consistent.
+- Python snippets with backslashes inside a shell heredoc get mangled (`\b` becomes a control character). Write patch scripts with the editor tool and run them. `ruff format` also reflows long lines, so anchor edits on structure, not on the old line.
+- Docker Desktop hangs after the system drive fills up, and a second start does nothing while the old processes are alive. Stop `Docker Desktop`, `com.docker.backend`, `com.docker.build` and `docker-sandbox`, run `wsl --terminate docker-desktop`, start Docker Desktop again, then `docker compose up -d db api`. The Ubuntu distro does not need to be touched.
+- A sleeping laptop shows up as a load step that took half an hour. Re-time on a quiet machine.
+- `DEMO_OWNER_PASSWORD` is read by `Settings` from `backend/.env`, so from `backend/` export it from the root `.env` (`set -a; . ../.env; set +a`). Inside compose the `env_file` already passes it.
+
 ## 7. Measurements (fill in as you go)
 
 | Item | Value | Date |
 |---|---|---|
 | Argon2 hash time at the spec parameters | 480 ms per hash in the local dev container (limit 800 ms). Render free still to be measured after deploy | 2026-10-14 |
 | API resident memory (idle, after export) | 178 MiB for the whole dev container (reload watcher plus worker), before any export. Budget is 400 MB | 2026-10-13 |
-| Full seed size (MB) | | |
+| Full seed size (MB) | 359.0 MB tables and indexes after compaction, 370 MB database on disk (473 MB before compaction). Rows: 164,297 bills, 324,446 sale lines, 345,850 movements, 279,552 daily stats, 279,552 true demand. Seed time: generation about 40 s, load about 110 s, `make seed-reset` 323 s quiet and 435 to 443 s under load. Seed tests: 110 tests in 86 to 108 s | 2026-10-14 |
 | Light pipeline time per tenant | | |
 | Full pipeline time per tenant | | |
 | Tenant WAPE vs baseline WAPE | | |
 | Agent eval grounding pass rate | | |
-| Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s. Prompt 2: 904 tests, 98 percent total, suite takes about 4.5 minutes (the 200 sequence property test is about 40 s, concurrency tests about 8 s). Auth: `auth_service` 95, `security` 98, `deps` 100, `ratelimit` 98, `audit` 98. Ledger: `ledger` 98, `ledger_rules` 100, `sales_math` 100 | 2026-10-14 |
+| Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s. Prompt 2: 904 tests, 98 percent total, suite takes about 4.5 minutes (the 200 sequence property test is about 40 s, concurrency tests about 8 s). Auth: `auth_service` 95, `security` 98, `deps` 100, `ratelimit` 98, `audit` 98. Ledger: `ledger` 98, `ledger_rules` 100, `sales_math` 100. Prompt 3: 1014 tests in total (110 in `tests/seed`, 86 to 108 s alone), the whole suite takes 6 minutes when the database is busy | 2026-10-14 |
 | API dev image size | 1.29 GB (includes ml and agents packages) | 2026-10-13 |
 | API runtime image size | 1.0 GB. Verified: runs as uid 10001, migrates on start, Docker healthcheck healthy, lightgbm imports (libgomp) | 2026-10-13 |
 | Migration upgrade from empty | about 3 s for 10 revisions | 2026-10-13 |
@@ -351,15 +418,14 @@ Code: `app/jobs/reference_data.py` (`EventRow.checked`), `is_verified` is true f
 
 ## 8. Session handoff (rewrite at the end of every session)
 
-- State: **Prompt 2 complete** (P2.01 to P2.18). Auth (login, refresh rotation with reuse detection and grace, logout, logout-all, me, change password, flagged register and demo login), rate limits, audit log, settings, catalogue, suppliers and terms, the stock ledger, sales with returns and voids, purchase orders and receipts, inventory (stock, batches, movements, adjustments, write off, counts, stockouts, reconcile, supplier returns) and idempotency all exist with 904 passing tests. `backend/openapi.json` is committed and a test keeps it current. Nothing is pushed.
-- Verified by hand on the docker stack: login, create category, product, supplier, terms, order, send, receive, sell, replay with the same key, void, oversell refusal, reconcile, 401 without a token.
-- Next step: **Prompt 3, seed data**. Write the generator so it loads through COPY but produces the same rows the services would: sales with `source = 'seed'`, movements with the types and sign rules in `engine/ledger_rules.py`, balances rebuilt from the ledger, batches as `receipt_lines` create them, `bill_no` as `B{YYMM}-{seq:05d}` (the service continues the sequence), PO numbers `PO{YYMM}-{seq:04d}`, receipts `GR{YYMM}-{seq:04d}`. Run `services/reconciliation.find_mismatches` as part of `seed.validate`. Create owner users with `PasswordService` from `core/security.py` (password from `DEMO_OWNER_PASSWORD`, 12 or more characters, not a common password) and a `business_settings` row per tenant.
-- Open problems: none blocking. The system drive is at 99 percent (3.8 GB free), tell the human. Prompt 3 must flip `is_verified` for the calendar (`D-047`).
+- State: **Prompt 3 complete** (P3.01 to P3.13). Four synthetic tenants are generated deterministically, loaded through COPY and validated: 512 products, 164,297 bills, 324,446 sale lines, 345,850 movements, 78 weeks of history ending 2026-10-11, scenarios S01 to S21 in `backend/seed/scenarios.yaml`, a text only knowledge corpus (117 chunks), one owner per tenant (password from `DEMO_OWNER_PASSWORD`) and a weekly budget. Size 359.0 MB. `seed.validate` is green, two generation runs give identical checksums, owners log in through the real API. The festival calendar is verified and marked so in the reference data. Nothing is pushed.
+- Next step: **Prompt 4, intelligence engine and report**. Start with P4.01 and P4.24 together: the rollup service must produce the same `daily_product_stats` as `seed/rollup_sql.py` (compare them), then make `seed.run` call the service and delete the SQL fallback. The engine can read `synthetic_true_demand` only in evaluation scripts. Use `seed/scenarios.yaml` to find the planted products for the scenario tests, never hard coded ids.
+- Open problems: (1) the demo password is on the common password list (`D-070`), tell the human before any public demo. (2) Database headroom after the seed is about 41 MB, Prompt 4 tables must fit (P4.26). (3) The system drive is at 98 percent (about 5 GB free) and filled up once during this prompt, which hung Docker Desktop (see section 6). (4) S08 and S09 budgets are estimates (P4.25).
 - Notes for the next session:
-  - Run commands from `backend/` with `UV_PROJECT_ENVIRONMENT=/c/Users/manav/.venvs/backroom` and `python -m uv run ...` (make is not installed here).
-  - Services open transactions with `core.db.transaction(session)`, which nests and commits only at the outermost level. Never call `session.begin()` in services.
-  - `run_idempotent` wraps a service call for POSTs that accept `Idempotency-Key`. Tests assert replay with the `Idempotent-Replay` header.
-  - Use `tests/api/helpers.py` (`stock_up`, `make_batch_with_stock`, `sale_payload`) and `two_tenants` (each bundle has `headers`) for API tests, `committed` for tests that need real concurrent transactions.
+  - From `backend/`: `export UV_PROJECT_ENVIRONMENT=/c/Users/manav/.venvs/backroom; set -a; . ../.env; set +a`, then `python -m uv run python -m seed.run --tenants all --reset` (about 6 to 7 minutes, run it in the background). `python -m seed.validate`, `seed.size_report`, `seed.realism` and `seed.checksum --twice` follow.
+  - Seed tests: `python -m uv run pytest tests/seed -q` (about 90 seconds, creates and drops `backroom_seed_test`).
+  - Owners: `owner.fmcg-a@backroom-demo.com`, `owner.fmcg-b@backroom-demo.com`, `owner.med-a@backroom-demo.com`, `owner.med-b@backroom-demo.com`.
+  - `seed/realism_report.md` is generated and committed, regenerate it after changing the generator.
   - Prompt 7 must run the RLS statement from migration 0010 after `PostgresSaver.setup()`.
   - The `frontend` CI job is switched off with `if: false` until P5.13.
   - `rejected(db, ...)` in `tests/conftest.py` is the way to assert database refusals.

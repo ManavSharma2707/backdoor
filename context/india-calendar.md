@@ -84,6 +84,12 @@ Each occurrence is a row with slug `{event_key}-{year}`. `UQ (event_key, start_d
 - `delivery_delay_days`: how many extra days supplier deliveries are expected to take during the pre and during window (traffic, labour, holidays). Added to lead time when `apply_festival_lead_padding` is on.
 - `affects_hours`: true for Diwali Lakshmi Puja day and Holi afternoon (reduced trading hours). Informational, shown as a note on the Festival tab.
 
+### 2.1 Reduced trading hours and curve shapes used by the seed
+
+- The seed cuts volume to 40 percent (FMCG) or 60 percent (medical, Diwali only) on two single days: Diwali Lakshmi Puja evening, 20 Oct 2025, and the Holi colour day, 4 Mar 2026.
+- Festival effect curves in the generator: a linear ramp from 1.0 to the pre peak across the pre window, a flat level for the during window, then the post level recovering linearly to 1.0 across the post window. For Diwali and Ganesh Chaturthi, categories with a during effect of 1.3 or more also dip to 0.85 for 3 days after the post window.
+- The per category multipliers get a product jitter of plus or minus 15 percent on the size of the effect, so a category is consistent but products differ.
+
 ## 3. Category tags (what each event touches)
 
 Used by the seed generator (true effects, see `seed-data-spec.md`), by the UI to explain, and to suggest candidate categories to the owner for manual effects. The engine never uses these tags to apply an uplift. It only applies learned or owner configured effects.
