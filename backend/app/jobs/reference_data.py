@@ -290,9 +290,7 @@ CALENDAR_EVENTS: tuple[EventRow, ...] = (
         NOTE_APPROX,
         checked=False,
     ),
-    _festival(
-        "diwali", "Diwali", "2027-10-29", "2027-11-02", 14, 4, 2, NOTE_APPROX, checked=False
-    ),
+    _festival("diwali", "Diwali", "2027-10-29", "2027-11-02", 14, 4, 2, NOTE_APPROX, checked=False),
 )
 
 

@@ -1,0 +1,685 @@
+note: Planted scenarios. SKUs are picked deterministically from the catalogues. Synthetic data.
+end_date: '2026-10-11'
+tenants:
+  fmcg_a:
+    S01:
+      summary: Diwali 2025 category uplift in dry fruits, sweets and puja items
+      event: diwali-2025
+      categories:
+      - dry-fruits
+      - chocolates-sweets
+      - festival-puja
+      products:
+      - FA-049
+      - FA-050
+      - FA-051
+      - FA-052
+      - FA-053
+      - FA-054
+      - FA-055
+      - FA-056
+      - FA-086
+      - FA-087
+      - FA-088
+      - FA-089
+      expect: Learned effect for Diwali, applied with one occurrence, labelled learned
+    S02:
+      summary: Categories with no real effect for an event (negative case)
+      pairs:
+      - event: holi
+        category: namkeen-snacks
+      - event: raksha_bandhan
+        category: dry-fruits
+      products:
+      - FA-043
+      - FA-044
+      - FA-045
+      - FA-046
+      - FA-047
+      - FA-048
+      - FA-053
+      - FA-054
+      - FA-055
+      - FA-056
+      expect: Effect computed but not applied, shown as not enough evidence
+    S03:
+      summary: Five products with recorded stockouts and five with unrecorded ones
+      recorded:
+      - FA-043
+      - FA-021
+      - FA-066
+      - FA-008
+      - FA-039
+      unrecorded:
+      - FA-070
+      - FA-076
+      - FA-037
+      - FA-015
+      - FA-023
+      expect: Censored days excluded, CENSORED_HISTORY on the recent ones, recorded intervals respected
+    S05:
+      summary: Three discontinued variants with stock still on the shelf
+      products:
+      - FA-013
+      - FA-078
+      - FA-084
+      stops_on:
+      - '2026-07-05'
+      - '2026-07-12'
+      - '2026-06-23'
+      expect: Status non_moving
+    S06:
+      summary: Two products out of stock for months, no sales and no availability
+      products:
+      - FA-080
+      - FA-061
+      expect: Status unverified, not non_moving
+    S07:
+      summary: An open purchase order overdue by six or more days
+      supplier: S04
+      expect: PO_OVERDUE, incoming excluded from confident stock, watch tag
+    S08:
+      summary: Weekly budget at 70 percent of need
+      budget_factor: 0.7
+      expect: Shortfall and unfunded lines with critical warnings
+    S10:
+      summary: Two products without a lead time, one without a cost, one batch tracked product with stock
+        but no batch
+      missing_lead_time:
+      - FA-030
+      - FA-085
+      missing_cost:
+      - FA-004
+      missing_expiry:
+      - FA-055
+      expect: MISSING_LEAD_TIME, MISSING_COST and MISSING_EXPIRY warnings, lower confidence, no order
+        for the missing cost item
+    S11:
+      summary: Supplier price up 9 percent in January 2026
+      effective: '2026-01-12'
+      products:
+      - FA-016
+      - FA-017
+      - FA-018
+      - FA-019
+      - FA-020
+      expect: No PRICE_ANOMALY (under 30 percent), spend uses the new price
+    S14:
+      summary: Three dated products with expiry exposure
+      products:
+      - FA-047
+      - FA-069
+      - FA-046
+      expect: Expiry cap reduces the suggested quantity (EXPIRY_CAP)
+    S15:
+      summary: Two new products launched five weeks before the end
+      products:
+      - FA-012
+      - FA-077
+      launched_on: '2026-09-07'
+      expect: Class new, low confidence, category prior
+    S16:
+      summary: Four products where pack size and minimum order force a large excess
+      products:
+      - FA-086
+      - FA-090
+      - FA-089
+      - FA-062
+      expect: PACK_ROUNDING and MOQ_APPLIED reasons
+    S17:
+      summary: Three A class products without a stock count for more than 45 days
+      products:
+      - FA-041
+      - FA-018
+      - FA-072
+      expect: STALE_STOCK_COUNT
+    S20:
+      summary: One product with a mid-year step change in demand of 50 percent
+      products:
+      - FA-048
+      starts_on: '2026-04-04'
+      other_step_changes:
+      - FA-040
+      - FA-044
+      - FA-049
+      expect: Forecast bias after the step, then adaptation, visible in the accuracy insight
+    S21:
+      summary: Upcoming Navratri and Dussehra and Diwali 2026 around the first plan
+      as_of: '2026-10-12'
+      events:
+      - navratri_dussehra-2026
+      - diwali-2026
+      expect: Festival section shows both, with the Diwali pre window reaching into the horizon
+  fmcg_b:
+    S01:
+      summary: Diwali 2025 category uplift in dry fruits, sweets and puja items
+      event: diwali-2025
+      categories:
+      - dry-fruits
+      - chocolates-sweets
+      - festival-puja
+      products:
+      - FB-062
+      - FB-063
+      - FB-064
+      - FB-065
+      - FB-066
+      - FB-067
+      - FB-068
+      - FB-069
+      - FB-070
+      - FB-071
+      - FB-072
+      - FB-073
+      - FB-112
+      - FB-113
+      - FB-114
+      - FB-115
+      - FB-116
+      expect: Learned effect for Diwali, applied with one occurrence, labelled learned
+    S02:
+      summary: Categories with no real effect for an event (negative case)
+      pairs:
+      - event: holi
+        category: beverages
+      - event: christmas_ny
+        category: namkeen-snacks
+      products:
+      - FB-055
+      - FB-056
+      - FB-057
+      - FB-058
+      - FB-059
+      - FB-060
+      - FB-061
+      - FB-074
+      - FB-075
+      - FB-076
+      - FB-077
+      - FB-078
+      - FB-079
+      - FB-080
+      - FB-081
+      expect: Effect computed but not applied, shown as not enough evidence
+    S03:
+      summary: Five products with recorded stockouts and five with unrecorded ones
+      recorded:
+      - FB-066
+      - FB-059
+      - FB-102
+      - FB-020
+      - FB-086
+      unrecorded:
+      - FB-074
+      - FB-063
+      - FB-099
+      - FB-097
+      - FB-005
+      expect: Censored days excluded, CENSORED_HISTORY on the recent ones, recorded intervals respected
+    S04:
+      summary: Six slow movers with a large bulk purchase
+      products:
+      - FB-091
+      - FB-068
+      - FB-118
+      - FB-019
+      - FB-073
+      - FB-035
+      expect: Appear under Reduce exposure, no purchase suggested
+    S05:
+      summary: Three discontinued variants with stock still on the shelf
+      products:
+      - FB-043
+      - FB-037
+      - FB-067
+      stops_on:
+      - '2026-07-08'
+      - '2026-06-23'
+      - '2026-07-03'
+      expect: Status non_moving
+    S06:
+      summary: Two products out of stock for months, no sales and no availability
+      products:
+      - FB-040
+      - FB-012
+      expect: Status unverified, not non_moving
+    S07:
+      summary: An open purchase order overdue by six or more days
+      supplier: S01
+      expect: PO_OVERDUE, incoming excluded from confident stock, watch tag
+    S09:
+      summary: Weekly budget at 105 percent of need
+      budget_factor: 1.05
+      expect: No shortfall
+    S10:
+      summary: Two products without a lead time, one without a cost, one batch tracked product with stock
+        but no batch
+      missing_lead_time:
+      - FB-045
+      - FB-014
+      missing_cost:
+      - FB-001
+      missing_expiry:
+      - FB-057
+      expect: MISSING_LEAD_TIME, MISSING_COST and MISSING_EXPIRY warnings, lower confidence, no order
+        for the missing cost item
+    S11:
+      summary: Supplier price up 9 percent in January 2026
+      effective: '2026-01-12'
+      products:
+      - FB-019
+      - FB-020
+      - FB-021
+      - FB-022
+      - FB-023
+      - FB-024
+      - FB-025
+      expect: No PRICE_ANOMALY (under 30 percent), spend uses the new price
+    S14:
+      summary: Three dated products with expiry exposure
+      products:
+      - FB-092
+      - FB-060
+      - FB-058
+      expect: Expiry cap reduces the suggested quantity (EXPIRY_CAP)
+    S15:
+      summary: Two new products launched five weeks before the end
+      products:
+      - FB-089
+      - FB-104
+      launched_on: '2026-09-07'
+      expect: Class new, low confidence, category prior
+    S16:
+      summary: Four products where pack size and minimum order force a large excess
+      products:
+      - FB-109
+      - FB-113
+      - FB-096
+      - FB-021
+      expect: PACK_ROUNDING and MOQ_APPLIED reasons
+    S17:
+      summary: Three A class products without a stock count for more than 45 days
+      products:
+      - FB-010
+      - FB-075
+      - FB-090
+      expect: STALE_STOCK_COUNT
+    S20:
+      summary: One product with a mid-year step change in demand of 50 percent
+      products:
+      - FB-048
+      starts_on: '2026-04-04'
+      other_step_changes:
+      - FB-094
+      - FB-079
+      - FB-053
+      expect: Forecast bias after the step, then adaptation, visible in the accuracy insight
+    S21:
+      summary: Upcoming Navratri and Dussehra and Diwali 2026 around the first plan
+      as_of: '2026-10-12'
+      events:
+      - navratri_dussehra-2026
+      - diwali-2026
+      expect: Festival section shows both, with the Diwali pre window reaching into the horizon
+  med_a:
+    S02:
+      summary: Medical festival with a single occurrence and a chance uplift (negative case)
+      event: diwali-2025
+      category: vitamins-supplements
+      uplift: 1.35
+      products:
+      - MA-070
+      - MA-071
+      - MA-072
+      - MA-073
+      - MA-074
+      - MA-075
+      - MA-076
+      - MA-077
+      - MA-078
+      - MA-079
+      - MA-080
+      - MA-081
+      expect: Single occurrence is below the medical gate, so no festival effect is applied
+    S03:
+      summary: Five products with recorded stockouts and five with unrecorded ones
+      recorded:
+      - MA-146
+      - MA-005
+      - MA-112
+      - MA-074
+      - MA-013
+      unrecorded:
+      - MA-049
+      - MA-139
+      - MA-054
+      - MA-140
+      - MA-036
+      expect: Censored days excluded, CENSORED_HISTORY on the recent ones, recorded intervals respected
+    S05:
+      summary: Three discontinued variants with stock still on the shelf
+      products:
+      - MA-026
+      - MA-045
+      - MA-016
+      stops_on:
+      - '2026-07-15'
+      - '2026-07-06'
+      - '2026-07-08'
+      expect: Status non_moving
+    S06:
+      summary: Two products out of stock for months, no sales and no availability
+      products:
+      - MA-048
+      - MA-020
+      expect: Status unverified, not non_moving
+    S07:
+      summary: An open purchase order overdue by six or more days
+      supplier: S01
+      expect: PO_OVERDUE, incoming excluded from confident stock, watch tag
+    S09:
+      summary: Weekly budget at 105 percent of need
+      budget_factor: 1.05
+      expect: No shortfall
+    S10:
+      summary: Two products without a lead time, one without a cost, one batch tracked product with stock
+        but no batch
+      missing_lead_time:
+      - MA-030
+      - MA-008
+      missing_cost:
+      - MA-071
+      missing_expiry:
+      - MA-050
+      expect: MISSING_LEAD_TIME, MISSING_COST and MISSING_EXPIRY warnings, lower confidence, no order
+        for the missing cost item
+    S11:
+      summary: Supplier price up 9 percent in January 2026
+      effective: '2026-01-12'
+      products:
+      - MA-023
+      - MA-033
+      - MA-044
+      expect: No PRICE_ANOMALY (under 30 percent), spend uses the new price
+    S12:
+      summary: Four batches within 90 days of expiry and one already expired with stock
+      near_expiry:
+      - MA-095
+      - MA-063
+      - MA-038
+      - MA-075
+      expired:
+      - MA-034
+      expect: Expiry list with batch, quantity and value, WRITE_OFF_NEEDED for the expired batch
+      history_deals:
+      - MA-143
+      - MA-133
+      - MA-023
+      - MA-033
+    S15:
+      summary: Two new products launched five weeks before the end
+      products:
+      - MA-079
+      - MA-011
+      launched_on: '2026-09-07'
+      expect: Class new, low confidence, category prior
+    S16:
+      summary: Four products where pack size and minimum order force a large excess
+      products:
+      - MA-119
+      - MA-118
+      - MA-115
+      - MA-116
+      expect: PACK_ROUNDING and MOQ_APPLIED reasons
+    S17:
+      summary: Three A class products without a stock count for more than 45 days
+      products:
+      - MA-022
+      - MA-089
+      - MA-145
+      expect: STALE_STOCK_COUNT
+    S18:
+      summary: Chronic medicines with a month start refill pattern
+      products:
+      - MA-023
+      - MA-024
+      - MA-025
+      - MA-026
+      - MA-027
+      - MA-028
+      - MA-029
+      - MA-030
+      - MA-031
+      - MA-032
+      - MA-033
+      - MA-034
+      - MA-035
+      - MA-036
+      - MA-037
+      - MA-038
+      - MA-039
+      - MA-040
+      - MA-041
+      - MA-042
+      - MA-043
+      - MA-044
+      - MA-130
+      - MA-131
+      - MA-132
+      - MA-133
+      - MA-134
+      - MA-135
+      - MA-136
+      expect: Weekday and month day patterns, forecast confidence high
+    S19:
+      summary: Monsoon illness lift categories
+      categories:
+      - analgesics-antipyretics
+      - gastro-antacids
+      - respiratory-cough-cold
+      - dermatology
+      - antibiotics
+      expect: Season effect learned and applied, labelled seasonal
+    S20:
+      summary: One product with a mid-year step change in demand of 50 percent
+      products:
+      - MA-121
+      starts_on: '2026-04-04'
+      other_step_changes:
+      - MA-053
+      - MA-064
+      - MA-027
+      expect: Forecast bias after the step, then adaptation, visible in the accuracy insight
+    S21:
+      summary: Upcoming Navratri and Dussehra and Diwali 2026 around the first plan
+      as_of: '2026-10-12'
+      events:
+      - navratri_dussehra-2026
+      - diwali-2026
+      expect: Festival section shows both, with the Diwali pre window reaching into the horizon
+  med_b:
+    S02:
+      summary: Medical festival with a single occurrence and a chance uplift (negative case)
+      event: diwali-2025
+      category: ors-hydration
+      uplift: 1.35
+      products:
+      - MB-123
+      - MB-124
+      - MB-125
+      - MB-126
+      - MB-127
+      - MB-128
+      expect: Single occurrence is below the medical gate, so no festival effect is applied
+    S03:
+      summary: Five products with recorded stockouts and five with unrecorded ones
+      recorded:
+      - MB-145
+      - MB-055
+      - MB-074
+      - MB-054
+      - MB-052
+      unrecorded:
+      - MB-070
+      - MB-009
+      - MB-020
+      - MB-050
+      - MB-019
+      expect: Censored days excluded, CENSORED_HISTORY on the recent ones, recorded intervals respected
+    S04:
+      summary: Six slow movers with a large bulk purchase
+      products:
+      - MB-151
+      - MB-122
+      - MB-111
+      - MB-096
+      - MB-087
+      - MB-108
+      expect: Appear under Reduce exposure, no purchase suggested
+    S05:
+      summary: Three discontinued variants with stock still on the shelf
+      products:
+      - MB-024
+      - MB-137
+      - MB-069
+      stops_on:
+      - '2026-07-01'
+      - '2026-06-23'
+      - '2026-06-23'
+      expect: Status non_moving
+    S06:
+      summary: Two products out of stock for months, no sales and no availability
+      products:
+      - MB-077
+      - MB-028
+      expect: Status unverified, not non_moving
+    S07:
+      summary: An open purchase order overdue by six or more days
+      supplier: S02
+      expect: PO_OVERDUE, incoming excluded from confident stock, watch tag
+    S09:
+      summary: Weekly budget at 105 percent of need
+      budget_factor: 1.05
+      expect: No shortfall
+    S10:
+      summary: Two products without a lead time, one without a cost, one batch tracked product with stock
+        but no batch
+      missing_lead_time:
+      - MB-049
+      - MB-075
+      missing_cost:
+      - MB-113
+      missing_expiry:
+      - MB-057
+      expect: MISSING_LEAD_TIME, MISSING_COST and MISSING_EXPIRY warnings, lower confidence, no order
+        for the missing cost item
+    S11:
+      summary: Supplier price up 9 percent in January 2026
+      effective: '2026-01-12'
+      products:
+      - MB-035
+      - MB-036
+      - MB-139
+      expect: No PRICE_ANOMALY (under 30 percent), spend uses the new price
+    S13:
+      summary: Fourteen near-expiry batches with large exposure, three from suppliers that accept returns
+      returnable:
+      - MB-007
+      - MB-010
+      - MB-031
+      not_returnable:
+      - MB-088
+      - MB-018
+      - MB-013
+      - MB-062
+      - MB-017
+      - MB-066
+      - MB-022
+      - MB-083
+      - MB-133
+      - MB-136
+      - MB-085
+      expect: High exposure total and operational options that respect each return policy
+      history_deals:
+      - MB-128
+      - MB-038
+      - MB-099
+      - MB-124
+      - MB-001
+      - MB-002
+      - MB-006
+      - MB-030
+      - MB-142
+      - MB-139
+      - MB-093
+      - MB-005
+    S15:
+      summary: Two new products launched five weeks before the end
+      products:
+      - MB-107
+      - MB-082
+      launched_on: '2026-09-07'
+      expect: Class new, low confidence, category prior
+    S16:
+      summary: Four products where pack size and minimum order force a large excess
+      products:
+      - MB-118
+      - MB-121
+      - MB-114
+      - MB-140
+      expect: PACK_ROUNDING and MOQ_APPLIED reasons
+    S17:
+      summary: Three A class products without a stock count for more than 45 days
+      products:
+      - MB-023
+      - MB-116
+      - MB-034
+      expect: STALE_STOCK_COUNT
+    S18:
+      summary: Chronic medicines with a month start refill pattern
+      products:
+      - MB-023
+      - MB-024
+      - MB-025
+      - MB-026
+      - MB-027
+      - MB-028
+      - MB-029
+      - MB-030
+      - MB-031
+      - MB-032
+      - MB-033
+      - MB-034
+      - MB-035
+      - MB-036
+      - MB-037
+      - MB-137
+      - MB-138
+      - MB-139
+      expect: Weekday and month day patterns, forecast confidence high
+    S19:
+      summary: Monsoon illness lift categories
+      categories:
+      - analgesics-antipyretics
+      - gastro-antacids
+      - respiratory-cough-cold
+      - dermatology
+      - antibiotics
+      expect: Season effect learned and applied, labelled seasonal
+    S20:
+      summary: One product with a mid-year step change in demand of 50 percent
+      products:
+      - MB-026
+      starts_on: '2026-04-04'
+      other_step_changes:
+      - MB-004
+      - MB-025
+      - MB-045
+      expect: Forecast bias after the step, then adaptation, visible in the accuracy insight
+    S21:
+      summary: Upcoming Navratri and Dussehra and Diwali 2026 around the first plan
+      as_of: '2026-10-12'
+      events:
+      - navratri_dussehra-2026
+      - diwali-2026
+      expect: Festival section shows both, with the Diwali pre window reaching into the horizon

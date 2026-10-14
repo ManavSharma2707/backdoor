@@ -827,7 +827,7 @@ products:
   name: Surmai Sunflower Oil 500 ml
   brand: Surmai
   category: edible-oils-ghee
-  base_unit: pouch
+  base_unit: pack
   pack_label: 500 ml
   tax: GST5
   mrp: '84.00'
@@ -939,7 +939,7 @@ products:
   name: Ghani Pure Soybean Oil 1 l
   brand: Ghani Pure
   category: edible-oils-ghee
-  base_unit: pouch
+  base_unit: pack
   pack_label: 1 l
   tax: GST5
   mrp: '142.00'

@@ -688,7 +688,7 @@ products:
   name: Surmai Sunflower Oil 1 l
   brand: Surmai
   category: edible-oils-ghee
-  base_unit: pouch
+  base_unit: pack
   pack_label: 1 l
   tax: GST5
   mrp: '158.00'

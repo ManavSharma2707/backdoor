@@ -55,7 +55,7 @@ PROFILES: dict[str, Profile] = {
             "Ramesh Kulkarni",
             "owner.fmcg-a@backroom-demo.com",
             55,
-            2.4,
+            2.0,
             "Small neighbourhood grocery with tight cash",
         ),
         Profile(
@@ -68,7 +68,7 @@ PROFILES: dict[str, Profile] = {
             "Sunita Deshmukh",
             "owner.fmcg-b@backroom-demo.com",
             110,
-            2.9,
+            2.4,
             "Mid-size supermarket with many promotions",
         ),
         Profile(
@@ -81,7 +81,7 @@ PROFILES: dict[str, Profile] = {
             "Anil Joshi",
             "owner.med-a@backroom-demo.com",
             55,
-            1.7,
+            1.4,
             "Neighbourhood pharmacy, chronic refills",
         ),
         Profile(
@@ -94,7 +94,7 @@ PROFILES: dict[str, Profile] = {
             "Pooja Patil",
             "owner.med-b@backroom-demo.com",
             90,
-            1.9,
+            1.55,
             "Clinic adjacent pharmacy with large expiry exposure",
         ),
     )

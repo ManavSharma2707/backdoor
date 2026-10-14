@@ -332,6 +332,13 @@ def _supplier_rows(profile: Profile, rng: np.random.Generator) -> list[dict[str,
                 "planted": None,
             }
         )
+    if profile.key == "med_b":
+        # Mixed policies so the near-expiry story has suppliers that accept returns and ones that do not.
+        for row, accepts in zip(rows, (True, False, True, False, False, True), strict=False):
+            row["accepts_expiry_returns"] = accepts
+            row["expiry_return_window_days"] = (
+                (90 if row["code"] != "S03" else 75) if accepts else None
+            )
     rows.append(
         {
             "code": f"S{len(rows) + 1:02d}",
@@ -358,16 +365,21 @@ def _supplier_rows(profile: Profile, rng: np.random.Generator) -> list[dict[str,
 
 
 def _pack_size(
-    rng: np.random.Generator, mrp: int, category: str, is_medical: bool, device: bool
+    rng: np.random.Generator,
+    mrp: int,
+    category: str,
+    is_medical: bool,
+    device: bool,
+    base: float = 0.0,
 ) -> int:
     if device:
         return 1
     if is_medical:
-        if mrp < 60:
-            return int(rng.choice([50, 100]))
-        if mrp < 250:
-            return int(rng.choice([10, 50]))
-        return 10 if mrp < 700 else 5
+        if base >= 2.5 and mrp < 60:
+            return 100
+        if base >= 1.4 and mrp < 80:
+            return 50
+        return 10 if mrp < 400 else 5
     if category in {"atta-rice-grains", "pulses-dal", "sugar-salt-jaggery"} and mrp >= 90:
         return int(rng.choice([1, 5]))
     if mrp < 30:
@@ -523,7 +535,7 @@ def _med_products(
             base *= float(np.clip((80.0 / m.mrp) ** 0.2, 0.6, 1.6))
             margin = float(rng.uniform(0.78, 0.88))
             tracked = m.tracked and m.shelf_months > 0
-            pack_size = _pack_size(rng, m.mrp, slug, True, m.kind == "device")
+            pack_size = _pack_size(rng, m.mrp, slug, True, m.kind == "device", base)
             drug = m.kind == "drug"
             products.append(
                 {

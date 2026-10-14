@@ -65,11 +65,11 @@ FMCG_CATEGORIES: dict[str, tuple[str, int, int, tuple[Item, ...]]] = {
         5,
         7,
         (
-            _i("Sunflower Oil", "1 l:pouch:158;5 l:tin:765;500 ml:pouch:84", "GST5", "oil"),
+            _i("Sunflower Oil", "1 l:pack:158;5 l:tin:765;500 ml:pack:84", "GST5", "oil"),
             _i("Groundnut Oil", "1 l:bottle:224;5 l:tin:1090;500 ml:bottle:120", "GST5", "oil"),
             _i("Mustard Oil", "1 l:bottle:178;5 l:tin:860;500 ml:bottle:94", "GST5", "oil"),
-            _i("Soybean Oil", "1 l:pouch:142;5 l:tin:690", "GST5", "oil"),
-            _i("Refined Rice Bran Oil", "1 l:pouch:172;5 l:tin:830", "GST5", "oil"),
+            _i("Soybean Oil", "1 l:pack:142;5 l:tin:690", "GST5", "oil"),
+            _i("Refined Rice Bran Oil", "1 l:pack:172;5 l:tin:830", "GST5", "oil"),
             _i("Cow Ghee", "500 ml:bottle:365;1 l:bottle:715;200 ml:bottle:162", "GST5", "ghee"),
             _i("Vanaspati", "1 kg:pack:168;500 g:pack:92", "GST5", "oil"),
             _i("Sesame Oil", "500 ml:bottle:238;1 l:bottle:455", "GST5", "oil"),
@@ -193,7 +193,7 @@ FMCG_CATEGORIES: dict[str, tuple[str, int, int, tuple[Item, ...]]] = {
         (
             _i(
                 "Packaged Drinking Water",
-                "1 l:bottle:20;500 ml:bottle:10;20 l:jar:80",
+                "1 l:bottle:20;500 ml:bottle:10;20 l:bottle:80",
                 "GST18",
                 "water",
             ),
