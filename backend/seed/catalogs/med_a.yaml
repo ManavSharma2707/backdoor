@@ -1,0 +1,5176 @@
+tenant: med_a
+note: Synthetic catalogue. Brands, businesses and prices are fictional.
+gst_note: GST slab mapping is representative only and is not tax advice.
+suppliers:
+- code: S01
+  name: Lifeline General Stockists
+  contact_name: Dinesh Pawar
+  payment_terms_days: 7
+  default_lead_time_days: 1
+  delivery_weekdays:
+  - 3
+  - 4
+  order_weekdays:
+  - 3
+  - 4
+  min_order_value: '3800.00'
+  credit_limit: '128000.00'
+  accepts_expiry_returns: true
+  expiry_return_window_days: 75
+  return_window_days: 6
+  delay_prob: 0.122
+  delay_days_min: 1
+  delay_days_max: 4
+  fill_rate: 0.951
+  categories:
+  - analgesics-antipyretics
+  - gastro-antacids
+  - vitamins-supplements
+  - first-aid-dressings
+  - ors-hydration
+  - hygiene-sanitisers
+  - eye-ear-oral
+  planted: null
+- code: S02
+  name: Acute Care Pharma Distribution
+  contact_name: Sheetal Kadam
+  payment_terms_days: 30
+  default_lead_time_days: 1
+  delivery_weekdays:
+  - 1
+  - 2
+  - 3
+  - 4
+  order_weekdays:
+  - 1
+  min_order_value: '6200.00'
+  credit_limit: '92000.00'
+  accepts_expiry_returns: true
+  expiry_return_window_days: 60
+  return_window_days: 6
+  delay_prob: 0.152
+  delay_days_min: 1
+  delay_days_max: 3
+  fill_rate: 0.911
+  categories:
+  - antibiotics
+  - respiratory-cough-cold
+  - antiallergics
+  - dermatology
+  - pain-relief-topicals
+  planted: null
+- code: S03
+  name: Chronic Care Stockists
+  contact_name: Mahesh Thakur
+  payment_terms_days: 15
+  default_lead_time_days: 2
+  delivery_weekdays:
+  - 1
+  - 2
+  - 3
+  - 6
+  order_weekdays:
+  - 1
+  - 6
+  min_order_value: '7100.00'
+  credit_limit: '105000.00'
+  accepts_expiry_returns: true
+  expiry_return_window_days: 75
+  return_window_days: 3
+  delay_prob: 0.159
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.988
+  categories:
+  - antidiabetics
+  - cardiac-antihypertensives
+  - thyroid-chronic
+  planted: null
+- code: S04
+  name: Medico Devices and OTC Wholesale
+  contact_name: Rupal Doshi
+  payment_terms_days: 15
+  default_lead_time_days: 2
+  delivery_weekdays:
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  order_weekdays:
+  - 2
+  - 6
+  min_order_value: '6800.00'
+  credit_limit: '241000.00'
+  accepts_expiry_returns: true
+  expiry_return_window_days: 90
+  return_window_days: 13
+  delay_prob: 0.22
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.983
+  categories:
+  - devices-diagnostics
+  - womens-health
+  - baby-care
+  planted: null
+- code: S05
+  name: Ayushya Wellness Traders
+  contact_name: Smita Bapat
+  payment_terms_days: 0
+  default_lead_time_days: 1
+  delivery_weekdays:
+  - 1
+  - 2
+  order_weekdays:
+  - 1
+  min_order_value: '5800.00'
+  credit_limit: '45000.00'
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: 8
+  delay_prob: 0.241
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.961
+  categories:
+  - ayurvedic-wellness
+  - nutrition-diabetic-foods
+  planted: null
+- code: S06
+  name: Walk-in Cash Vendor
+  contact_name: Counter purchase
+  payment_terms_days: 0
+  default_lead_time_days: null
+  delivery_weekdays:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  order_weekdays:
+  - 3
+  min_order_value: null
+  credit_limit: null
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: null
+  delay_prob: 0.1
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.98
+  categories: []
+  planted: cash_vendor
+categories:
+- slug: analgesics-antipyretics
+  name: Analgesics and antipyretics
+  position: 0
+- slug: antibiotics
+  name: Antibiotics (oral, topical)
+  position: 1
+- slug: antidiabetics
+  name: Antidiabetics
+  position: 2
+- slug: cardiac-antihypertensives
+  name: Cardiac and antihypertensives
+  position: 3
+- slug: gastro-antacids
+  name: Gastrointestinal and antacids
+  position: 4
+- slug: respiratory-cough-cold
+  name: Respiratory, cough and cold
+  position: 5
+- slug: antiallergics
+  name: Antiallergics
+  position: 6
+- slug: vitamins-supplements
+  name: Vitamins and supplements
+  position: 7
+- slug: dermatology
+  name: Dermatology
+  position: 8
+- slug: eye-ear-oral
+  name: Eye, ear and oral care
+  position: 9
+- slug: first-aid-dressings
+  name: First aid and dressings
+  position: 10
+- slug: baby-care
+  name: Baby care
+  position: 11
+- slug: womens-health
+  name: Women's health (OTC)
+  position: 12
+- slug: devices-diagnostics
+  name: Devices and diagnostics
+  position: 13
+- slug: ors-hydration
+  name: ORS, electrolytes and hydration
+  position: 14
+- slug: pain-relief-topicals
+  name: Pain relief topicals
+  position: 15
+- slug: thyroid-chronic
+  name: Thyroid and other chronic
+  position: 16
+- slug: hygiene-sanitisers
+  name: Personal hygiene and sanitisers
+  position: 17
+- slug: ayurvedic-wellness
+  name: Ayurvedic and wellness
+  position: 18
+- slug: nutrition-diabetic-foods
+  name: Nutrition and diabetic-friendly foods
+  position: 19
+products:
+- sku: MA-001
+  barcode: '2200001927587'
+  name: Sanzcip 100
+  brand: Sanzcip
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '40.00'
+  selling_price: '40.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '33.2298'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: 2
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Nimesulide
+  strength: 100 mg
+  dosage_form: Tablet
+  manufacturer: Lotus Wellness Labs
+  schedule_class: H
+  traits:
+    base_rate: 1.2224
+    q: 1.0
+    nb_size: 6.09
+    elasticity: 0.27
+    trend_pct_year: 0.19
+    event_jitter: 1.0
+- sku: MA-002
+  barcode: '2200002149358'
+  name: Novapan 400
+  brand: Novapan
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '42.00'
+  selling_price: '42.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '35.5747'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ibuprofen
+  strength: 400 mg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: null
+  traits:
+    base_rate: 1.708
+    q: 1.0
+    nb_size: 8.72
+    elasticity: 0.164
+    trend_pct_year: -9.45
+    event_jitter: 1.0
+- sku: MA-003
+  barcode: '2200003730506'
+  name: Zetapan 400
+  brand: Zetapan
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '48.00'
+  selling_price: '48.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '38.0584'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ibuprofen and Paracetamol
+  strength: 400 mg and 325 mg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: null
+  traits:
+    base_rate: 1.6442
+    q: 1.0
+    nb_size: 9.51
+    elasticity: 0.188
+    trend_pct_year: 7.43
+    event_jitter: 1.0
+- sku: MA-004
+  barcode: '2200004418320'
+  name: Rovicet 50
+  brand: Rovicet
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '30.00'
+  selling_price: '30.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '26.2173'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Diclofenac
+  strength: 50 mg
+  dosage_form: Tablet
+  manufacturer: Medhavi Formulations
+  schedule_class: H
+  traits:
+    base_rate: 2.6567
+    q: 1.0
+    nb_size: 7.76
+    elasticity: 0.12
+    trend_pct_year: -14.41
+    event_jitter: 1.0
+- sku: MA-005
+  barcode: '2200005416354'
+  name: Terapan 500
+  brand: Terapan
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '50.00'
+  selling_price: '50.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '42.0590'
+  pack_size: 100
+  moq_units: 200
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Mefenamic Acid
+  strength: 500 mg
+  dosage_form: Tablet
+  manufacturer: Veda Lifesciences
+  schedule_class: H
+  traits:
+    base_rate: 0.5719
+    q: 1.0
+    nb_size: 6.23
+    elasticity: 0.163
+    trend_pct_year: 19.12
+    event_jitter: 1.0
+- sku: MA-006
+  barcode: '2200006385068'
+  name: Kelofen 100
+  brand: Kelofen
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '72.00'
+  selling_price: '72.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '56.9316'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: 1
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Aceclofenac and Paracetamol
+  strength: 100 mg and 325 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 1.7777
+    q: 1.0
+    nb_size: 4.59
+    elasticity: 0.249
+    trend_pct_year: -2.95
+    event_jitter: 1.0
+- sku: MA-007
+  barcode: '2200007209872'
+  name: Venopril 250
+  brand: Venopril
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '66.00'
+  selling_price: '66.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '54.5565'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: 3
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Naproxen
+  strength: 250 mg
+  dosage_form: Tablet
+  manufacturer: Ridhi Pharmaceuticals
+  schedule_class: H
+  traits:
+    base_rate: 1.1631
+    q: 1.0
+    nb_size: 9.64
+    elasticity: 0.144
+    trend_pct_year: -2.19
+    event_jitter: 1.0
+- sku: MA-008
+  barcode: '2200008298319'
+  name: Arvipan 650
+  brand: Arvipan
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '38.00'
+  selling_price: '38.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '33.0182'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Paracetamol
+  strength: 650 mg
+  dosage_form: Tablet
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: null
+  traits:
+    base_rate: 2.0213
+    q: 1.0
+    nb_size: 5.99
+    elasticity: 0.294
+    trend_pct_year: -11.16
+    event_jitter: 1.0
+- sku: MA-009
+  barcode: '2200009820945'
+  name: Teradex 100
+  brand: Teradex
+  category: analgesics-antipyretics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '58.00'
+  selling_price: '58.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '46.9613'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Aceclofenac
+  strength: 100 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 1.4745
+    q: 1.0
+    nb_size: 3.84
+    elasticity: 0.169
+    trend_pct_year: -1.07
+    event_jitter: 1.0
+- sku: MA-010
+  barcode: '2200010828301'
+  name: Rovivir 120
+  brand: Rovivir
+  category: analgesics-antipyretics
+  base_unit: bottle
+  pack_label: 60 ml
+  tax: GST5
+  mrp: '46.00'
+  selling_price: '46.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '39.0727'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Paracetamol
+  strength: 120 mg per 5 ml
+  dosage_form: Suspension
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 1.4175
+    q: 1.0
+    nb_size: 9.82
+    elasticity: 0.218
+    trend_pct_year: -13.74
+    event_jitter: 1.0
+- sku: MA-011
+  barcode: '2200011648684'
+  name: Viramox 500
+  brand: Viramox
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '156.00'
+  selling_price: '156.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '136.8856'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: 1
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Cefadroxil
+  strength: 500 mg
+  dosage_form: Capsule
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H
+  traits:
+    base_rate: 0.3366
+    q: 0.8
+    nb_size: 3.53
+    elasticity: 0.223
+    trend_pct_year: -2.59
+    event_jitter: 1.0
+- sku: MA-012
+  barcode: '2200012527969'
+  name: Rovilex 500
+  brand: Rovilex
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '285.00'
+  selling_price: '285.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '240.7160'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Cefuroxime
+  strength: 500 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H1
+  traits:
+    base_rate: 0.3009
+    q: 0.8
+    nb_size: 7.57
+    elasticity: 0.211
+    trend_pct_year: 1.78
+    event_jitter: 1.0
+- sku: MA-013
+  barcode: '2200013837505'
+  name: Sanzmax 500
+  brand: Sanzmax
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '52.4735'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ciprofloxacin
+  strength: 500 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 0.5357
+    q: 0.8
+    nb_size: 5.42
+    elasticity: 0.218
+    trend_pct_year: -12.14
+    event_jitter: 1.0
+- sku: MA-014
+  barcode: '2200014949312'
+  name: Sanzcure 100
+  brand: Sanzcure
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '92.00'
+  selling_price: '92.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '79.4650'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Doxycycline
+  strength: 100 mg
+  dosage_form: Capsule
+  manufacturer: Veda Lifesciences
+  schedule_class: H
+  traits:
+    base_rate: 0.7438
+    q: 0.8
+    nb_size: 4.23
+    elasticity: 0.105
+    trend_pct_year: -13.53
+    event_jitter: 1.0
+- sku: MA-015
+  barcode: '2200015293239'
+  name: Lumidex 400
+  brand: Lumidex
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '54.00'
+  selling_price: '54.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '42.7874'
+  pack_size: 100
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Norfloxacin
+  strength: 400 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 0.8004
+    q: 0.8
+    nb_size: 3.76
+    elasticity: 0.139
+    trend_pct_year: 13.73
+    event_jitter: 1.0
+- sku: MA-016
+  barcode: '2200016726759'
+  name: Novatin 200
+  brand: Novatin
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '198.00'
+  selling_price: '198.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '166.5259'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Cefpodoxime
+  strength: 200 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H1
+  traits:
+    base_rate: 0.4909
+    q: 0.8
+    nb_size: 5.41
+    elasticity: 0.297
+    trend_pct_year: 10.22
+    event_jitter: 1.0
+- sku: MA-017
+  barcode: '2200017332000'
+  name: Zyralin 500
+  brand: Zyralin
+  category: antibiotics
+  base_unit: strip
+  pack_label: 5 tablets
+  tax: GST5
+  mrp: '112.00'
+  selling_price: '112.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '92.0538'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Levofloxacin
+  strength: 500 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H1
+  traits:
+    base_rate: 0.52
+    q: 0.8
+    nb_size: 4.82
+    elasticity: 0.192
+    trend_pct_year: -11.55
+    event_jitter: 1.0
+- sku: MA-018
+  barcode: '2200018429265'
+  name: Cefopan 400
+  brand: Cefopan
+  category: antibiotics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '24.00'
+  selling_price: '24.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '20.0828'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: 3
+  min_stock_qty: 5
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Metronidazole
+  strength: 400 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 1.5196
+    q: 0.8
+    nb_size: 9.79
+    elasticity: 0.155
+    trend_pct_year: -10.75
+    event_jitter: 1.0
+- sku: MA-019
+  barcode: '2200019473504'
+  name: Zymotin 500
+  brand: Zymotin
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '214.00'
+  selling_price: '214.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '186.8153'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Amoxicillin and Clavulanic Acid
+  strength: 500 mg and 125 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H
+  traits:
+    base_rate: 0.7973
+    q: 0.8
+    nb_size: 8.32
+    elasticity: 0.195
+    trend_pct_year: -12.33
+    event_jitter: 1.0
+- sku: MA-020
+  barcode: '2200020950350'
+  name: Mexazine 500
+  brand: Mexazine
+  category: antibiotics
+  base_unit: strip
+  pack_label: 5 tablets
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '97.3479'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Azithromycin
+  strength: 500 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 0.3805
+    q: 0.8
+    nb_size: 7.93
+    elasticity: 0.125
+    trend_pct_year: 11.41
+    event_jitter: 1.0
+- sku: MA-021
+  barcode: '2200021838061'
+  name: Zetaflam 200
+  brand: Zetaflam
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '84.00'
+  selling_price: '84.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '73.8290'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: 2
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ofloxacin
+  strength: 200 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 1.2207
+    q: 0.8
+    nb_size: 3.15
+    elasticity: 0.124
+    trend_pct_year: -6.58
+    event_jitter: 1.0
+- sku: MA-022
+  barcode: '2200022314715'
+  name: Bactozol 500
+  brand: Bactozol
+  category: antibiotics
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '88.00'
+  selling_price: '88.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '74.4842'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Amoxicillin
+  strength: 500 mg
+  dosage_form: Capsule
+  manufacturer: Sagar Health Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.2835
+    q: 0.8
+    nb_size: 3.69
+    elasticity: 0.228
+    trend_pct_year: 9.61
+    event_jitter: 1.0
+- sku: MA-023
+  barcode: '2200023462809'
+  name: Insuflam 20
+  brand: Insuflam
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '95.00'
+  selling_price: '95.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '78.2337'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Teneligliptin
+  strength: 20 mg
+  dosage_form: Tablet
+  manufacturer: Sagar Health Labs
+  schedule_class: H
+  traits:
+    base_rate: 1.2553
+    q: 1.0
+    nb_size: 7.48
+    elasticity: 0.185
+    trend_pct_year: 12.99
+    event_jitter: 1.0
+- sku: MA-024
+  barcode: '2200024776508'
+  name: Zyrafen 50
+  brand: Zyrafen
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '215.00'
+  selling_price: '215.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '181.9080'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: 3
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Vildagliptin
+  strength: 50 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 2.2124
+    q: 1.0
+    nb_size: 8.24
+    elasticity: 0.218
+    trend_pct_year: 4.51
+    event_jitter: 1.0
+- sku: MA-025
+  barcode: '2200025595402'
+  name: Glucocip 10
+  brand: Glucocip
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '285.00'
+  selling_price: '285.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '225.1313'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Dapagliflozin
+  strength: 10 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 2.2575
+    q: 1.0
+    nb_size: 6.89
+    elasticity: 0.201
+    trend_pct_year: -14.44
+    event_jitter: 1.0
+- sku: MA-026
+  barcode: '2200026924959'
+  name: Insumox 1000
+  brand: Insumox
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '54.3927'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Metformin Prolonged Release
+  strength: 1000 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 1.4995
+    q: 1.0
+    nb_size: 4.09
+    elasticity: 0.18
+    trend_pct_year: -5.87
+    event_jitter: 1.0
+- sku: MA-027
+  barcode: '2200027323489'
+  name: Insuzol 2
+  brand: Insuzol
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '97.0198'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Glimepiride
+  strength: 2 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 0.9738
+    q: 1.0
+    nb_size: 6.23
+    elasticity: 0.163
+    trend_pct_year: 12.24
+    event_jitter: 1.0
+- sku: MA-028
+  barcode: '2200028709119'
+  name: Glucotin 50
+  brand: Glucotin
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '165.00'
+  selling_price: '165.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '137.1797'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Sitagliptin
+  strength: 50 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 1.5986
+    q: 1.0
+    nb_size: 9.87
+    elasticity: 0.125
+    trend_pct_year: 3.72
+    event_jitter: 1.0
+- sku: MA-029
+  barcode: '2200029399040'
+  name: Insumax 500
+  brand: Insumax
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 20 tablets
+  tax: GST5
+  mrp: '28.00'
+  selling_price: '28.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '23.5945'
+  pack_size: 100
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Metformin
+  strength: 500 mg
+  dosage_form: Tablet
+  manufacturer: Sagar Health Labs
+  schedule_class: H
+  traits:
+    base_rate: 2.2405
+    q: 1.0
+    nb_size: 9.71
+    elasticity: 0.166
+    trend_pct_year: -6.33
+    event_jitter: 1.0
+- sku: MA-030
+  barcode: '2200030137743'
+  name: Glycecip 15
+  brand: Glycecip
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '58.00'
+  selling_price: '58.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '51.0337'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Pioglitazone
+  strength: 15 mg
+  dosage_form: Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 1.107
+    q: 1.0
+    nb_size: 4.99
+    elasticity: 0.295
+    trend_pct_year: 3.61
+    event_jitter: 1.0
+- sku: MA-031
+  barcode: '2200031168174'
+  name: Novacet 80
+  brand: Novacet
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '52.00'
+  selling_price: '52.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '41.5824'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Gliclazide
+  strength: 80 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 1.2088
+    q: 1.0
+    nb_size: 9.98
+    elasticity: 0.228
+    trend_pct_year: 5.77
+    event_jitter: 1.0
+- sku: MA-032
+  barcode: '2200032567974'
+  name: Insuzine 1
+  brand: Insuzine
+  category: antidiabetics
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '78.00'
+  selling_price: '78.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '66.9566'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Glimepiride
+  strength: 1 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 1.3124
+    q: 1.0
+    nb_size: 6.12
+    elasticity: 0.228
+    trend_pct_year: -4.67
+    event_jitter: 1.0
+- sku: MA-033
+  barcode: '2200033970024'
+  name: Cardipril 50
+  brand: Cardipril
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 14 tablets
+  tax: GST5
+  mrp: '34.00'
+  selling_price: '34.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '29.5895'
+  pack_size: 100
+  moq_units: 200
+  term_lead_time_days: 1
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Atenolol
+  strength: 50 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 0.6527
+    q: 1.0
+    nb_size: 6.48
+    elasticity: 0.273
+    trend_pct_year: -0.36
+    event_jitter: 1.0
+- sku: MA-034
+  barcode: '2200034956250'
+  name: Rhythmovit 5
+  brand: Rhythmovit
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S03
+  purchase_price: '101.0177'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 9
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Ramipril
+  strength: 5 mg
+  dosage_form: Capsule
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 2.6951
+    q: 1.0
+    nb_size: 6.82
+    elasticity: 0.276
+    trend_pct_year: -4.13
+    event_jitter: 1.0
+- sku: MA-035
+  barcode: '2200035680129'
+  name: Venosone 10
+  brand: Venosone
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '52.00'
+  selling_price: '52.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '44.1129'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 10
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Amlodipine
+  strength: 10 mg
+  dosage_form: Tablet
+  manufacturer: Medhavi Formulations
+  schedule_class: H
+  traits:
+    base_rate: 3.0663
+    q: 1.0
+    nb_size: 8.35
+    elasticity: 0.237
+    trend_pct_year: -3.77
+    event_jitter: 1.0
+- sku: MA-036
+  barcode: '2200036355162'
+  name: Vascoflam 40
+  brand: Vascoflam
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '112.00'
+  selling_price: '112.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '93.9986'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Telmisartan
+  strength: 40 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 1.443
+    q: 1.0
+    nb_size: 3.55
+    elasticity: 0.227
+    trend_pct_year: 7.38
+    event_jitter: 1.0
+- sku: MA-037
+  barcode: '2200037588038'
+  name: Vascolex 75
+  brand: Vascolex
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 14 tablets
+  tax: GST5
+  mrp: '6.00'
+  selling_price: '6.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '4.8914'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 14
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Aspirin Gastro Resistant
+  strength: 75 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: null
+  traits:
+    base_rate: 4.6078
+    q: 1.0
+    nb_size: 9.83
+    elasticity: 0.187
+    trend_pct_year: -13.01
+    event_jitter: 1.0
+- sku: MA-038
+  barcode: '2200038641311'
+  name: Venofen 10
+  brand: Venofen
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '67.5553'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Atorvastatin
+  strength: 10 mg
+  dosage_form: Tablet
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: H
+  traits:
+    base_rate: 2.1159
+    q: 1.0
+    nb_size: 8.08
+    elasticity: 0.212
+    trend_pct_year: -2.23
+    event_jitter: 1.0
+- sku: MA-039
+  barcode: '2200039433589'
+  name: Zetastat 75
+  brand: Zetastat
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '92.00'
+  selling_price: '92.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '71.9944'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Clopidogrel
+  strength: 75 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H
+  traits:
+    base_rate: 2.5124
+    q: 1.0
+    nb_size: 8.86
+    elasticity: 0.17
+    trend_pct_year: -12.3
+    event_jitter: 1.0
+- sku: MA-040
+  barcode: '2200040115373'
+  name: Cardilex 80
+  brand: Cardilex
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '168.00'
+  selling_price: '168.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '133.5599'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: 3
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Telmisartan
+  strength: 80 mg
+  dosage_form: Tablet
+  manufacturer: Medhavi Formulations
+  schedule_class: H
+  traits:
+    base_rate: 2.0031
+    q: 1.0
+    nb_size: 6.91
+    elasticity: 0.267
+    trend_pct_year: -6.63
+    event_jitter: 1.0
+- sku: MA-041
+  barcode: '2200041782403'
+  name: Rhythmosone 5
+  brand: Rhythmosone
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '38.00'
+  selling_price: '38.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '32.0099'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Amlodipine
+  strength: 5 mg
+  dosage_form: Tablet
+  manufacturer: Orchid Vale Pharma
+  schedule_class: H
+  traits:
+    base_rate: 0.9968
+    q: 1.0
+    nb_size: 5.33
+    elasticity: 0.24
+    trend_pct_year: 9.45
+    event_jitter: 1.0
+- sku: MA-042
+  barcode: '2200042684054'
+  name: Lumipan 20
+  brand: Lumipan
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '146.00'
+  selling_price: '146.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '128.2680'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Atorvastatin
+  strength: 20 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H
+  traits:
+    base_rate: 1.6545
+    q: 1.0
+    nb_size: 8.58
+    elasticity: 0.157
+    trend_pct_year: 14.08
+    event_jitter: 1.0
+- sku: MA-043
+  barcode: '2200043783104'
+  name: Vascofen 10
+  brand: Vascofen
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '198.00'
+  selling_price: '198.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '156.0711'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Rosuvastatin
+  strength: 10 mg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: H
+  traits:
+    base_rate: 0.886
+    q: 1.0
+    nb_size: 6.34
+    elasticity: 0.161
+    trend_pct_year: 9.39
+    event_jitter: 1.0
+- sku: MA-044
+  barcode: '2200044691777'
+  name: Rhythmomox 40
+  brand: Rhythmomox
+  category: cardiac-antihypertensives
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '14.00'
+  selling_price: '14.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '11.0047'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 10
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Furosemide
+  strength: 40 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H
+  traits:
+    base_rate: 3.0692
+    q: 1.0
+    nb_size: 5.03
+    elasticity: 0.212
+    trend_pct_year: 17.46
+    event_jitter: 1.0
+- sku: MA-045
+  barcode: '2200045231247'
+  name: Lumimox 40
+  brand: Lumimox
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '142.00'
+  selling_price: '142.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '122.0792'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Esomeprazole
+  strength: 40 mg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: H
+  traits:
+    base_rate: 0.9414
+    q: 1.0
+    nb_size: 9.36
+    elasticity: 0.143
+    trend_pct_year: 4.85
+    event_jitter: 1.0
+- sku: MA-046
+  barcode: '2200046593789'
+  name: Digestopril 20
+  brand: Digestopril
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '28.00'
+  selling_price: '28.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '22.8989'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Dicyclomine
+  strength: 20 mg
+  dosage_form: Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 0.7541
+    q: 1.0
+    nb_size: 5.55
+    elasticity: 0.177
+    trend_pct_year: -12.77
+    event_jitter: 1.0
+- sku: MA-047
+  barcode: '2200047318480'
+  name: Digestovir 5
+  brand: Digestovir
+  category: gastro-antacids
+  base_unit: bottle
+  pack_label: 170 ml
+  tax: GST5
+  mrp: '92.00'
+  selling_price: '92.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '77.5962'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Aluminium and Magnesium Hydroxide
+  strength: per 5 ml
+  dosage_form: Suspension
+  manufacturer: Veda Lifesciences
+  schedule_class: null
+  traits:
+    base_rate: 0.4107
+    q: 1.0
+    nb_size: 5.47
+    elasticity: 0.242
+    trend_pct_year: 1.76
+    event_jitter: 1.0
+- sku: MA-048
+  barcode: '2200048534009'
+  name: Novapril 40
+  brand: Novapril
+  category: gastro-antacids
+  base_unit: bottle
+  pack_label: 15 ml
+  tax: GST5
+  mrp: '78.00'
+  selling_price: '78.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '62.9411'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Simethicone
+  strength: 40 mg per ml
+  dosage_form: Drops
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 1.2154
+    q: 1.0
+    nb_size: 4.95
+    elasticity: 0.122
+    trend_pct_year: 3.38
+    event_jitter: 1.0
+- sku: MA-049
+  barcode: '2200049514881'
+  name: Sanzvit 5
+  brand: Sanzvit
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '22.00'
+  selling_price: '22.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '18.4354'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Bisacodyl
+  strength: 5 mg
+  dosage_form: Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 1.0611
+    q: 1.0
+    nb_size: 8.99
+    elasticity: 0.288
+    trend_pct_year: 4.7
+    event_jitter: 1.0
+- sku: MA-050
+  barcode: '2200050955583'
+  name: Digestomax 20
+  brand: Digestomax
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '48.00'
+  selling_price: '48.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '40.9312'
+  pack_size: 100
+  moq_units: 200
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Omeprazole
+  strength: 20 mg
+  dosage_form: Capsule
+  manufacturer: Nirmal Pharma Works
+  schedule_class: H
+  traits:
+    base_rate: 1.2517
+    q: 1.0
+    nb_size: 4.33
+    elasticity: 0.258
+    trend_pct_year: -11.7
+    event_jitter: 1.0
+- sku: MA-051
+  barcode: '2200051196424'
+  name: Digestozine 10
+  brand: Digestozine
+  category: gastro-antacids
+  base_unit: bottle
+  pack_label: 200 ml
+  tax: GST5
+  mrp: '148.00'
+  selling_price: '148.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '129.8394'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Sodium Alginate Antacid
+  strength: per 10 ml
+  dosage_form: Suspension
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 1.0744
+    q: 1.0
+    nb_size: 5.85
+    elasticity: 0.262
+    trend_pct_year: 14.03
+    event_jitter: 1.0
+- sku: MA-052
+  barcode: '2200052187400'
+  name: Novacure 4
+  brand: Novacure
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '42.00'
+  selling_price: '42.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '35.8313'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ondansetron
+  strength: 4 mg
+  dosage_form: Tablet
+  manufacturer: Veda Lifesciences
+  schedule_class: H
+  traits:
+    base_rate: 1.269
+    q: 1.0
+    nb_size: 5.63
+    elasticity: 0.184
+    trend_pct_year: 15.66
+    event_jitter: 1.0
+- sku: MA-053
+  barcode: '2200053555382'
+  name: Digestotin 40
+  brand: Digestotin
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '99.5037'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: 1
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Pantoprazole
+  strength: 40 mg
+  dosage_form: Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 0.6804
+    q: 1.0
+    nb_size: 4.68
+    elasticity: 0.189
+    trend_pct_year: 16.68
+    event_jitter: 1.0
+- sku: MA-054
+  barcode: '2200054430590'
+  name: Fenzvir 20
+  brand: Fenzvir
+  category: gastro-antacids
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '132.00'
+  selling_price: '132.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '109.4800'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Rabeprazole
+  strength: 20 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: H
+  traits:
+    base_rate: 0.7921
+    q: 1.0
+    nb_size: 5.25
+    elasticity: 0.231
+    trend_pct_year: -13.23
+    event_jitter: 1.0
+- sku: MA-055
+  barcode: '2200055723580'
+  name: Kelolex 200
+  brand: Kelolex
+  category: respiratory-cough-cold
+  base_unit: pcs
+  pack_label: 200 puffs
+  tax: GST5
+  mrp: '285.00'
+  selling_price: '285.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '229.0368'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Budesonide
+  strength: 200 mcg per puff
+  dosage_form: Inhaler
+  manufacturer: Lotus Wellness Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.8121
+    q: 0.85
+    nb_size: 9.34
+    elasticity: 0.26
+    trend_pct_year: 1.0
+    event_jitter: 1.0
+- sku: MA-056
+  barcode: '2200056826227'
+  name: Lumicet Balm
+  brand: Lumicet
+  category: respiratory-cough-cold
+  base_unit: tube
+  pack_label: 10 g
+  tax: GST5
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '49.5008'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: 1
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Steam Inhalation Balm
+  strength: per g
+  dosage_form: Balm
+  manufacturer: Sagar Health Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.5436
+    q: 0.85
+    nb_size: 4.03
+    elasticity: 0.142
+    trend_pct_year: 15.08
+    event_jitter: 1.0
+- sku: MA-057
+  barcode: '2200057610388'
+  name: Breathestat 200
+  brand: Breathestat
+  category: respiratory-cough-cold
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '44.00'
+  selling_price: '44.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '35.6958'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: 3
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Theophylline
+  strength: 200 mg
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 0.5064
+    q: 0.85
+    nb_size: 5.38
+    elasticity: 0.116
+    trend_pct_year: 4.54
+    event_jitter: 1.0
+- sku: MA-058
+  barcode: '2200058911276'
+  name: Triovit 5
+  brand: Triovit
+  category: respiratory-cough-cold
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '188.00'
+  selling_price: '188.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '163.2288'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: 2
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Levocetirizine and Montelukast
+  strength: 5 mg and 10 mg
+  dosage_form: Tablet
+  manufacturer: Sagar Health Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.6022
+    q: 0.85
+    nb_size: 4.59
+    elasticity: 0.159
+    trend_pct_year: 9.25
+    event_jitter: 1.0
+- sku: MA-059
+  barcode: '2200059822617'
+  name: Pulmolin 10
+  brand: Pulmolin
+  category: respiratory-cough-cold
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '86.00'
+  selling_price: '86.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '74.5119'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Dextromethorphan
+  strength: 10 mg per 5 ml
+  dosage_form: Syrup
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: null
+  traits:
+    base_rate: 1.8223
+    q: 0.85
+    nb_size: 7.22
+    elasticity: 0.113
+    trend_pct_year: -6.63
+    event_jitter: 1.0
+- sku: MA-060
+  barcode: '2200060847192'
+  name: Respimax Lozenge
+  brand: Respimax
+  category: respiratory-cough-cold
+  base_unit: strip
+  pack_label: 12 lozenges
+  tax: GST5
+  mrp: '30.00'
+  selling_price: '30.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '25.3028'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Menthol Cough Lozenges
+  strength: per lozenge
+  dosage_form: Lozenge
+  manufacturer: Lotus Wellness Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.7455
+    q: 0.85
+    nb_size: 5.98
+    elasticity: 0.165
+    trend_pct_year: -14.57
+    event_jitter: 1.0
+- sku: MA-061
+  barcode: '2200061233266'
+  name: Respivir 30
+  brand: Respivir
+  category: respiratory-cough-cold
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '92.00'
+  selling_price: '92.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '79.4805'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ambroxol
+  strength: 30 mg per 5 ml
+  dosage_form: Syrup
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 0.3265
+    q: 0.85
+    nb_size: 5.21
+    elasticity: 0.192
+    trend_pct_year: 3.39
+    event_jitter: 1.0
+- sku: MA-062
+  barcode: '2200062551895'
+  name: Breathelin 600
+  brand: Breathelin
+  category: respiratory-cough-cold
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '195.00'
+  selling_price: '195.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '161.8114'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Acetylcysteine
+  strength: 600 mg
+  dosage_form: Effervescent Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 0.7677
+    q: 0.85
+    nb_size: 7.77
+    elasticity: 0.14
+    trend_pct_year: -14.07
+    event_jitter: 1.0
+- sku: MA-063
+  barcode: '2200063467076'
+  name: Breathevit 100
+  brand: Breathevit
+  category: respiratory-cough-cold
+  base_unit: pcs
+  pack_label: 200 puffs
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '96.9981'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Salbutamol
+  strength: 100 mcg per puff
+  dosage_form: Inhaler
+  manufacturer: Sagar Health Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.9459
+    q: 0.85
+    nb_size: 8.69
+    elasticity: 0.165
+    trend_pct_year: -2.64
+    event_jitter: 1.0
+- sku: MA-064
+  barcode: '2200064298028'
+  name: Tussicet 0
+  brand: Tussicet
+  category: respiratory-cough-cold
+  base_unit: bottle
+  pack_label: 20 ml
+  tax: GST5
+  mrp: '98.00'
+  selling_price: '98.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '79.8442'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: 1
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Sodium Chloride Saline
+  strength: 0.65 percent
+  dosage_form: Nasal Spray
+  manufacturer: Sagar Health Labs
+  schedule_class: null
+  traits:
+    base_rate: 1.1344
+    q: 0.85
+    nb_size: 4.23
+    elasticity: 0.216
+    trend_pct_year: -11.8
+    event_jitter: 1.0
+- sku: MA-065
+  barcode: '2200065816584'
+  name: Orvacet 25
+  brand: Orvacet
+  category: antiallergics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '64.00'
+  selling_price: '64.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '52.3041'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Hydroxyzine
+  strength: 25 mg
+  dosage_form: Tablet
+  manufacturer: Lotus Wellness Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.636
+    q: 0.8
+    nb_size: 5.08
+    elasticity: 0.13
+    trend_pct_year: -12.9
+    event_jitter: 1.0
+- sku: MA-066
+  barcode: '2200066737374'
+  name: Orvazine 5
+  brand: Orvazine
+  category: antiallergics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '68.9919'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Desloratadine
+  strength: 5 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 1.1118
+    q: 0.8
+    nb_size: 7.35
+    elasticity: 0.269
+    trend_pct_year: 15.69
+    event_jitter: 1.0
+- sku: MA-067
+  barcode: '2200067602018'
+  name: Venoral 10
+  brand: Venoral
+  category: antiallergics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '22.00'
+  selling_price: '22.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '17.9343'
+  pack_size: 100
+  moq_units: 200
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Cetirizine
+  strength: 10 mg
+  dosage_form: Tablet
+  manufacturer: Orchid Vale Pharma
+  schedule_class: null
+  traits:
+    base_rate: 0.6318
+    q: 0.8
+    nb_size: 5.94
+    elasticity: 0.292
+    trend_pct_year: -2.25
+    event_jitter: 1.0
+- sku: MA-068
+  barcode: '2200068131273'
+  name: Venopan 4
+  brand: Venopan
+  category: antiallergics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '12.00'
+  selling_price: '12.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '9.4908'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Chlorpheniramine
+  strength: 4 mg
+  dosage_form: Tablet
+  manufacturer: Lotus Wellness Labs
+  schedule_class: null
+  traits:
+    base_rate: 1.0545
+    q: 0.8
+    nb_size: 4.13
+    elasticity: 0.197
+    trend_pct_year: 19.9
+    event_jitter: 1.0
+- sku: MA-069
+  barcode: '2200069155790'
+  name: Mexadex 5
+  brand: Mexadex
+  category: antiallergics
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '48.00'
+  selling_price: '48.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '38.3295'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: 2
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Levocetirizine
+  strength: 5 mg
+  dosage_form: Tablet
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: null
+  traits:
+    base_rate: 1.1379
+    q: 0.8
+    nb_size: 6.84
+    elasticity: 0.3
+    trend_pct_year: 9.42
+    event_jitter: 1.0
+- sku: MA-070
+  barcode: '2200070837126'
+  name: Triofen Capsule
+  brand: Triofen
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '42.00'
+  selling_price: '42.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '35.4061'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Vitamin B Complex
+  strength: standard
+  dosage_form: Capsule
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 0.4341
+    q: 1.0
+    nb_size: 7.75
+    elasticity: 0.288
+    trend_pct_year: 18.26
+    event_jitter: 1.0
+- sku: MA-071
+  barcode: '2200071414961'
+  name: Vitapril 5
+  brand: Vitapril
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 20 tablets
+  tax: GST5
+  mrp: '26.00'
+  selling_price: '26.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '20.6132'
+  pack_size: 100
+  moq_units: 200
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Folic Acid
+  strength: 5 mg
+  dosage_form: Tablet
+  manufacturer: Aadhar Therapeutics
+  schedule_class: null
+  traits:
+    base_rate: 0.8221
+    q: 1.0
+    nb_size: 4.56
+    elasticity: 0.121
+    trend_pct_year: 13.3
+    event_jitter: 1.0
+- sku: MA-072
+  barcode: '2200072354846'
+  name: Vitacip 500
+  brand: Vitacip
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '112.00'
+  selling_price: '112.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '88.9719'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: 1
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Calcium and Vitamin D3
+  strength: 500 mg and 250 IU
+  dosage_form: Tablet
+  manufacturer: Lotus Wellness Labs
+  schedule_class: null
+  traits:
+    base_rate: 1.0168
+    q: 1.0
+    nb_size: 5.08
+    elasticity: 0.274
+    trend_pct_year: -10.86
+    event_jitter: 1.0
+- sku: MA-073
+  barcode: '2200073853674'
+  name: Fenztin 60000
+  brand: Fenztin
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 4 capsules
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '98.0914'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Cholecalciferol Vitamin D3
+  strength: 60000 IU
+  dosage_form: Capsule
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: null
+  traits:
+    base_rate: 0.7072
+    q: 1.0
+    nb_size: 6.08
+    elasticity: 0.28
+    trend_pct_year: 18.44
+    event_jitter: 1.0
+- sku: MA-074
+  barcode: '2200074343853'
+  name: Vitatin 400
+  brand: Vitatin
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '64.00'
+  selling_price: '64.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '54.9119'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Vitamin E
+  strength: 400 mg
+  dosage_form: Capsule
+  manufacturer: Medhavi Formulations
+  schedule_class: null
+  traits:
+    base_rate: 0.5142
+    q: 1.0
+    nb_size: 6.44
+    elasticity: 0.237
+    trend_pct_year: 12.01
+    event_jitter: 1.0
+- sku: MA-075
+  barcode: '2200075998386'
+  name: Zyrazine Tablet
+  brand: Zyrazine
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '148.00'
+  selling_price: '148.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '117.3940'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Multivitamin and Minerals
+  strength: standard
+  dosage_form: Tablet
+  manufacturer: Tejas Biotech
+  schedule_class: null
+  traits:
+    base_rate: 0.7828
+    q: 1.0
+    nb_size: 8.0
+    elasticity: 0.16
+    trend_pct_year: 5.17
+    event_jitter: 1.0
+- sku: MA-076
+  barcode: '2200076171420'
+  name: Vitazol 100
+  brand: Vitazol
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '54.00'
+  selling_price: '54.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '42.1252'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Iron and Folic Acid
+  strength: 100 mg and 0.5 mg
+  dosage_form: Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 0.7879
+    q: 1.0
+    nb_size: 3.11
+    elasticity: 0.279
+    trend_pct_year: 15.21
+    event_jitter: 1.0
+- sku: MA-077
+  barcode: '2200077423561'
+  name: Vigolin 5
+  brand: Vigolin
+  category: vitamins-supplements
+  base_unit: bottle
+  pack_label: 200 ml
+  tax: GST5
+  mrp: '145.00'
+  selling_price: '145.00'
+  is_batch_tracked: true
+  shelf_life_days: 540
+  supplier: S01
+  purchase_price: '119.7007'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Multivitamin Syrup
+  strength: per 5 ml
+  dosage_form: Syrup
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 0.8183
+    q: 1.0
+    nb_size: 7.91
+    elasticity: 0.264
+    trend_pct_year: -3.0
+    event_jitter: 1.0
+- sku: MA-078
+  barcode: '2200078962254'
+  name: Rovifen 1500
+  brand: Rovifen
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '128.00'
+  selling_price: '128.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '103.6973'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Methylcobalamin
+  strength: 1500 mcg
+  dosage_form: Tablet
+  manufacturer: Ridhi Pharmaceuticals
+  schedule_class: null
+  traits:
+    base_rate: 1.6917
+    q: 1.0
+    nb_size: 5.98
+    elasticity: 0.203
+    trend_pct_year: -13.7
+    event_jitter: 1.0
+- sku: MA-079
+  barcode: '2200079859938'
+  name: Triopan 500
+  brand: Triopan
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 15 tablets
+  tax: GST5
+  mrp: '38.00'
+  selling_price: '38.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '32.5824'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Vitamin C
+  strength: 500 mg
+  dosage_form: Chewable Tablet
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 0.982
+    q: 1.0
+    nb_size: 3.28
+    elasticity: 0.143
+    trend_pct_year: 12.52
+    event_jitter: 1.0
+- sku: MA-080
+  barcode: '2200080484548'
+  name: Novaflam 50
+  brand: Novaflam
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '49.9879'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: 2
+  min_stock_qty: 5
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Zinc
+  strength: 50 mg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: null
+  traits:
+    base_rate: 1.4087
+    q: 1.0
+    nb_size: 8.95
+    elasticity: 0.18
+    trend_pct_year: 4.81
+    event_jitter: 1.0
+- sku: MA-081
+  barcode: '2200081608930'
+  name: Arvizol 1000
+  brand: Arvizol
+  category: vitamins-supplements
+  base_unit: strip
+  pack_label: 10 capsules
+  tax: GST5
+  mrp: '178.00'
+  selling_price: '178.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '139.8679'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Omega 3 Fatty Acids
+  strength: 1000 mg
+  dosage_form: Capsule
+  manufacturer: Veda Lifesciences
+  schedule_class: null
+  traits:
+    base_rate: 0.5452
+    q: 1.0
+    nb_size: 7.73
+    elasticity: 0.257
+    trend_pct_year: 12.25
+    event_jitter: 1.0
+- sku: MA-082
+  barcode: '2200082266311'
+  name: Epicure 2
+  brand: Epicure
+  category: dermatology
+  base_unit: tube
+  pack_label: 10 g
+  tax: GST5
+  mrp: '168.00'
+  selling_price: '168.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '132.5316'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Fusidic Acid
+  strength: 2 percent
+  dosage_form: Cream
+  manufacturer: Sagar Health Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.5449
+    q: 0.8
+    nb_size: 9.43
+    elasticity: 0.18
+    trend_pct_year: -2.91
+    event_jitter: 1.0
+- sku: MA-083
+  barcode: '2200083452098'
+  name: Dermidex 1
+  brand: Dermidex
+  category: dermatology
+  base_unit: tube
+  pack_label: 10 g
+  tax: GST5
+  mrp: '112.00'
+  selling_price: '112.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '94.7463'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: 3
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Terbinafine
+  strength: 1 percent
+  dosage_form: Cream
+  manufacturer: Ridhi Pharmaceuticals
+  schedule_class: null
+  traits:
+    base_rate: 0.6827
+    q: 0.8
+    nb_size: 8.17
+    elasticity: 0.193
+    trend_pct_year: 2.78
+    event_jitter: 1.0
+- sku: MA-084
+  barcode: '2200084544099'
+  name: Dermifen Lotion
+  brand: Dermifen
+  category: dermatology
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '72.00'
+  selling_price: '72.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '63.2378'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Calamine
+  strength: per ml
+  dosage_form: Lotion
+  manufacturer: Tejas Biotech
+  schedule_class: null
+  traits:
+    base_rate: 0.6253
+    q: 0.8
+    nb_size: 8.92
+    elasticity: 0.19
+    trend_pct_year: -0.26
+    event_jitter: 1.0
+- sku: MA-085
+  barcode: '2200085909516'
+  name: Arvistat 5
+  brand: Arvistat
+  category: dermatology
+  base_unit: bottle
+  pack_label: 30 ml
+  tax: GST5
+  mrp: '145.00'
+  selling_price: '145.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '124.3074'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Permethrin
+  strength: 5 percent
+  dosage_form: Lotion
+  manufacturer: Ridhi Pharmaceuticals
+  schedule_class: null
+  traits:
+    base_rate: 0.7625
+    q: 0.8
+    nb_size: 9.57
+    elasticity: 0.156
+    trend_pct_year: 12.15
+    event_jitter: 1.0
+- sku: MA-086
+  barcode: '2200086368340'
+  name: Dermastat 0
+  brand: Dermastat
+  category: dermatology
+  base_unit: tube
+  pack_label: 15 g
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '96.5459'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Mometasone
+  strength: 0.1 percent
+  dosage_form: Cream
+  manufacturer: Tejas Biotech
+  schedule_class: H
+  traits:
+    base_rate: 0.9062
+    q: 0.8
+    nb_size: 5.23
+    elasticity: 0.202
+    trend_pct_year: 10.91
+    event_jitter: 1.0
+- sku: MA-087
+  barcode: '2200087853316'
+  name: Epifen 2
+  brand: Epifen
+  category: dermatology
+  base_unit: tube
+  pack_label: 20 g
+  tax: GST5
+  mrp: '132.00'
+  selling_price: '132.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S02
+  purchase_price: '107.5333'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Benzoyl Peroxide
+  strength: 2.5 percent
+  dosage_form: Gel
+  manufacturer: Medhavi Formulations
+  schedule_class: null
+  traits:
+    base_rate: 0.4359
+    q: 0.8
+    nb_size: 9.79
+    elasticity: 0.217
+    trend_pct_year: -0.74
+    event_jitter: 1.0
+- sku: MA-088
+  barcode: '2200088678988'
+  name: Mexavit 0
+  brand: Mexavit
+  category: dermatology
+  base_unit: tube
+  pack_label: 15 g
+  tax: GST5
+  mrp: '58.00'
+  selling_price: '58.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '50.6054'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Betamethasone
+  strength: 0.05 percent
+  dosage_form: Cream
+  manufacturer: Medhavi Formulations
+  schedule_class: H
+  traits:
+    base_rate: 1.48
+    q: 0.8
+    nb_size: 3.18
+    elasticity: 0.118
+    trend_pct_year: -13.22
+    event_jitter: 1.0
+- sku: MA-089
+  barcode: '2200089164327'
+  name: Cutisstat 1
+  brand: Cutisstat
+  category: dermatology
+  base_unit: tube
+  pack_label: 15 g
+  tax: GST5
+  mrp: '68.00'
+  selling_price: '68.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '55.8699'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Clotrimazole
+  strength: 1 percent
+  dosage_form: Cream
+  manufacturer: Sagar Health Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.4314
+    q: 0.8
+    nb_size: 9.39
+    elasticity: 0.176
+    trend_pct_year: -11.21
+    event_jitter: 1.0
+- sku: MA-090
+  barcode: '2200090887922'
+  name: Mexamax 0
+  brand: Mexamax
+  category: eye-ear-oral
+  base_unit: bottle
+  pack_label: 5 ml
+  tax: GST5
+  mrp: '88.00'
+  selling_price: '88.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '74.7206'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: 1
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Moxifloxacin
+  strength: 0.5 percent
+  dosage_form: Eye Drops
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 0.5877
+    q: 0.6
+    nb_size: 5.63
+    elasticity: 0.254
+    trend_pct_year: -8.16
+    event_jitter: 1.0
+- sku: MA-091
+  barcode: '2200091190217'
+  name: Mexalin Ear Drops
+  brand: Mexalin
+  category: eye-ear-oral
+  base_unit: bottle
+  pack_label: 10 ml
+  tax: GST5
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '67.0427'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Wax Softener
+  strength: standard
+  dosage_form: Ear Drops
+  manufacturer: Tejas Biotech
+  schedule_class: null
+  traits:
+    base_rate: 0.5644
+    q: 0.6
+    nb_size: 3.49
+    elasticity: 0.23
+    trend_pct_year: -2.27
+    event_jitter: 1.0
+- sku: MA-092
+  barcode: '2200092919929'
+  name: Orvamax 0
+  brand: Orvamax
+  category: eye-ear-oral
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '112.00'
+  selling_price: '112.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '89.2366'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Benzydamine
+  strength: 0.15 percent
+  dosage_form: Gargle
+  manufacturer: Ridhi Pharmaceuticals
+  schedule_class: null
+  traits:
+    base_rate: 0.317
+    q: 0.6
+    nb_size: 9.57
+    elasticity: 0.155
+    trend_pct_year: 13.59
+    event_jitter: 1.0
+- sku: MA-093
+  barcode: '2200093866973'
+  name: Teravit 0
+  brand: Teravit
+  category: eye-ear-oral
+  base_unit: bottle
+  pack_label: 10 ml
+  tax: GST5
+  mrp: '48.00'
+  selling_price: '48.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '38.6928'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ciprofloxacin
+  strength: 0.3 percent
+  dosage_form: Ear and Eye Drops
+  manufacturer: Orchid Vale Pharma
+  schedule_class: H
+  traits:
+    base_rate: 0.3925
+    q: 0.6
+    nb_size: 8.28
+    elasticity: 0.275
+    trend_pct_year: 7.95
+    event_jitter: 1.0
+- sku: MA-094
+  barcode: '2200094395465'
+  name: Kelocip 0
+  brand: Kelocip
+  category: eye-ear-oral
+  base_unit: bottle
+  pack_label: 10 ml
+  tax: GST5
+  mrp: '125.00'
+  selling_price: '125.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '102.8947'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Carboxymethylcellulose
+  strength: 0.5 percent
+  dosage_form: Eye Drops
+  manufacturer: Veda Lifesciences
+  schedule_class: null
+  traits:
+    base_rate: 0.489
+    q: 0.6
+    nb_size: 4.6
+    elasticity: 0.126
+    trend_pct_year: 2.17
+    event_jitter: 1.0
+- sku: MA-095
+  barcode: '2200095132158'
+  name: Rovipan 4
+  brand: Rovipan
+  category: first-aid-dressings
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '68.00'
+  selling_price: '68.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '53.7178'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Chloroxylenol Antiseptic
+  strength: 4.8 percent
+  dosage_form: Liquid
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 0.4861
+    q: 0.65
+    nb_size: 5.62
+    elasticity: 0.231
+    trend_pct_year: 0.66
+    event_jitter: 1.0
+- sku: MA-096
+  barcode: '2200096385021'
+  name: Lumifen 6
+  brand: Lumifen
+  category: first-aid-dressings
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '28.00'
+  selling_price: '28.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '23.2841'
+  pack_size: 100
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Hydrogen Peroxide
+  strength: 6 percent
+  dosage_form: Solution
+  manufacturer: Aadhar Therapeutics
+  schedule_class: null
+  traits:
+    base_rate: 1.0791
+    q: 0.65
+    nb_size: 5.34
+    elasticity: 0.102
+    trend_pct_year: -9.42
+    event_jitter: 1.0
+- sku: MA-097
+  barcode: '2200097113814'
+  name: Wellmark Elastic Knee Support medium
+  brand: Wellmark
+  category: first-aid-dressings
+  base_unit: pcs
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '285.00'
+  selling_price: '285.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S01
+  purchase_price: '236.7071'
+  pack_size: 1
+  moq_units: 1
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.384
+    q: 0.65
+    nb_size: 3.19
+    elasticity: 0.242
+    trend_pct_year: 3.3
+    event_jitter: 1.0
+- sku: MA-098
+  barcode: '2200098450711'
+  name: Orvasone Strips
+  brand: Orvasone
+  category: first-aid-dressings
+  base_unit: pack
+  pack_label: 10 pieces
+  tax: GST5
+  mrp: '28.00'
+  selling_price: '28.00'
+  is_batch_tracked: true
+  shelf_life_days: 1440
+  supplier: S01
+  purchase_price: '23.7833'
+  pack_size: 100
+  moq_units: 200
+  term_lead_time_days: 1
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Adhesive Bandage Strips
+  strength: standard
+  dosage_form: Strips
+  manufacturer: Aadhar Therapeutics
+  schedule_class: null
+  traits:
+    base_rate: 0.5094
+    q: 0.65
+    nb_size: 4.81
+    elasticity: 0.184
+    trend_pct_year: -1.65
+    event_jitter: 1.0
+- sku: MA-099
+  barcode: '2200099570633'
+  name: Zetatin 100
+  brand: Zetatin
+  category: first-aid-dressings
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST5
+  mrp: '48.00'
+  selling_price: '48.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S01
+  purchase_price: '41.8641'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: 3
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Absorbent Cotton
+  strength: 100 g
+  dosage_form: Roll
+  manufacturer: Sagar Health Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.7247
+    q: 0.65
+    nb_size: 8.56
+    elasticity: 0.277
+    trend_pct_year: -4.98
+    event_jitter: 1.0
+- sku: MA-100
+  barcode: '2200100151692'
+  name: Zyraflam 5
+  brand: Zyraflam
+  category: first-aid-dressings
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST5
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '71.2196'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Povidone Iodine
+  strength: 5 percent
+  dosage_form: Solution
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: null
+  traits:
+    base_rate: 0.1741
+    q: 0.65
+    nb_size: 8.27
+    elasticity: 0.121
+    trend_pct_year: -12.58
+    event_jitter: 1.0
+- sku: MA-101
+  barcode: '2200101387195'
+  name: Mexacure 6
+  brand: Mexacure
+  category: first-aid-dressings
+  base_unit: pcs
+  pack_label: 1 piece
+  tax: GST5
+  mrp: '55.00'
+  selling_price: '55.00'
+  is_batch_tracked: true
+  shelf_life_days: 1800
+  supplier: S01
+  purchase_price: '48.3688'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Crepe Bandage
+  strength: 6 cm
+  dosage_form: Bandage
+  manufacturer: Lotus Wellness Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.5411
+    q: 0.65
+    nb_size: 6.92
+    elasticity: 0.203
+    trend_pct_year: 0.21
+    event_jitter: 1.0
+- sku: MA-102
+  barcode: '2200102611651'
+  name: Lumitin 1
+  brand: Lumitin
+  category: first-aid-dressings
+  base_unit: tube
+  pack_label: 20 g
+  tax: GST5
+  mrp: '98.00'
+  selling_price: '98.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '77.4922'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Silver Sulfadiazine
+  strength: 1 percent
+  dosage_form: Cream
+  manufacturer: Lotus Wellness Labs
+  schedule_class: H
+  traits:
+    base_rate: 0.3974
+    q: 0.65
+    nb_size: 5.29
+    elasticity: 0.104
+    trend_pct_year: -4.2
+    event_jitter: 1.0
+- sku: MA-103
+  barcode: '2200103191301'
+  name: Orvatin Cream
+  brand: Orvatin
+  category: baby-care
+  base_unit: tube
+  pack_label: 50 g
+  tax: GST18
+  mrp: '145.00'
+  selling_price: '145.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S04
+  purchase_price: '123.1407'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: 1
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Zinc Oxide Rash Cream
+  strength: standard
+  dosage_form: Cream
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 0.3679
+    q: 0.85
+    nb_size: 4.54
+    elasticity: 0.276
+    trend_pct_year: -13.22
+    event_jitter: 1.0
+- sku: MA-104
+  barcode: '2200104416670'
+  name: Orvalex Oil
+  brand: Orvalex
+  category: baby-care
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST18
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S04
+  purchase_price: '96.0303'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Baby Massage Oil
+  strength: standard
+  dosage_form: Oil
+  manufacturer: Ridhi Pharmaceuticals
+  schedule_class: null
+  traits:
+    base_rate: 0.8959
+    q: 0.85
+    nb_size: 5.29
+    elasticity: 0.284
+    trend_pct_year: 15.84
+    event_jitter: 1.0
+- sku: MA-105
+  barcode: '2200105882900'
+  name: Wellmark Baby Wipes
+  brand: Wellmark
+  category: baby-care
+  base_unit: pack
+  pack_label: 72 pieces
+  tax: GST18
+  mrp: '185.00'
+  selling_price: '185.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '146.8739'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.459
+    q: 0.85
+    nb_size: 4.11
+    elasticity: 0.137
+    trend_pct_year: 6.62
+    event_jitter: 1.0
+- sku: MA-106
+  barcode: '2200106137171'
+  name: Aarogya Select Baby Diapers medium
+  brand: Aarogya Select
+  category: baby-care
+  base_unit: pack
+  pack_label: 20 pieces
+  tax: GST5
+  mrp: '299.00'
+  selling_price: '299.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '246.6197'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.423
+    q: 0.85
+    nb_size: 5.96
+    elasticity: 0.181
+    trend_pct_year: 1.86
+    event_jitter: 1.0
+- sku: MA-107
+  barcode: '2200107337336'
+  name: Kelocet Liquid
+  brand: Kelocet
+  category: baby-care
+  base_unit: bottle
+  pack_label: 60 ml
+  tax: GST5
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S04
+  purchase_price: '53.6409'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Gripe Water
+  strength: standard
+  dosage_form: Liquid
+  manufacturer: Tejas Biotech
+  schedule_class: null
+  traits:
+    base_rate: 1.7679
+    q: 0.85
+    nb_size: 6.21
+    elasticity: 0.188
+    trend_pct_year: -6.89
+    event_jitter: 1.0
+- sku: MA-108
+  barcode: '2200108744866'
+  name: Mexastat 40
+  brand: Mexastat
+  category: baby-care
+  base_unit: bottle
+  pack_label: 15 ml
+  tax: GST5
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S04
+  purchase_price: '68.6271'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Simethicone Infant
+  strength: 40 mg per ml
+  dosage_form: Drops
+  manufacturer: Sagar Health Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.5675
+    q: 0.85
+    nb_size: 7.45
+    elasticity: 0.149
+    trend_pct_year: -2.87
+    event_jitter: 1.0
+- sku: MA-109
+  barcode: '2200109678071'
+  name: Healo Sanitary Pads regular
+  brand: Healo
+  category: womens-health
+  base_unit: pack
+  pack_label: 20 pieces
+  tax: GST0
+  mrp: '120.00'
+  selling_price: '120.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '99.6500'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.3821
+    q: 0.9
+    nb_size: 8.89
+    elasticity: 0.19
+    trend_pct_year: 0.03
+    event_jitter: 1.0
+- sku: MA-110
+  barcode: '2200110210612'
+  name: Novazol Tablet
+  brand: Novazol
+  category: womens-health
+  base_unit: strip
+  pack_label: 30 tablets
+  tax: GST5
+  mrp: '185.00'
+  selling_price: '185.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S04
+  purchase_price: '154.6040'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: 3
+  min_stock_qty: 1
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Iron Supplement for Women
+  strength: standard
+  dosage_form: Tablet
+  manufacturer: Kalpavriksh Remedies
+  schedule_class: null
+  traits:
+    base_rate: 0.3303
+    q: 0.9
+    nb_size: 4.43
+    elasticity: 0.296
+    trend_pct_year: -7.36
+    event_jitter: 1.0
+- sku: MA-111
+  barcode: '2200111981132'
+  name: Zetasone Liquid
+  brand: Zetasone
+  category: womens-health
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST18
+  mrp: '165.00'
+  selling_price: '165.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S04
+  purchase_price: '144.1976'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: 3
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: drug
+  generic_name: Intimate Wash
+  strength: standard
+  dosage_form: Liquid
+  manufacturer: Aadhar Therapeutics
+  schedule_class: null
+  traits:
+    base_rate: 0.9694
+    q: 0.9
+    nb_size: 4.52
+    elasticity: 0.237
+    trend_pct_year: 16.27
+    event_jitter: 1.0
+- sku: MA-112
+  barcode: '2200112256074'
+  name: Nirogi Panty Liners
+  brand: Nirogi
+  category: womens-health
+  base_unit: pack
+  pack_label: 40 pieces
+  tax: GST0
+  mrp: '95.00'
+  selling_price: '95.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '80.2709'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.5038
+    q: 0.9
+    nb_size: 9.24
+    elasticity: 0.268
+    trend_pct_year: 18.58
+    event_jitter: 1.0
+- sku: MA-113
+  barcode: '2200113293264'
+  name: Healo Digital Thermometer
+  brand: Healo
+  category: devices-diagnostics
+  base_unit: pcs
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '185.00'
+  selling_price: '185.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '155.7996'
+  pack_size: 1
+  moq_units: 1
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.1123
+    q: 0.4
+    nb_size: 8.04
+    elasticity: 0.274
+    trend_pct_year: -8.59
+    event_jitter: 1.0
+- sku: MA-114
+  barcode: '2200114228761'
+  name: Nirogi Nebuliser Machine compressor
+  brand: Nirogi
+  category: devices-diagnostics
+  base_unit: box
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '2150.00'
+  selling_price: '2150.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '1866.7992'
+  pack_size: 1
+  moq_units: 1
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.0768
+    q: 0.4
+    nb_size: 8.5
+    elasticity: 0.165
+    trend_pct_year: 9.34
+    event_jitter: 1.0
+- sku: MA-115
+  barcode: '2200115320740'
+  name: Aarogya Select Pulse Oximeter fingertip
+  brand: Aarogya Select
+  category: devices-diagnostics
+  base_unit: pcs
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '999.00'
+  selling_price: '999.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '787.4246'
+  pack_size: 1
+  moq_units: 2
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.057
+    q: 0.4
+    nb_size: 4.66
+    elasticity: 0.151
+    trend_pct_year: 15.14
+    event_jitter: 1.0
+- sku: MA-116
+  barcode: '2200116444707'
+  name: Healo Hot Water Bag
+  brand: Healo
+  category: devices-diagnostics
+  base_unit: pcs
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '240.00'
+  selling_price: '240.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '208.6531'
+  pack_size: 1
+  moq_units: 2
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.1323
+    q: 0.4
+    nb_size: 3.61
+    elasticity: 0.277
+    trend_pct_year: -8.65
+    event_jitter: 1.0
+- sku: MA-117
+  barcode: '2200117728708'
+  name: Sehat Plus Blood Glucose Meter
+  brand: Sehat Plus
+  category: devices-diagnostics
+  base_unit: box
+  pack_label: 1 kit
+  tax: GST18
+  mrp: '899.00'
+  selling_price: '899.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '718.4319'
+  pack_size: 1
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.0564
+    q: 0.4
+    nb_size: 5.01
+    elasticity: 0.103
+    trend_pct_year: -10.49
+    event_jitter: 1.0
+- sku: MA-118
+  barcode: '2200118270696'
+  name: Healo Digital Blood Pressure Monitor upper arm
+  brand: Healo
+  category: devices-diagnostics
+  base_unit: box
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '1850.00'
+  selling_price: '1850.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '1592.8238'
+  pack_size: 1
+  moq_units: 2
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.0485
+    q: 0.4
+    nb_size: 7.78
+    elasticity: 0.293
+    trend_pct_year: -5.12
+    event_jitter: 1.0
+- sku: MA-119
+  barcode: '2200119187241'
+  name: Nirogi Lancets
+  brand: Nirogi
+  category: devices-diagnostics
+  base_unit: box
+  pack_label: 100 pieces
+  tax: GST18
+  mrp: '160.00'
+  selling_price: '160.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S04
+  purchase_price: '138.9391'
+  pack_size: 1
+  moq_units: 1
+  term_lead_time_days: 1
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.0661
+    q: 0.4
+    nb_size: 6.15
+    elasticity: 0.174
+    trend_pct_year: -11.95
+    event_jitter: 1.0
+- sku: MA-120
+  barcode: '2200120142792'
+  name: Sehat Plus Steam Vaporiser
+  brand: Sehat Plus
+  category: devices-diagnostics
+  base_unit: box
+  pack_label: 1 piece
+  tax: GST18
+  mrp: '580.00'
+  selling_price: '580.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S04
+  purchase_price: '476.6627'
+  pack_size: 1
+  moq_units: 2
+  term_lead_time_days: 3
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: device
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.0407
+    q: 0.4
+    nb_size: 9.78
+    elasticity: 0.245
+    trend_pct_year: 6.1
+    event_jitter: 1.0
+- sku: MA-121
+  barcode: '2200121492744'
+  name: Kelotin Tablet
+  brand: Kelotin
+  category: ors-hydration
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '98.00'
+  selling_price: '98.00'
+  is_batch_tracked: true
+  shelf_life_days: 540
+  supplier: S01
+  purchase_price: '79.7711'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Electrolyte Effervescent Tablets
+  strength: standard
+  dosage_form: Tablet
+  manufacturer: Orchid Vale Pharma
+  schedule_class: null
+  traits:
+    base_rate: 0.6597
+    q: 0.9
+    nb_size: 9.97
+    elasticity: 0.254
+    trend_pct_year: 12.96
+    event_jitter: 1.0
+- sku: MA-122
+  barcode: '2200122825288'
+  name: Curo Glucose Powder
+  brand: Curo
+  category: ors-hydration
+  base_unit: pack
+  pack_label: 450 g
+  tax: GST18
+  mrp: '110.00'
+  selling_price: '110.00'
+  is_batch_tracked: true
+  shelf_life_days: 540
+  supplier: S01
+  purchase_price: '91.1314'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.7679
+    q: 0.9
+    nb_size: 5.08
+    elasticity: 0.148
+    trend_pct_year: -9.62
+    event_jitter: 1.0
+- sku: MA-123
+  barcode: '2200123646148'
+  name: Venocure Powder
+  brand: Venocure
+  category: ors-hydration
+  base_unit: sachet
+  pack_label: 21 g sachet
+  tax: GST5
+  mrp: '21.00'
+  selling_price: '21.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '18.0125'
+  pack_size: 100
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Oral Rehydration Salts
+  strength: WHO formula
+  dosage_form: Powder
+  manufacturer: Suvidha Drugs
+  schedule_class: null
+  traits:
+    base_rate: 0.3207
+    q: 0.9
+    nb_size: 8.54
+    elasticity: 0.199
+    trend_pct_year: -4.2
+    event_jitter: 1.0
+- sku: MA-124
+  barcode: '2200124598522'
+  name: Curo Lemon Electrolyte Drink ready to drink
+  brand: Curo
+  category: ors-hydration
+  base_unit: bottle
+  pack_label: 250 ml
+  tax: GST18
+  mrp: '45.00'
+  selling_price: '45.00'
+  is_batch_tracked: true
+  shelf_life_days: 270
+  supplier: S01
+  purchase_price: '36.3190'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.5208
+    q: 0.9
+    nb_size: 3.45
+    elasticity: 0.169
+    trend_pct_year: 1.67
+    event_jitter: 1.0
+- sku: MA-125
+  barcode: '2200125532916'
+  name: Roviral Balm
+  brand: Roviral
+  category: pain-relief-topicals
+  base_unit: tube
+  pack_label: 50 g
+  tax: GST18
+  mrp: '96.00'
+  selling_price: '96.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '80.6589'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Methyl Salicylate Balm
+  strength: standard
+  dosage_form: Balm
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 0.7382
+    q: 0.8
+    nb_size: 4.1
+    elasticity: 0.131
+    trend_pct_year: 5.42
+    event_jitter: 1.0
+- sku: MA-126
+  barcode: '2200126901366'
+  name: Venolex Rub
+  brand: Venolex
+  category: pain-relief-topicals
+  base_unit: bottle
+  pack_label: 20 ml
+  tax: GST18
+  mrp: '78.00'
+  selling_price: '78.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '67.0744'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Menthol Rub
+  strength: standard
+  dosage_form: Rub
+  manufacturer: Nirmal Pharma Works
+  schedule_class: null
+  traits:
+    base_rate: 0.2111
+    q: 0.8
+    nb_size: 9.0
+    elasticity: 0.286
+    trend_pct_year: 0.8
+    event_jitter: 1.0
+- sku: MA-127
+  barcode: '2200127262875'
+  name: Teralex Cream
+  brand: Teralex
+  category: pain-relief-topicals
+  base_unit: tube
+  pack_label: 30 g
+  tax: GST18
+  mrp: '125.00'
+  selling_price: '125.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '101.1514'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Muscle Relaxant Cream
+  strength: standard
+  dosage_form: Cream
+  manufacturer: Medhavi Formulations
+  schedule_class: null
+  traits:
+    base_rate: 0.64
+    q: 0.8
+    nb_size: 3.21
+    elasticity: 0.225
+    trend_pct_year: 14.53
+    event_jitter: 1.0
+- sku: MA-128
+  barcode: '2200128317614'
+  name: Mexazol Spray
+  brand: Mexazol
+  category: pain-relief-topicals
+  base_unit: bottle
+  pack_label: 55 g
+  tax: GST18
+  mrp: '185.00'
+  selling_price: '185.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '145.0655'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Pain Relief Spray
+  strength: standard
+  dosage_form: Spray
+  manufacturer: Lotus Wellness Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.4694
+    q: 0.8
+    nb_size: 4.14
+    elasticity: 0.169
+    trend_pct_year: -10.37
+    event_jitter: 1.0
+- sku: MA-129
+  barcode: '2200129988263'
+  name: Lumiral 5
+  brand: Lumiral
+  category: pain-relief-topicals
+  base_unit: tube
+  pack_label: 30 g
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S02
+  purchase_price: '99.2765'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: drug
+  generic_name: Ibuprofen Gel
+  strength: 5 percent
+  dosage_form: Gel
+  manufacturer: Sagar Health Labs
+  schedule_class: null
+  traits:
+    base_rate: 0.4825
+    q: 0.8
+    nb_size: 8.23
+    elasticity: 0.157
+    trend_pct_year: 3.12
+    event_jitter: 1.0
+- sku: MA-130
+  barcode: '2200130826102'
+  name: Novasone 25
+  brand: Novasone
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 100 tablets
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S03
+  purchase_price: '92.7211'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: 3
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Levothyroxine
+  strength: 25 mcg
+  dosage_form: Tablet
+  manufacturer: Veda Lifesciences
+  schedule_class: H
+  traits:
+    base_rate: 0.9231
+    q: 1.0
+    nb_size: 6.04
+    elasticity: 0.276
+    trend_pct_year: 12.05
+    event_jitter: 1.0
+- sku: MA-131
+  barcode: '2200131909939'
+  name: Mexacet 100
+  brand: Mexacet
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '22.00'
+  selling_price: '22.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '18.7989'
+  pack_size: 100
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Allopurinol
+  strength: 100 mg
+  dosage_form: Tablet
+  manufacturer: Veda Lifesciences
+  schedule_class: H
+  traits:
+    base_rate: 1.5343
+    q: 1.0
+    nb_size: 8.61
+    elasticity: 0.107
+    trend_pct_year: -9.57
+    event_jitter: 1.0
+- sku: MA-132
+  barcode: '2200132608730'
+  name: Kelopan 70
+  brand: Kelopan
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 4 tablets
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '93.1237'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Alendronate
+  strength: 70 mg
+  dosage_form: Tablet
+  manufacturer: Lotus Wellness Labs
+  schedule_class: H
+  traits:
+    base_rate: 1.1627
+    q: 1.0
+    nb_size: 8.93
+    elasticity: 0.117
+    trend_pct_year: -7.68
+    event_jitter: 1.0
+- sku: MA-133
+  barcode: '2200133833941'
+  name: Fenzzol 100
+  brand: Fenzzol
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 100 tablets
+  tax: GST5
+  mrp: '192.00'
+  selling_price: '192.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S03
+  purchase_price: '159.5539'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Levothyroxine
+  strength: 100 mcg
+  dosage_form: Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 1.5302
+    q: 1.0
+    nb_size: 4.01
+    elasticity: 0.147
+    trend_pct_year: 7.8
+    event_jitter: 1.0
+- sku: MA-134
+  barcode: '2200134146550'
+  name: Zyracure 40
+  brand: Zyracure
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 10 tablets
+  tax: GST5
+  mrp: '142.00'
+  selling_price: '142.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '112.4026'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Febuxostat
+  strength: 40 mg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: H
+  traits:
+    base_rate: 2.3538
+    q: 1.0
+    nb_size: 6.55
+    elasticity: 0.167
+    trend_pct_year: -5.26
+    event_jitter: 1.0
+- sku: MA-135
+  barcode: '2200135994855'
+  name: Teravir 50
+  brand: Teravir
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 100 tablets
+  tax: GST5
+  mrp: '142.00'
+  selling_price: '142.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S03
+  purchase_price: '119.9552'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: 2
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Levothyroxine
+  strength: 50 mcg
+  dosage_form: Tablet
+  manufacturer: Pranav Remedies
+  schedule_class: H
+  traits:
+    base_rate: 0.5846
+    q: 1.0
+    nb_size: 7.88
+    elasticity: 0.154
+    trend_pct_year: -11.06
+    event_jitter: 1.0
+- sku: MA-136
+  barcode: '2200136845383'
+  name: Kelodex 5
+  brand: Kelodex
+  category: thyroid-chronic
+  base_unit: strip
+  pack_label: 30 tablets
+  tax: GST5
+  mrp: '92.00'
+  selling_price: '92.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S03
+  purchase_price: '78.0592'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: true
+  item_tag: drug
+  generic_name: Carbimazole
+  strength: 5 mg
+  dosage_form: Tablet
+  manufacturer: Suvidha Drugs
+  schedule_class: H
+  traits:
+    base_rate: 0.574
+    q: 1.0
+    nb_size: 6.57
+    elasticity: 0.131
+    trend_pct_year: -10.1
+    event_jitter: 1.0
+- sku: MA-137
+  barcode: '2200137993888'
+  name: Nirogi Disinfectant Liquid
+  brand: Nirogi
+  category: hygiene-sanitisers
+  base_unit: bottle
+  pack_label: 250 ml
+  tax: GST18
+  mrp: '120.00'
+  selling_price: '120.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '93.7515'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.9711
+    q: 0.85
+    nb_size: 4.7
+    elasticity: 0.207
+    trend_pct_year: 9.32
+    event_jitter: 1.0
+- sku: MA-138
+  barcode: '2200138855599'
+  name: Curo Hand Sanitiser alcohol based
+  brand: Curo
+  category: hygiene-sanitisers
+  base_unit: bottle
+  pack_label: 100 ml
+  tax: GST18
+  mrp: '58.00'
+  selling_price: '58.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S01
+  purchase_price: '48.4975'
+  pack_size: 100
+  moq_units: 100
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.3234
+    q: 0.85
+    nb_size: 7.48
+    elasticity: 0.195
+    trend_pct_year: -2.28
+    event_jitter: 1.0
+- sku: MA-139
+  barcode: '2200139850351'
+  name: Sehat Plus Hand Wash Liquid antibacterial
+  brand: Sehat Plus
+  category: hygiene-sanitisers
+  base_unit: bottle
+  pack_label: 200 ml
+  tax: GST18
+  mrp: '78.00'
+  selling_price: '78.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S01
+  purchase_price: '64.8088'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 1.2061
+    q: 0.85
+    nb_size: 5.68
+    elasticity: 0.127
+    trend_pct_year: 5.53
+    event_jitter: 1.0
+- sku: MA-140
+  barcode: '2200140608391'
+  name: Healo Surgical Face Masks 3 ply
+  brand: Healo
+  category: hygiene-sanitisers
+  base_unit: pack
+  pack_label: 10 pieces
+  tax: GST5
+  mrp: '45.00'
+  selling_price: '45.00'
+  is_batch_tracked: false
+  shelf_life_days: null
+  supplier: S01
+  purchase_price: '36.5652'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: personal
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.5777
+    q: 0.85
+    nb_size: 8.75
+    elasticity: 0.118
+    trend_pct_year: 15.59
+    event_jitter: 1.0
+- sku: MA-141
+  barcode: '2200141705153'
+  name: Sehat Plus Giloy 500 mg
+  brand: Sehat Plus
+  category: ayurvedic-wellness
+  base_unit: bottle
+  pack_label: 60 tablets
+  tax: GST5
+  mrp: '165.00'
+  selling_price: '165.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S05
+  purchase_price: '142.3973'
+  pack_size: 50
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: ayur
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.3339
+    q: 0.8
+    nb_size: 5.42
+    elasticity: 0.284
+    trend_pct_year: 3.31
+    event_jitter: 1.0
+- sku: MA-142
+  barcode: '2200142189468'
+  name: Healo Tulsi Drops
+  brand: Healo
+  category: ayurvedic-wellness
+  base_unit: bottle
+  pack_label: 30 ml
+  tax: GST5
+  mrp: '120.00'
+  selling_price: '120.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S05
+  purchase_price: '104.6415'
+  pack_size: 50
+  moq_units: 100
+  term_lead_time_days: 3
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: ayur
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.4087
+    q: 0.8
+    nb_size: 8.47
+    elasticity: 0.248
+    trend_pct_year: -8.76
+    event_jitter: 1.0
+- sku: MA-143
+  barcode: '2200143127606'
+  name: Wellmark Triphala Churna
+  brand: Wellmark
+  category: ayurvedic-wellness
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST5
+  mrp: '88.00'
+  selling_price: '88.00'
+  is_batch_tracked: true
+  shelf_life_days: 720
+  supplier: S05
+  purchase_price: '72.4283'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: 3
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: ayur
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 1.1773
+    q: 0.8
+    nb_size: 8.19
+    elasticity: 0.202
+    trend_pct_year: -7.91
+    event_jitter: 1.0
+- sku: MA-144
+  barcode: '2200144602686'
+  name: Sehat Plus Ashwagandha 500 mg
+  brand: Sehat Plus
+  category: ayurvedic-wellness
+  base_unit: bottle
+  pack_label: 60 tablets
+  tax: GST5
+  mrp: '245.00'
+  selling_price: '245.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S05
+  purchase_price: '212.4381'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: ayur
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.2835
+    q: 0.8
+    nb_size: 9.13
+    elasticity: 0.228
+    trend_pct_year: 10.87
+    event_jitter: 1.0
+- sku: MA-145
+  barcode: '2200145486459'
+  name: Curo Amla Juice
+  brand: Curo
+  category: ayurvedic-wellness
+  base_unit: bottle
+  pack_label: 1 l
+  tax: GST5
+  mrp: '285.00'
+  selling_price: '285.00'
+  is_batch_tracked: true
+  shelf_life_days: 360
+  supplier: S05
+  purchase_price: '244.3783'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: ayur
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.1641
+    q: 0.8
+    nb_size: 7.26
+    elasticity: 0.19
+    trend_pct_year: -11.97
+    event_jitter: 1.0
+- sku: MA-146
+  barcode: '2200146736218'
+  name: Sehat Plus Sugar Free Multigrain Biscuits
+  brand: Sehat Plus
+  category: nutrition-diabetic-foods
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST18
+  mrp: '78.00'
+  selling_price: '78.00'
+  is_batch_tracked: true
+  shelf_life_days: 180
+  supplier: S05
+  purchase_price: '61.3142'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.7787
+    q: 0.8
+    nb_size: 8.4
+    elasticity: 0.176
+    trend_pct_year: -0.09
+    event_jitter: 1.0
+- sku: MA-147
+  barcode: '2200147399341'
+  name: Sehat Plus Diabetic Nutrition Powder vanilla
+  brand: Sehat Plus
+  category: nutrition-diabetic-foods
+  base_unit: pack
+  pack_label: 400 g
+  tax: GST18
+  mrp: '685.00'
+  selling_price: '685.00'
+  is_batch_tracked: true
+  shelf_life_days: 540
+  supplier: S05
+  purchase_price: '559.6092'
+  pack_size: 10
+  moq_units: 10
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: false
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.2008
+    q: 0.8
+    nb_size: 4.51
+    elasticity: 0.171
+    trend_pct_year: -7.78
+    event_jitter: 1.0
+- sku: MA-148
+  barcode: '2200148428166'
+  name: Aarogya Select Sugar Free Sweetener tablets
+  brand: Aarogya Select
+  category: nutrition-diabetic-foods
+  base_unit: box
+  pack_label: 100 tablets
+  tax: GST18
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 1080
+  supplier: S05
+  purchase_price: '96.6665'
+  pack_size: 50
+  moq_units: 50
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.3685
+    q: 0.8
+    nb_size: 4.47
+    elasticity: 0.114
+    trend_pct_year: -6.62
+    event_jitter: 1.0
+- sku: MA-149
+  barcode: '2200149928477'
+  name: Sehat Plus Protein Powder chocolate
+  brand: Sehat Plus
+  category: nutrition-diabetic-foods
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST18
+  mrp: '585.00'
+  selling_price: '585.00'
+  is_batch_tracked: true
+  shelf_life_days: 540
+  supplier: S05
+  purchase_price: '493.9044'
+  pack_size: 10
+  moq_units: 20
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.3485
+    q: 0.8
+    nb_size: 5.41
+    elasticity: 0.291
+    trend_pct_year: -9.44
+    event_jitter: 1.0
+- sku: MA-150
+  barcode: '2200150299589'
+  name: Aarogya Select Rolled Oats
+  brand: Aarogya Select
+  category: nutrition-diabetic-foods
+  base_unit: pack
+  pack_label: 400 g
+  tax: GST5
+  mrp: '112.00'
+  selling_price: '112.00'
+  is_batch_tracked: true
+  shelf_life_days: 270
+  supplier: S05
+  purchase_price: '97.1163'
+  pack_size: 10
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: food
+  generic_name: null
+  strength: null
+  dosage_form: null
+  manufacturer: null
+  schedule_class: null
+  traits:
+    base_rate: 0.639
+    q: 0.8
+    nb_size: 4.0
+    elasticity: 0.25
+    trend_pct_year: 17.38
+    event_jitter: 1.0

@@ -1,0 +1,2813 @@
+tenant: fmcg_a
+note: Synthetic catalogue. Brands, businesses and prices are fictional.
+gst_note: GST slab mapping is representative only and is not tax advice.
+suppliers:
+- code: S01
+  name: Om Sai Staples Wholesale
+  contact_name: Bhaskar Gadgil
+  payment_terms_days: 15
+  default_lead_time_days: 1
+  delivery_weekdays:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  order_weekdays:
+  - 1
+  - 2
+  min_order_value: '7800.00'
+  credit_limit: '240000.00'
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: 9
+  delay_prob: 0.129
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.935
+  categories:
+  - atta-rice-grains
+  - pulses-dal
+  - sugar-salt-jaggery
+  - spices-masalas
+  planted: null
+- code: S02
+  name: Kundan Oil and Ghee Distributors
+  contact_name: Prakash Naik
+  payment_terms_days: 21
+  default_lead_time_days: 4
+  delivery_weekdays:
+  - 1
+  - 3
+  - 4
+  - 5
+  order_weekdays:
+  - 1
+  min_order_value: '8700.00'
+  credit_limit: '71000.00'
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: 15
+  delay_prob: 0.231
+  delay_days_min: 1
+  delay_days_max: 3
+  fill_rate: 0.903
+  categories:
+  - edible-oils-ghee
+  planted: null
+- code: S03
+  name: Priya Biscuit and Snack Agency
+  contact_name: Meena Sawant
+  payment_terms_days: 0
+  default_lead_time_days: 2
+  delivery_weekdays:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 6
+  order_weekdays:
+  - 1
+  min_order_value: '3400.00'
+  credit_limit: '65000.00'
+  accepts_expiry_returns: true
+  expiry_return_window_days: 90
+  return_window_days: 11
+  delay_prob: 0.094
+  delay_days_min: 1
+  delay_days_max: 4
+  fill_rate: 0.928
+  categories:
+  - biscuits-cookies
+  - namkeen-snacks
+  - chocolates-sweets
+  - packaged-foods
+  planted: null
+- code: S04
+  name: Shubh Beverage Distributors
+  contact_name: Rohit Phadke
+  payment_terms_days: 7
+  default_lead_time_days: 3
+  delivery_weekdays:
+  - 2
+  - 4
+  order_weekdays:
+  - 4
+  min_order_value: '8400.00'
+  credit_limit: '72000.00'
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: 5
+  delay_prob: 0.2
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.939
+  categories:
+  - beverages
+  - tea-coffee
+  - dairy-eggs
+  planted: null
+- code: S05
+  name: Navkar Personal and Home Care Distributors
+  contact_name: Jayesh Shah
+  payment_terms_days: 7
+  default_lead_time_days: 1
+  delivery_weekdays:
+  - 1
+  - 3
+  - 4
+  order_weekdays:
+  - 1
+  - 4
+  min_order_value: '8500.00'
+  credit_limit: '66000.00'
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: 5
+  delay_prob: 0.238
+  delay_days_min: 1
+  delay_days_max: 3
+  fill_rate: 0.941
+  categories:
+  - personal-care
+  - home-care
+  - baby-misc
+  planted: null
+- code: S06
+  name: Mehta Dry Fruits and Puja Traders
+  contact_name: Hitesh Mehta
+  payment_terms_days: 21
+  default_lead_time_days: 1
+  delivery_weekdays:
+  - 3
+  - 6
+  order_weekdays:
+  - 3
+  - 6
+  min_order_value: '3700.00'
+  credit_limit: '164000.00'
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: 11
+  delay_prob: 0.134
+  delay_days_min: 1
+  delay_days_max: 3
+  fill_rate: 0.919
+  categories:
+  - dry-fruits
+  - festival-puja
+  planted: null
+- code: S07
+  name: Walk-in Cash Vendor
+  contact_name: Counter purchase
+  payment_terms_days: 0
+  default_lead_time_days: null
+  delivery_weekdays:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  order_weekdays:
+  - 3
+  min_order_value: null
+  credit_limit: null
+  accepts_expiry_returns: false
+  expiry_return_window_days: null
+  return_window_days: null
+  delay_prob: 0.1
+  delay_days_min: 1
+  delay_days_max: 2
+  fill_rate: 0.98
+  categories: []
+  planted: cash_vendor
+categories:
+- slug: atta-rice-grains
+  name: Atta, rice and grains
+  position: 0
+- slug: pulses-dal
+  name: Pulses and dal
+  position: 1
+- slug: edible-oils-ghee
+  name: Edible oils and ghee
+  position: 2
+- slug: sugar-salt-jaggery
+  name: Sugar, salt and jaggery
+  position: 3
+- slug: spices-masalas
+  name: Spices and masalas
+  position: 4
+- slug: tea-coffee
+  name: Tea and coffee
+  position: 5
+- slug: biscuits-cookies
+  name: Biscuits and cookies
+  position: 6
+- slug: namkeen-snacks
+  name: Namkeen and snacks
+  position: 7
+- slug: chocolates-sweets
+  name: Chocolates and sweets
+  position: 8
+- slug: dry-fruits
+  name: Dry fruits
+  position: 9
+- slug: beverages
+  name: Beverages
+  position: 10
+- slug: packaged-foods
+  name: Packaged foods
+  position: 11
+- slug: dairy-eggs
+  name: Dairy and eggs (packaged)
+  position: 12
+- slug: personal-care
+  name: Personal care
+  position: 13
+- slug: home-care
+  name: Home care
+  position: 14
+- slug: festival-puja
+  name: Festival and puja items
+  position: 15
+- slug: baby-misc
+  name: Baby and misc
+  position: 16
+products:
+- sku: FA-001
+  barcode: '2000001737906'
+  name: Kisanvadi Bajra Atta 1 kg
+  brand: Kisanvadi
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '60.00'
+  selling_price: '60.00'
+  is_batch_tracked: false
+  shelf_life_days: 361
+  supplier: S01
+  purchase_price: '54.1306'
+  pack_size: 12
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 9
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 4.4364
+    q: 1.0
+    nb_size: 10.42
+    elasticity: 0.24
+    trend_pct_year: -2.26
+    event_jitter: 1.031
+- sku: FA-002
+  barcode: '2000002122602'
+  name: Anaj Ghar Sooji Rava 500 g
+  brand: Anaj Ghar
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '38.00'
+  selling_price: '38.00'
+  is_batch_tracked: false
+  shelf_life_days: 293
+  supplier: S01
+  purchase_price: '34.6260'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 12
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 5.6607
+    q: 1.0
+    nb_size: 7.84
+    elasticity: 0.36
+    trend_pct_year: 7.26
+    event_jitter: 1.133
+- sku: FA-003
+  barcode: '2000003956220'
+  name: Sunheri Multigrain Atta 1 kg
+  brand: Sunheri
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST5
+  mrp: '74.00'
+  selling_price: '74.00'
+  is_batch_tracked: false
+  shelf_life_days: 233
+  supplier: S01
+  purchase_price: '67.2174'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: 3
+  min_stock_qty: 11
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 5.3625
+    q: 1.0
+    nb_size: 5.04
+    elasticity: 0.236
+    trend_pct_year: -2.33
+    event_jitter: 1.102
+- sku: FA-004
+  barcode: '2000004394773'
+  name: Ojasvi Basmati Rice 1 kg
+  brand: Ojasvi
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '142.00'
+  selling_price: '142.00'
+  is_batch_tracked: false
+  shelf_life_days: 286
+  supplier: S01
+  purchase_price: '126.5370'
+  pack_size: 1
+  moq_units: 1
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.1421
+    q: 1.0
+    nb_size: 4.68
+    elasticity: 0.297
+    trend_pct_year: -10.07
+    event_jitter: 0.933
+- sku: FA-005
+  barcode: '2000005711197'
+  name: Pavitra Mill Jowar Atta 1 kg
+  brand: Pavitra Mill
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '66.00'
+  selling_price: '66.00'
+  is_batch_tracked: false
+  shelf_life_days: 296
+  supplier: S01
+  purchase_price: '59.5145'
+  pack_size: 12
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.5355
+    q: 1.0
+    nb_size: 9.34
+    elasticity: 0.28
+    trend_pct_year: 0.63
+    event_jitter: 1.113
+- sku: FA-006
+  barcode: '2000006975783'
+  name: Madhuvan Maida 500 g
+  brand: Madhuvan
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '29.00'
+  selling_price: '29.00'
+  is_batch_tracked: false
+  shelf_life_days: 306
+  supplier: S01
+  purchase_price: '25.8654'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: 3
+  min_stock_qty: 13
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 6.154
+    q: 1.0
+    nb_size: 7.42
+    elasticity: 0.224
+    trend_pct_year: -13.52
+    event_jitter: 1.021
+- sku: FA-007
+  barcode: '2000007706774'
+  name: Haritkund Idli Rice 1 kg
+  brand: Haritkund
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '64.00'
+  selling_price: '64.00'
+  is_batch_tracked: false
+  shelf_life_days: 271
+  supplier: S01
+  purchase_price: '57.4465'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.178
+    q: 1.0
+    nb_size: 4.22
+    elasticity: 0.263
+    trend_pct_year: 2.24
+    event_jitter: 0.882
+- sku: FA-008
+  barcode: '2000008520534'
+  name: Pavitra Mill Rice Flour 1 kg
+  brand: Pavitra Mill
+  category: atta-rice-grains
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '64.00'
+  selling_price: '64.00'
+  is_batch_tracked: false
+  shelf_life_days: 250
+  supplier: S01
+  purchase_price: '58.6322'
+  pack_size: 24
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 3.8986
+    q: 1.0
+    nb_size: 9.78
+    elasticity: 0.203
+    trend_pct_year: -12.52
+    event_jitter: 0.888
+- sku: FA-009
+  barcode: '2000009862808'
+  name: Anaj Ghar Toor Dal 500 g
+  brand: Anaj Ghar
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '96.00'
+  selling_price: '96.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '85.0754'
+  pack_size: 5
+  moq_units: 15
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.6506
+    q: 1.0
+    nb_size: 7.34
+    elasticity: 0.335
+    trend_pct_year: -3.52
+    event_jitter: 0.989
+- sku: FA-010
+  barcode: '2000010341626'
+  name: Anaj Ghar Chana Dal 500 g
+  brand: Anaj Ghar
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '56.2791'
+  pack_size: 24
+  moq_units: 48
+  term_lead_time_days: null
+  min_stock_qty: 10
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 4.8461
+    q: 1.0
+    nb_size: 6.98
+    elasticity: 0.306
+    trend_pct_year: -5.02
+    event_jitter: 0.978
+- sku: FA-011
+  barcode: '2000011564529'
+  name: Sunheri Moong Dal Yellow 1 kg
+  brand: Sunheri
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '158.00'
+  selling_price: '158.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '141.3753'
+  pack_size: 5
+  moq_units: 5
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.7712
+    q: 1.0
+    nb_size: 10.86
+    elasticity: 0.311
+    trend_pct_year: -14.51
+    event_jitter: 1.02
+- sku: FA-012
+  barcode: '2000012810223'
+  name: Haritkund Urad Dal Split 1 kg
+  brand: Haritkund
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '166.00'
+  selling_price: '166.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '148.4290'
+  pack_size: 5
+  moq_units: 5
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.321
+    q: 1.0
+    nb_size: 4.8
+    elasticity: 0.282
+    trend_pct_year: -5.42
+    event_jitter: 1.083
+- sku: FA-013
+  barcode: '2000013524390'
+  name: Haritkund Black Chana 1 kg
+  brand: Haritkund
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '110.00'
+  selling_price: '110.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '100.6772'
+  pack_size: 5
+  moq_units: 15
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.0889
+    q: 1.0
+    nb_size: 10.41
+    elasticity: 0.388
+    trend_pct_year: 5.86
+    event_jitter: 0.879
+- sku: FA-014
+  barcode: '2000014692751'
+  name: Madhuvan Green Moong Whole 500 g
+  brand: Madhuvan
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '73.6353'
+  pack_size: 6
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.2718
+    q: 1.0
+    nb_size: 9.12
+    elasticity: 0.277
+    trend_pct_year: -8.99
+    event_jitter: 1.057
+- sku: FA-015
+  barcode: '2000015259312'
+  name: Tilvan Matki Moth Beans 500 g
+  brand: Tilvan
+  category: pulses-dal
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '72.00'
+  selling_price: '72.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '63.5551'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: 2
+  min_stock_qty: 9
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 4.3716
+    q: 1.0
+    nb_size: 5.92
+    elasticity: 0.371
+    trend_pct_year: -8.65
+    event_jitter: 0.937
+- sku: FA-016
+  barcode: '2000016587551'
+  name: Sudhan Gold Soybean Oil 5 l
+  brand: Sudhan Gold
+  category: edible-oils-ghee
+  base_unit: tin
+  pack_label: 5 l
+  tax: GST5
+  mrp: '690.00'
+  selling_price: '690.00'
+  is_batch_tracked: false
+  shelf_life_days: 348
+  supplier: S02
+  purchase_price: '617.2962'
+  pack_size: 1
+  moq_units: 2
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: oil
+  traits:
+    base_rate: 0.7211
+    q: 0.6
+    nb_size: 8.42
+    elasticity: 0.45
+    trend_pct_year: 13.8
+    event_jitter: 0.93
+- sku: FA-017
+  barcode: '2000017926727'
+  name: Surmai Sunflower Oil 1 l
+  brand: Surmai
+  category: edible-oils-ghee
+  base_unit: pouch
+  pack_label: 1 l
+  tax: GST5
+  mrp: '158.00'
+  selling_price: '158.00'
+  is_batch_tracked: false
+  shelf_life_days: 296
+  supplier: S02
+  purchase_price: '141.7262'
+  pack_size: 12
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: oil
+  traits:
+    base_rate: 1.8108
+    q: 1.0
+    nb_size: 10.35
+    elasticity: 0.278
+    trend_pct_year: -9.01
+    event_jitter: 1.148
+- sku: FA-018
+  barcode: '2000018810524'
+  name: Kesaria Cow Ghee 200 ml
+  brand: Kesaria
+  category: edible-oils-ghee
+  base_unit: bottle
+  pack_label: 200 ml
+  tax: GST5
+  mrp: '162.00'
+  selling_price: '162.00'
+  is_batch_tracked: false
+  shelf_life_days: 317
+  supplier: S02
+  purchase_price: '144.7914'
+  pack_size: 6
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: true
+  chronic: false
+  item_tag: ghee
+  traits:
+    base_rate: 3.4897
+    q: 1.0
+    nb_size: 6.05
+    elasticity: 0.26
+    trend_pct_year: -1.59
+    event_jitter: 1.071
+- sku: FA-019
+  barcode: '2000019180659'
+  name: Ghani Pure Sesame Oil 500 ml
+  brand: Ghani Pure
+  category: edible-oils-ghee
+  base_unit: bottle
+  pack_label: 500 ml
+  tax: GST5
+  mrp: '238.00'
+  selling_price: '238.00'
+  is_batch_tracked: false
+  shelf_life_days: 318
+  supplier: S02
+  purchase_price: '217.9482'
+  pack_size: 4
+  moq_units: 8
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: oil
+  traits:
+    base_rate: 1.398
+    q: 1.0
+    nb_size: 10.08
+    elasticity: 0.285
+    trend_pct_year: -6.75
+    event_jitter: 0.966
+- sku: FA-020
+  barcode: '2000020741623'
+  name: Kesaria Mustard Oil 500 ml
+  brand: Kesaria
+  category: edible-oils-ghee
+  base_unit: bottle
+  pack_label: 500 ml
+  tax: GST5
+  mrp: '94.00'
+  selling_price: '94.00'
+  is_batch_tracked: false
+  shelf_life_days: 341
+  supplier: S02
+  purchase_price: '86.3737'
+  pack_size: 6
+  moq_units: 18
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: oil
+  traits:
+    base_rate: 2.5948
+    q: 1.0
+    nb_size: 9.26
+    elasticity: 0.487
+    trend_pct_year: 7.66
+    event_jitter: 1.147
+- sku: FA-021
+  barcode: '2000021518587'
+  name: Tilvan Brown Sugar 500 g
+  brand: Tilvan
+  category: sugar-salt-jaggery
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '58.00'
+  selling_price: '58.00'
+  is_batch_tracked: false
+  shelf_life_days: 372
+  supplier: S01
+  purchase_price: '53.8262'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 12
+  is_seasonal: true
+  chronic: false
+  item_tag: sugar
+  traits:
+    base_rate: 5.8039
+    q: 1.0
+    nb_size: 8.37
+    elasticity: 0.207
+    trend_pct_year: -1.27
+    event_jitter: 1.098
+- sku: FA-022
+  barcode: '2000022881762'
+  name: Kisanvadi Iodised Salt 1 kg
+  brand: Kisanvadi
+  category: sugar-salt-jaggery
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '26.00'
+  selling_price: '26.00'
+  is_batch_tracked: false
+  shelf_life_days: 650
+  supplier: S01
+  purchase_price: '23.9188'
+  pack_size: 48
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: true
+  chronic: false
+  item_tag: salt
+  traits:
+    base_rate: 3.2272
+    q: 1.0
+    nb_size: 8.98
+    elasticity: 0.375
+    trend_pct_year: 19.23
+    event_jitter: 1.078
+- sku: FA-023
+  barcode: '2000023369255'
+  name: Pavitra Mill Jaggery Block 1 kg
+  brand: Pavitra Mill
+  category: sugar-salt-jaggery
+  base_unit: pack
+  pack_label: 1 kg
+  tax: GST0
+  mrp: '88.00'
+  selling_price: '88.00'
+  is_batch_tracked: false
+  shelf_life_days: 484
+  supplier: S01
+  purchase_price: '81.1920'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: true
+  chronic: false
+  item_tag: jaggery
+  traits:
+    base_rate: 3.5541
+    q: 1.0
+    nb_size: 7.81
+    elasticity: 0.389
+    trend_pct_year: -11.9
+    event_jitter: 0.945
+- sku: FA-024
+  barcode: '2000024634555'
+  name: Sunheri Jaggery Powder 500 g
+  brand: Sunheri
+  category: sugar-salt-jaggery
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST0
+  mrp: '64.00'
+  selling_price: '64.00'
+  is_batch_tracked: false
+  shelf_life_days: 470
+  supplier: S01
+  purchase_price: '58.6716'
+  pack_size: 24
+  moq_units: 48
+  term_lead_time_days: 2
+  min_stock_qty: 9
+  is_seasonal: true
+  chronic: false
+  item_tag: jaggery
+  traits:
+    base_rate: 4.1142
+    q: 1.0
+    nb_size: 4.01
+    elasticity: 0.25
+    trend_pct_year: -6.6
+    event_jitter: 1.093
+- sku: FA-025
+  barcode: '2000025151210'
+  name: Sunheri Kashmiri Chilli Powder 100 g
+  brand: Sunheri
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST5
+  mrp: '84.00'
+  selling_price: '84.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '70.1602'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: 3
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 3.1949
+    q: 1.0
+    nb_size: 9.06
+    elasticity: 0.329
+    trend_pct_year: -8.52
+    event_jitter: 1.048
+- sku: FA-026
+  barcode: '2000026834921'
+  name: Pavitra Mill Red Chilli Powder 200 g
+  brand: Pavitra Mill
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '82.00'
+  selling_price: '82.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '68.3711'
+  pack_size: 6
+  moq_units: 18
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.6337
+    q: 1.0
+    nb_size: 9.42
+    elasticity: 0.466
+    trend_pct_year: 1.89
+    event_jitter: 0.947
+- sku: FA-027
+  barcode: '2000027739000'
+  name: Madhuvan Chaat Masala 50 g
+  brand: Madhuvan
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 50 g
+  tax: GST5
+  mrp: '36.00'
+  selling_price: '36.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '31.4194'
+  pack_size: 24
+  moq_units: 48
+  term_lead_time_days: 2
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.3765
+    q: 1.0
+    nb_size: 9.98
+    elasticity: 0.584
+    trend_pct_year: 13.1
+    event_jitter: 0.917
+- sku: FA-028
+  barcode: '2000028690535'
+  name: Ojasvi Coriander Powder 200 g
+  brand: Ojasvi
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '60.00'
+  selling_price: '60.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '52.2234'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.9717
+    q: 1.0
+    nb_size: 5.5
+    elasticity: 0.542
+    trend_pct_year: -12.04
+    event_jitter: 0.952
+- sku: FA-029
+  barcode: '2000029895657'
+  name: Madhuvan Turmeric Powder 200 g
+  brand: Madhuvan
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '72.00'
+  selling_price: '72.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '63.5348'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.0723
+    q: 1.0
+    nb_size: 4.92
+    elasticity: 0.595
+    trend_pct_year: -6.61
+    event_jitter: 0.999
+- sku: FA-030
+  barcode: '2000030253713'
+  name: Haritkund Cumin Seeds 200 g
+  brand: Haritkund
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '104.00'
+  selling_price: '104.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '91.7453'
+  pack_size: 12
+  moq_units: 36
+  term_lead_time_days: null
+  min_stock_qty: 7
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 3.4562
+    q: 1.0
+    nb_size: 11.95
+    elasticity: 0.342
+    trend_pct_year: 7.88
+    event_jitter: 1.014
+- sku: FA-031
+  barcode: '2000031929206'
+  name: Anaj Ghar Black Pepper 50 g
+  brand: Anaj Ghar
+  category: spices-masalas
+  base_unit: pack
+  pack_label: 50 g
+  tax: GST5
+  mrp: '68.00'
+  selling_price: '68.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S01
+  purchase_price: '60.9676'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.6072
+    q: 1.0
+    nb_size: 9.0
+    elasticity: 0.39
+    trend_pct_year: 7.83
+    event_jitter: 1.056
+- sku: FA-032
+  barcode: '2000032596957'
+  name: Ojasvi Premium Leaf Tea 500 g
+  brand: Ojasvi
+  category: tea-coffee
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '325.00'
+  selling_price: '325.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S04
+  purchase_price: '276.9028'
+  pack_size: 4
+  moq_units: 8
+  term_lead_time_days: 4
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.0542
+    q: 1.0
+    nb_size: 5.91
+    elasticity: 0.495
+    trend_pct_year: -2.5
+    event_jitter: 0.92
+- sku: FA-033
+  barcode: '2000033561809'
+  name: Tilvan Ginger Tea Premix 10 sachets
+  brand: Tilvan
+  category: tea-coffee
+  base_unit: box
+  pack_label: 10 sachets
+  tax: GST5
+  mrp: '98.00'
+  selling_price: '98.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S04
+  purchase_price: '86.3718'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.7915
+    q: 1.0
+    nb_size: 9.03
+    elasticity: 0.698
+    trend_pct_year: -13.95
+    event_jitter: 1.136
+- sku: FA-034
+  barcode: '2000034137343'
+  name: Anaj Ghar Tea Dust Strong 250 g
+  brand: Anaj Ghar
+  category: tea-coffee
+  base_unit: pack
+  pack_label: 250 g
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S04
+  purchase_price: '102.9450'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.9123
+    q: 1.0
+    nb_size: 9.94
+    elasticity: 0.449
+    trend_pct_year: 8.84
+    event_jitter: 1.149
+- sku: FA-035
+  barcode: '2000035574700'
+  name: Ojasvi Filter Coffee Blend 500 g
+  brand: Ojasvi
+  category: tea-coffee
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '410.00'
+  selling_price: '410.00'
+  is_batch_tracked: false
+  shelf_life_days: 365
+  supplier: S04
+  purchase_price: '349.9607'
+  pack_size: 6
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.213
+    q: 1.0
+    nb_size: 5.76
+    elasticity: 0.534
+    trend_pct_year: -9.37
+    event_jitter: 1.102
+- sku: FA-036
+  barcode: '2000036725853'
+  name: Crumbly Glucose Biscuits 100 g
+  brand: Crumbly
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST18
+  mrp: '10.00'
+  selling_price: '10.00'
+  is_batch_tracked: true
+  shelf_life_days: 262
+  supplier: S03
+  purchase_price: '8.3434'
+  pack_size: 24
+  moq_units: 72
+  term_lead_time_days: null
+  min_stock_qty: 11
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 5.3074
+    q: 1.0
+    nb_size: 4.43
+    elasticity: 0.952
+    trend_pct_year: 5.12
+    event_jitter: 1.142
+- sku: FA-037
+  barcode: '2000037649136'
+  name: Crispo Digestive Biscuits 500 g
+  brand: Crispo
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST18
+  mrp: '160.00'
+  selling_price: '160.00'
+  is_batch_tracked: true
+  shelf_life_days: 204
+  supplier: S03
+  purchase_price: '134.8662'
+  pack_size: 6
+  moq_units: 18
+  term_lead_time_days: null
+  min_stock_qty: 13
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 6.3715
+    q: 1.0
+    nb_size: 11.34
+    elasticity: 1.255
+    trend_pct_year: 11.99
+    event_jitter: 1.074
+- sku: FA-038
+  barcode: '2000038731321'
+  name: Bitezy Chocolate Cream Biscuits 100 g
+  brand: Bitezy
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST18
+  mrp: '25.00'
+  selling_price: '25.00'
+  is_batch_tracked: true
+  shelf_life_days: 269
+  supplier: S03
+  purchase_price: '21.2128'
+  pack_size: 48
+  moq_units: 96
+  term_lead_time_days: null
+  min_stock_qty: 33
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 16.3283
+    q: 1.0
+    nb_size: 5.62
+    elasticity: 0.958
+    trend_pct_year: 13.62
+    event_jitter: 0.999
+- sku: FA-039
+  barcode: '2000039417989'
+  name: Munchli Salted Crackers 100 g
+  brand: Munchli
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST18
+  mrp: '20.00'
+  selling_price: '20.00'
+  is_batch_tracked: true
+  shelf_life_days: 195
+  supplier: S03
+  purchase_price: '17.1744'
+  pack_size: 24
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 14
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 6.9975
+    q: 1.0
+    nb_size: 11.33
+    elasticity: 1.341
+    trend_pct_year: 19.87
+    event_jitter: 1.005
+- sku: FA-040
+  barcode: '2000040654989'
+  name: Tasty Tarang Cream Biscuits 100 g
+  brand: Tasty Tarang
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST18
+  mrp: '20.00'
+  selling_price: '20.00'
+  is_batch_tracked: true
+  shelf_life_days: 211
+  supplier: S03
+  purchase_price: '17.6998'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 22
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 10.5109
+    q: 1.0
+    nb_size: 9.98
+    elasticity: 1.562
+    trend_pct_year: 14.28
+    event_jitter: 0.901
+- sku: FA-041
+  barcode: '2000041445487'
+  name: Zaika Ghar Oat Cookies 150 g
+  brand: Zaika Ghar
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 150 g
+  tax: GST18
+  mrp: '70.00'
+  selling_price: '70.00'
+  is_batch_tracked: true
+  shelf_life_days: 242
+  supplier: S03
+  purchase_price: '59.1448'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 21
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 10.119
+    q: 1.0
+    nb_size: 4.01
+    elasticity: 0.965
+    trend_pct_year: 19.91
+    event_jitter: 0.881
+- sku: FA-042
+  barcode: '2000042616826'
+  name: Crumbly Marie Biscuits 150 g
+  brand: Crumbly
+  category: biscuits-cookies
+  base_unit: pack
+  pack_label: 150 g
+  tax: GST18
+  mrp: '25.00'
+  selling_price: '25.00'
+  is_batch_tracked: true
+  shelf_life_days: 269
+  supplier: S03
+  purchase_price: '20.5124'
+  pack_size: 48
+  moq_units: 48
+  term_lead_time_days: null
+  min_stock_qty: 29
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 14.2893
+    q: 1.0
+    nb_size: 8.23
+    elasticity: 0.961
+    trend_pct_year: 9.82
+    event_jitter: 0.984
+- sku: FA-043
+  barcode: '2000043319024'
+  name: Crumbly Bhel Mix 150 g
+  brand: Crumbly
+  category: namkeen-snacks
+  base_unit: pack
+  pack_label: 150 g
+  tax: GST5
+  mrp: '35.00'
+  selling_price: '35.00'
+  is_batch_tracked: true
+  shelf_life_days: 114
+  supplier: S03
+  purchase_price: '29.2429'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 11
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 5.3548
+    q: 1.0
+    nb_size: 8.23
+    elasticity: 0.922
+    trend_pct_year: 5.74
+    event_jitter: 1.134
+- sku: FA-044
+  barcode: '2000044605577'
+  name: Crumbly Aloo Bhujia 200 g
+  brand: Crumbly
+  category: namkeen-snacks
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '55.00'
+  selling_price: '55.00'
+  is_batch_tracked: true
+  shelf_life_days: 148
+  supplier: S03
+  purchase_price: '46.5665'
+  pack_size: 24
+  moq_units: 72
+  term_lead_time_days: null
+  min_stock_qty: 18
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 8.9888
+    q: 1.0
+    nb_size: 9.15
+    elasticity: 1.333
+    trend_pct_year: 14.68
+    event_jitter: 0.989
+- sku: FA-045
+  barcode: '2000045177499'
+  name: Munchli Potato Chips Salted 52 g
+  brand: Munchli
+  category: namkeen-snacks
+  base_unit: pack
+  pack_label: 52 g
+  tax: GST5
+  mrp: '20.00'
+  selling_price: '20.00'
+  is_batch_tracked: true
+  shelf_life_days: 131
+  supplier: S03
+  purchase_price: '17.2899'
+  pack_size: 48
+  moq_units: 0
+  term_lead_time_days: 1
+  min_stock_qty: 17
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 8.2783
+    q: 1.0
+    nb_size: 8.29
+    elasticity: 1.503
+    trend_pct_year: -9.24
+    event_jitter: 0.863
+- sku: FA-046
+  barcode: '2000046824799'
+  name: Bitezy Farsan Mix 400 g
+  brand: Bitezy
+  category: namkeen-snacks
+  base_unit: pack
+  pack_label: 400 g
+  tax: GST5
+  mrp: '118.00'
+  selling_price: '118.00'
+  is_batch_tracked: true
+  shelf_life_days: 173
+  supplier: S03
+  purchase_price: '95.7164'
+  pack_size: 6
+  moq_units: 18
+  term_lead_time_days: 3
+  min_stock_qty: 7
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 3.4361
+    q: 1.0
+    nb_size: 6.33
+    elasticity: 1.235
+    trend_pct_year: 1.03
+    event_jitter: 0.948
+- sku: FA-047
+  barcode: '2000047974378'
+  name: Tasty Tarang Moong Dal Namkeen 40 g
+  brand: Tasty Tarang
+  category: namkeen-snacks
+  base_unit: pack
+  pack_label: 40 g
+  tax: GST5
+  mrp: '10.00'
+  selling_price: '10.00'
+  is_batch_tracked: true
+  shelf_life_days: 169
+  supplier: S03
+  purchase_price: '8.7339'
+  pack_size: 24
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.7953
+    q: 1.0
+    nb_size: 8.2
+    elasticity: 1.343
+    trend_pct_year: 18.64
+    event_jitter: 1.129
+- sku: FA-048
+  barcode: '2000048731618'
+  name: Tasty Tarang Banana Chips 100 g
+  brand: Tasty Tarang
+  category: namkeen-snacks
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST5
+  mrp: '42.00'
+  selling_price: '42.00'
+  is_batch_tracked: true
+  shelf_life_days: 101
+  supplier: S03
+  purchase_price: '36.1972'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: 1
+  min_stock_qty: 16
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 7.5886
+    q: 1.0
+    nb_size: 5.8
+    elasticity: 1.317
+    trend_pct_year: 8.87
+    event_jitter: 1.063
+- sku: FA-049
+  barcode: '2000049573011'
+  name: Meva Mahal Fruit Gums 50 g
+  brand: Meva Mahal
+  category: chocolates-sweets
+  base_unit: pack
+  pack_label: 50 g
+  tax: GST18
+  mrp: '20.00'
+  selling_price: '20.00'
+  is_batch_tracked: false
+  shelf_life_days: 326
+  supplier: S03
+  purchase_price: '16.2574'
+  pack_size: 24
+  moq_units: 48
+  term_lead_time_days: null
+  min_stock_qty: 24
+  is_seasonal: false
+  chronic: false
+  item_tag: candy
+  traits:
+    base_rate: 11.6812
+    q: 1.0
+    nb_size: 6.73
+    elasticity: 1.436
+    trend_pct_year: -11.97
+    event_jitter: 0.982
+- sku: FA-050
+  barcode: '2000050749584'
+  name: Kaju Kunj Toffee Jar 100 pcs
+  brand: Kaju Kunj
+  category: chocolates-sweets
+  base_unit: box
+  pack_label: 100 pcs
+  tax: GST18
+  mrp: '120.00'
+  selling_price: '120.00'
+  is_batch_tracked: false
+  shelf_life_days: 204
+  supplier: S03
+  purchase_price: '96.3244'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: candy
+  traits:
+    base_rate: 1.8195
+    q: 1.0
+    nb_size: 11.62
+    elasticity: 0.922
+    trend_pct_year: 3.14
+    event_jitter: 1.098
+- sku: FA-051
+  barcode: '2000051513612'
+  name: Sweet Tarang Soan Papdi 250 g
+  brand: Sweet Tarang
+  category: chocolates-sweets
+  base_unit: box
+  pack_label: 250 g
+  tax: GST5
+  mrp: '130.00'
+  selling_price: '130.00'
+  is_batch_tracked: false
+  shelf_life_days: 305
+  supplier: S03
+  purchase_price: '104.2769'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: 2
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: mithai
+  traits:
+    base_rate: 2.8462
+    q: 1.0
+    nb_size: 7.55
+    elasticity: 1.386
+    trend_pct_year: 17.04
+    event_jitter: 0.978
+- sku: FA-052
+  barcode: '2000052417979'
+  name: Nutaro Dark Chocolate 100 g
+  brand: Nutaro
+  category: chocolates-sweets
+  base_unit: pcs
+  pack_label: 100 g
+  tax: GST18
+  mrp: '170.00'
+  selling_price: '170.00'
+  is_batch_tracked: false
+  shelf_life_days: 229
+  supplier: S03
+  purchase_price: '140.0361'
+  pack_size: 12
+  moq_units: 36
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: choco
+  traits:
+    base_rate: 1.1367
+    q: 1.0
+    nb_size: 7.85
+    elasticity: 1.545
+    trend_pct_year: -6.54
+    event_jitter: 0.919
+- sku: FA-053
+  barcode: '2000053453712'
+  name: Madhura Almonds 200 g
+  brand: Madhura
+  category: dry-fruits
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '240.00'
+  selling_price: '240.00'
+  is_batch_tracked: true
+  shelf_life_days: 164
+  supplier: S06
+  purchase_price: '204.0000'
+  pack_size: 4
+  moq_units: 4
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 0.4223
+    q: 0.8
+    nb_size: 5.44
+    elasticity: 1.398
+    trend_pct_year: 14.39
+    event_jitter: 1.149
+- sku: FA-054
+  barcode: '2000054654916'
+  name: Sweet Tarang Walnut Kernels 500 g
+  brand: Sweet Tarang
+  category: dry-fruits
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '690.00'
+  selling_price: '690.00'
+  is_batch_tracked: true
+  shelf_life_days: 169
+  supplier: S06
+  purchase_price: '586.5000'
+  pack_size: 1
+  moq_units: 2
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 0.4938
+    q: 0.8
+    nb_size: 10.89
+    elasticity: 0.953
+    trend_pct_year: 19.37
+    event_jitter: 1.097
+- sku: FA-055
+  barcode: '2000055385928'
+  name: Madhura Figs Dried 200 g
+  brand: Madhura
+  category: dry-fruits
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '260.00'
+  selling_price: '260.00'
+  is_batch_tracked: true
+  shelf_life_days: 162
+  supplier: S06
+  purchase_price: '221.0000'
+  pack_size: 4
+  moq_units: 4
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.8312
+    q: 0.8
+    nb_size: 5.76
+    elasticity: 0.929
+    trend_pct_year: 0.73
+    event_jitter: 0.877
+- sku: FA-056
+  barcode: '2000056571672'
+  name: Nutaro Cashew Whole 500 g
+  brand: Nutaro
+  category: dry-fruits
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '510.00'
+  selling_price: '510.00'
+  is_batch_tracked: true
+  shelf_life_days: 151
+  supplier: S06
+  purchase_price: '433.5000'
+  pack_size: 2
+  moq_units: 4
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 0.4814
+    q: 0.8
+    nb_size: 8.42
+    elasticity: 1.179
+    trend_pct_year: 5.54
+    event_jitter: 1.13
+- sku: FA-057
+  barcode: '2000057682818'
+  name: Fruitoo Mango Drink 200 ml
+  brand: Fruitoo
+  category: beverages
+  base_unit: pack
+  pack_label: 200 ml
+  tax: GST18
+  mrp: '10.00'
+  selling_price: '10.00'
+  is_batch_tracked: false
+  shelf_life_days: 264
+  supplier: S04
+  purchase_price: '8.9052'
+  pack_size: 48
+  moq_units: 144
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: juice
+  traits:
+    base_rate: 2.9084
+    q: 1.0
+    nb_size: 9.44
+    elasticity: 1.156
+    trend_pct_year: 11.96
+    event_jitter: 1.052
+- sku: FA-058
+  barcode: '2000058380562'
+  name: Zingo Mixed Fruit Juice 1 l
+  brand: Zingo
+  category: beverages
+  base_unit: pack
+  pack_label: 1 l
+  tax: GST5
+  mrp: '120.00'
+  selling_price: '120.00'
+  is_batch_tracked: false
+  shelf_life_days: 96
+  supplier: S04
+  purchase_price: '101.6631'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: true
+  chronic: false
+  item_tag: juice
+  traits:
+    base_rate: 2.5225
+    q: 1.0
+    nb_size: 11.23
+    elasticity: 1.134
+    trend_pct_year: -2.21
+    event_jitter: 0.929
+- sku: FA-059
+  barcode: '2000059826524'
+  name: Sip Raja Cola Soft Drink 600 ml
+  brand: Sip Raja
+  category: beverages
+  base_unit: bottle
+  pack_label: 600 ml
+  tax: GST40
+  mrp: '40.00'
+  selling_price: '40.00'
+  is_batch_tracked: false
+  shelf_life_days: 243
+  supplier: S04
+  purchase_price: '33.1116'
+  pack_size: 24
+  moq_units: 24
+  term_lead_time_days: 4
+  min_stock_qty: 16
+  is_seasonal: true
+  chronic: false
+  item_tag: soda
+  traits:
+    base_rate: 7.7539
+    q: 1.0
+    nb_size: 6.77
+    elasticity: 1.378
+    trend_pct_year: -11.31
+    event_jitter: 1.077
+- sku: FA-060
+  barcode: '2000060283726'
+  name: Fruitoo Buttermilk Spiced 200 ml
+  brand: Fruitoo
+  category: beverages
+  base_unit: pack
+  pack_label: 200 ml
+  tax: GST5
+  mrp: '15.00'
+  selling_price: '15.00'
+  is_batch_tracked: false
+  shelf_life_days: 104
+  supplier: S04
+  purchase_price: '12.5454'
+  pack_size: 24
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 42
+  is_seasonal: true
+  chronic: false
+  item_tag: juice
+  traits:
+    base_rate: 20.8121
+    q: 1.0
+    nb_size: 9.12
+    elasticity: 0.912
+    trend_pct_year: 18.3
+    event_jitter: 1.113
+- sku: FA-061
+  barcode: '2000061716238'
+  name: Tropi Gold Lemon Soda Drink 2 l
+  brand: Tropi Gold
+  category: beverages
+  base_unit: bottle
+  pack_label: 2 l
+  tax: GST40
+  mrp: '95.00'
+  selling_price: '95.00'
+  is_batch_tracked: false
+  shelf_life_days: 259
+  supplier: S04
+  purchase_price: '85.4211'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: true
+  chronic: false
+  item_tag: soda
+  traits:
+    base_rate: 3.7391
+    q: 1.0
+    nb_size: 6.98
+    elasticity: 0.835
+    trend_pct_year: 17.33
+    event_jitter: 1.055
+- sku: FA-062
+  barcode: '2000062488223'
+  name: Aqua Nirmal Orange Fruit Drink 1 l
+  brand: Aqua Nirmal
+  category: beverages
+  base_unit: pack
+  pack_label: 1 l
+  tax: GST18
+  mrp: '95.00'
+  selling_price: '95.00'
+  is_batch_tracked: false
+  shelf_life_days: 136
+  supplier: S04
+  purchase_price: '78.7580'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: juice
+  traits:
+    base_rate: 1.392
+    q: 1.0
+    nb_size: 11.69
+    elasticity: 1.41
+    trend_pct_year: 12.13
+    event_jitter: 0.893
+- sku: FA-063
+  barcode: '2000063512305'
+  name: Gharkul Masala Oats 200 g
+  brand: Gharkul
+  category: packaged-foods
+  base_unit: pack
+  pack_label: 200 g
+  tax: GST5
+  mrp: '70.00'
+  selling_price: '70.00'
+  is_batch_tracked: true
+  shelf_life_days: 268
+  supplier: S03
+  purchase_price: '58.7420'
+  pack_size: 12
+  moq_units: 36
+  term_lead_time_days: null
+  min_stock_qty: 10
+  is_seasonal: false
+  chronic: false
+  item_tag: cereal
+  traits:
+    base_rate: 4.613
+    q: 1.0
+    nb_size: 5.89
+    elasticity: 1.172
+    trend_pct_year: -14.34
+    event_jitter: 1.017
+- sku: FA-064
+  barcode: '2000064718037'
+  name: Gharkul Pickle Mango 500 g
+  brand: Gharkul
+  category: packaged-foods
+  base_unit: bottle
+  pack_label: 500 g
+  tax: GST5
+  mrp: '150.00'
+  selling_price: '150.00'
+  is_batch_tracked: true
+  shelf_life_days: 209
+  supplier: S03
+  purchase_price: '132.1237'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: 3
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: sauce
+  traits:
+    base_rate: 1.5986
+    q: 1.0
+    nb_size: 9.36
+    elasticity: 0.973
+    trend_pct_year: 9.33
+    event_jitter: 0.947
+- sku: FA-065
+  barcode: '2000065641068'
+  name: Easy Bite Ready Poha Mix 180 g
+  brand: Easy Bite
+  category: packaged-foods
+  base_unit: pack
+  pack_label: 180 g
+  tax: GST5
+  mrp: '60.00'
+  selling_price: '60.00'
+  is_batch_tracked: true
+  shelf_life_days: 343
+  supplier: S03
+  purchase_price: '51.0229'
+  pack_size: 12
+  moq_units: 36
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: mix
+  traits:
+    base_rate: 1.6295
+    q: 1.0
+    nb_size: 10.3
+    elasticity: 1.168
+    trend_pct_year: 2.12
+    event_jitter: 1.114
+- sku: FA-066
+  barcode: '2000066373854'
+  name: Gharkul Tomato Ketchup 500 g
+  brand: Gharkul
+  category: packaged-foods
+  base_unit: bottle
+  pack_label: 500 g
+  tax: GST5
+  mrp: '128.00'
+  selling_price: '128.00'
+  is_batch_tracked: true
+  shelf_life_days: 227
+  supplier: S03
+  purchase_price: '106.0572'
+  pack_size: 12
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: sauce
+  traits:
+    base_rate: 2.4182
+    q: 1.0
+    nb_size: 10.28
+    elasticity: 0.796
+    trend_pct_year: 16.57
+    event_jitter: 1.142
+- sku: FA-067
+  barcode: '2000067123786'
+  name: Gharkul Instant Noodles 560 g
+  brand: Gharkul
+  category: packaged-foods
+  base_unit: pack
+  pack_label: 560 g
+  tax: GST5
+  mrp: '108.00'
+  selling_price: '108.00'
+  is_batch_tracked: true
+  shelf_life_days: 280
+  supplier: S03
+  purchase_price: '91.1619'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: noodles
+  traits:
+    base_rate: 2.1591
+    q: 1.0
+    nb_size: 7.48
+    elasticity: 0.75
+    trend_pct_year: 0.73
+    event_jitter: 0.955
+- sku: FA-068
+  barcode: '2000068405191'
+  name: Quickmeal Pasta Penne 500 g
+  brand: Quickmeal
+  category: packaged-foods
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '110.00'
+  selling_price: '110.00'
+  is_batch_tracked: true
+  shelf_life_days: 335
+  supplier: S03
+  purchase_price: '93.2134'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: noodles
+  traits:
+    base_rate: 1.2098
+    q: 1.0
+    nb_size: 4.42
+    elasticity: 0.786
+    trend_pct_year: 10.05
+    event_jitter: 1.098
+- sku: FA-069
+  barcode: '2000069388693'
+  name: Malai Maa Cheese Slices 10 slices
+  brand: Malai Maa
+  category: dairy-eggs
+  base_unit: pack
+  pack_label: 10 slices
+  tax: GST5
+  mrp: '85.00'
+  selling_price: '85.00'
+  is_batch_tracked: true
+  shelf_life_days: 156
+  supplier: S04
+  purchase_price: '77.5195'
+  pack_size: 12
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: cheese
+  traits:
+    base_rate: 2.5923
+    q: 1.0
+    nb_size: 5.31
+    elasticity: 0.421
+    trend_pct_year: -0.24
+    event_jitter: 1.095
+- sku: FA-070
+  barcode: '2000070901441'
+  name: Dugdha Fresh Curd Cup 400 g
+  brand: Dugdha Fresh
+  category: dairy-eggs
+  base_unit: pack
+  pack_label: 400 g
+  tax: GST0
+  mrp: '42.00'
+  selling_price: '42.00'
+  is_batch_tracked: true
+  shelf_life_days: 155
+  supplier: S04
+  purchase_price: '37.6541'
+  pack_size: 24
+  moq_units: 48
+  term_lead_time_days: null
+  min_stock_qty: 9
+  is_seasonal: false
+  chronic: false
+  item_tag: paneer
+  traits:
+    base_rate: 4.1488
+    q: 1.0
+    nb_size: 5.98
+    elasticity: 0.541
+    trend_pct_year: -5.54
+    event_jitter: 1.05
+- sku: FA-071
+  barcode: '2000071473068'
+  name: Ksheer Sagar Salted Butter 100 g
+  brand: Ksheer Sagar
+  category: dairy-eggs
+  base_unit: pack
+  pack_label: 100 g
+  tax: GST5
+  mrp: '62.00'
+  selling_price: '62.00'
+  is_batch_tracked: true
+  shelf_life_days: 87
+  supplier: S04
+  purchase_price: '56.8535'
+  pack_size: 24
+  moq_units: 72
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: butter
+  traits:
+    base_rate: 2.9417
+    q: 1.0
+    nb_size: 9.77
+    elasticity: 0.307
+    trend_pct_year: -4.5
+    event_jitter: 1.049
+- sku: FA-072
+  barcode: '2000072378294'
+  name: Tazagi Shampoo Sachet Strip 340 ml
+  brand: Tazagi
+  category: personal-care
+  base_unit: bottle
+  pack_label: 340 ml
+  tax: GST18
+  mrp: '260.00'
+  selling_price: '260.00'
+  is_batch_tracked: false
+  shelf_life_days: 746
+  supplier: S05
+  purchase_price: '214.9393'
+  pack_size: 4
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.5051
+    q: 1.0
+    nb_size: 7.06
+    elasticity: 0.519
+    trend_pct_year: -8.3
+    event_jitter: 1.124
+- sku: FA-073
+  barcode: '2000073543830'
+  name: Gulab Care Hair Oil 200 ml
+  brand: Gulab Care
+  category: personal-care
+  base_unit: bottle
+  pack_label: 200 ml
+  tax: GST5
+  mrp: '105.00'
+  selling_price: '105.00'
+  is_batch_tracked: false
+  shelf_life_days: 1027
+  supplier: S05
+  purchase_price: '90.1950'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.4805
+    q: 1.0
+    nb_size: 10.36
+    elasticity: 0.597
+    trend_pct_year: 1.24
+    event_jitter: 1.077
+- sku: FA-074
+  barcode: '2000074118940'
+  name: Chamak Pro Hand Wash Refill 750 ml
+  brand: Chamak Pro
+  category: personal-care
+  base_unit: pack
+  pack_label: 750 ml
+  tax: GST18
+  mrp: '99.00'
+  selling_price: '99.00'
+  is_batch_tracked: false
+  shelf_life_days: 844
+  supplier: S05
+  purchase_price: '83.1401'
+  pack_size: 6
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.4725
+    q: 1.0
+    nb_size: 11.73
+    elasticity: 0.794
+    trend_pct_year: 3.25
+    event_jitter: 1.055
+- sku: FA-075
+  barcode: '2000075386831'
+  name: Chamak Pro Razor Pack 5 pcs
+  brand: Chamak Pro
+  category: personal-care
+  base_unit: pack
+  pack_label: 5 pcs
+  tax: GST18
+  mrp: '70.00'
+  selling_price: '70.00'
+  is_batch_tracked: false
+  shelf_life_days: 1092
+  supplier: S05
+  purchase_price: '62.8435'
+  pack_size: 12
+  moq_units: 36
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 0.9613
+    q: 1.0
+    nb_size: 5.78
+    elasticity: 0.581
+    trend_pct_year: -5.99
+    event_jitter: 1.133
+- sku: FA-076
+  barcode: '2000076321894'
+  name: Chamak Pro Face Cream 50 g
+  brand: Chamak Pro
+  category: personal-care
+  base_unit: tube
+  pack_label: 50 g
+  tax: GST18
+  mrp: '120.00'
+  selling_price: '120.00'
+  is_batch_tracked: false
+  shelf_life_days: 906
+  supplier: S05
+  purchase_price: '99.4331'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: null
+  min_stock_qty: 15
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 7.0842
+    q: 1.0
+    nb_size: 4.8
+    elasticity: 0.961
+    trend_pct_year: 10.03
+    event_jitter: 0.898
+- sku: FA-077
+  barcode: '2000077107592'
+  name: Nirmal Roop Deodorant Spray 150 ml
+  brand: Nirmal Roop
+  category: personal-care
+  base_unit: bottle
+  pack_label: 150 ml
+  tax: GST18
+  mrp: '180.00'
+  selling_price: '180.00'
+  is_batch_tracked: false
+  shelf_life_days: 920
+  supplier: S05
+  purchase_price: '150.7451'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: null
+  min_stock_qty: 5
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.1791
+    q: 1.0
+    nb_size: 8.82
+    elasticity: 0.667
+    trend_pct_year: -12.75
+    event_jitter: 1.045
+- sku: FA-078
+  barcode: '2000078547027'
+  name: Tazagi Shaving Foam 200 g
+  brand: Tazagi
+  category: personal-care
+  base_unit: bottle
+  pack_label: 200 g
+  tax: GST18
+  mrp: '150.00'
+  selling_price: '150.00'
+  is_batch_tracked: false
+  shelf_life_days: 766
+  supplier: S05
+  purchase_price: '121.9625'
+  pack_size: 6
+  moq_units: 18
+  term_lead_time_days: null
+  min_stock_qty: 10
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 4.8022
+    q: 1.0
+    nb_size: 7.83
+    elasticity: 0.669
+    trend_pct_year: -6.06
+    event_jitter: 0.948
+- sku: FA-079
+  barcode: '2000079843933'
+  name: Tazagi Toothpaste 200 g
+  brand: Tazagi
+  category: personal-care
+  base_unit: tube
+  pack_label: 200 g
+  tax: GST5
+  mrp: '128.00'
+  selling_price: '128.00'
+  is_batch_tracked: false
+  shelf_life_days: 776
+  supplier: S05
+  purchase_price: '103.6347'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.753
+    q: 1.0
+    nb_size: 4.0
+    elasticity: 0.739
+    trend_pct_year: -10.22
+    event_jitter: 1.055
+- sku: FA-080
+  barcode: '2000080246285'
+  name: Lavanya Dishwash Liquid 500 ml
+  brand: Lavanya
+  category: home-care
+  base_unit: bottle
+  pack_label: 500 ml
+  tax: GST18
+  mrp: '105.00'
+  selling_price: '105.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '90.8393'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: null
+  min_stock_qty: 9
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 4.0543
+    q: 1.0
+    nb_size: 6.51
+    elasticity: 0.636
+    trend_pct_year: 4.91
+    event_jitter: 0.86
+- sku: FA-081
+  barcode: '2000081763931'
+  name: Suvasit Liquid Detergent 1 l
+  brand: Suvasit
+  category: home-care
+  base_unit: bottle
+  pack_label: 1 l
+  tax: GST18
+  mrp: '225.00'
+  selling_price: '225.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '180.5635'
+  pack_size: 4
+  moq_units: 4
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.697
+    q: 1.0
+    nb_size: 11.58
+    elasticity: 0.535
+    trend_pct_year: 5.99
+    event_jitter: 1.098
+- sku: FA-082
+  barcode: '2000082134603'
+  name: Suvasit Floor Cleaner 500 ml
+  brand: Suvasit
+  category: home-care
+  base_unit: bottle
+  pack_label: 500 ml
+  tax: GST18
+  mrp: '98.00'
+  selling_price: '98.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '84.2941'
+  pack_size: 6
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.531
+    q: 1.0
+    nb_size: 9.87
+    elasticity: 0.778
+    trend_pct_year: 7.12
+    event_jitter: 0.934
+- sku: FA-083
+  barcode: '2000083781446'
+  name: Lavanya Mosquito Coil 10 coils
+  brand: Lavanya
+  category: home-care
+  base_unit: box
+  pack_label: 10 coils
+  tax: GST18
+  mrp: '55.00'
+  selling_price: '55.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '44.7843'
+  pack_size: 12
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.9462
+    q: 1.0
+    nb_size: 6.01
+    elasticity: 0.515
+    trend_pct_year: 3.99
+    event_jitter: 1.016
+- sku: FA-084
+  barcode: '2000084884524'
+  name: Safai Raj Phenyl 500 ml
+  brand: Safai Raj
+  category: home-care
+  base_unit: bottle
+  pack_label: 500 ml
+  tax: GST18
+  mrp: '60.00'
+  selling_price: '60.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '48.7364'
+  pack_size: 24
+  moq_units: 72
+  term_lead_time_days: null
+  min_stock_qty: 6
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 2.5455
+    q: 1.0
+    nb_size: 5.31
+    elasticity: 0.86
+    trend_pct_year: 13.17
+    event_jitter: 1.057
+- sku: FA-085
+  barcode: '2000085312739'
+  name: Gulab Care Detergent Powder 2 kg
+  brand: Gulab Care
+  category: home-care
+  base_unit: pack
+  pack_label: 2 kg
+  tax: GST18
+  mrp: '210.00'
+  selling_price: '210.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '169.5992'
+  pack_size: 4
+  moq_units: 12
+  term_lead_time_days: 1
+  min_stock_qty: 4
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.7773
+    q: 1.0
+    nb_size: 7.7
+    elasticity: 0.637
+    trend_pct_year: 8.27
+    event_jitter: 0.97
+- sku: FA-086
+  barcode: '2000086369996'
+  name: Tinkle Home Clay Diya Set 24 pcs
+  brand: Tinkle Home
+  category: festival-puja
+  base_unit: pack
+  pack_label: 24 pcs
+  tax: GST5
+  mrp: '110.00'
+  selling_price: '110.00'
+  is_batch_tracked: false
+  shelf_life_days: 921
+  supplier: S06
+  purchase_price: '93.1496'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: true
+  chronic: false
+  item_tag: diya
+  traits:
+    base_rate: 1.0026
+    q: 0.7
+    nb_size: 7.7
+    elasticity: 0.733
+    trend_pct_year: 2.75
+    event_jitter: 0.912
+- sku: FA-087
+  barcode: '2000087964869'
+  name: Paperly Camphor Tablets 40 g
+  brand: Paperly
+  category: festival-puja
+  base_unit: pack
+  pack_label: 40 g
+  tax: GST5
+  mrp: '60.00'
+  selling_price: '60.00'
+  is_batch_tracked: false
+  shelf_life_days: 773
+  supplier: S06
+  purchase_price: '53.7708'
+  pack_size: 24
+  moq_units: 48
+  term_lead_time_days: null
+  min_stock_qty: 8
+  is_seasonal: true
+  chronic: false
+  item_tag: puja
+  traits:
+    base_rate: 3.9999
+    q: 0.7
+    nb_size: 10.4
+    elasticity: 0.933
+    trend_pct_year: 10.46
+    event_jitter: 1.069
+- sku: FA-088
+  barcode: '2000088281891'
+  name: Shubh Labh Rangoli Colour 500 g
+  brand: Shubh Labh
+  category: festival-puja
+  base_unit: pack
+  pack_label: 500 g
+  tax: GST5
+  mrp: '95.00'
+  selling_price: '95.00'
+  is_batch_tracked: false
+  shelf_life_days: 942
+  supplier: S06
+  purchase_price: '80.7979'
+  pack_size: 6
+  moq_units: 6
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: true
+  chronic: false
+  item_tag: diya
+  traits:
+    base_rate: 0.4489
+    q: 0.7
+    nb_size: 9.87
+    elasticity: 0.519
+    trend_pct_year: 5.05
+    event_jitter: 0.998
+- sku: FA-089
+  barcode: '2000089136639'
+  name: Shubh Labh Cotton Wicks 100 pcs
+  brand: Shubh Labh
+  category: festival-puja
+  base_unit: pack
+  pack_label: 100 pcs
+  tax: GST5
+  mrp: '20.00'
+  selling_price: '20.00'
+  is_batch_tracked: false
+  shelf_life_days: 473
+  supplier: S06
+  purchase_price: '17.8430'
+  pack_size: 24
+  moq_units: 24
+  term_lead_time_days: null
+  min_stock_qty: 2
+  is_seasonal: true
+  chronic: false
+  item_tag: puja
+  traits:
+    base_rate: 0.9259
+    q: 0.7
+    nb_size: 9.37
+    elasticity: 0.81
+    trend_pct_year: 1.08
+    event_jitter: 1.147
+- sku: FA-090
+  barcode: '2000090996815'
+  name: Tinkle Home Notebook Ruled 300 pages
+  brand: Tinkle Home
+  category: baby-misc
+  base_unit: pcs
+  pack_label: 300 pages
+  tax: GST5
+  mrp: '84.00'
+  selling_price: '84.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '70.9948'
+  pack_size: 12
+  moq_units: 12
+  term_lead_time_days: null
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.2576
+    q: 0.55
+    nb_size: 6.6
+    elasticity: 0.331
+    trend_pct_year: 1.91
+    event_jitter: 1.051
+- sku: FA-091
+  barcode: '2000091276799'
+  name: Shubh Labh Baby Wipes 72 pcs
+  brand: Shubh Labh
+  category: baby-misc
+  base_unit: pack
+  pack_label: 72 pcs
+  tax: GST18
+  mrp: '185.00'
+  selling_price: '185.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '164.4970'
+  pack_size: 12
+  moq_units: 36
+  term_lead_time_days: 3
+  min_stock_qty: 3
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 1.1603
+    q: 0.55
+    nb_size: 8.39
+    elasticity: 0.314
+    trend_pct_year: -14.14
+    event_jitter: 0.892
+- sku: FA-092
+  barcode: '2000092899313'
+  name: Tinkle Home Baby Diapers Medium 20 pcs
+  brand: Tinkle Home
+  category: baby-misc
+  base_unit: pack
+  pack_label: 20 pcs
+  tax: GST5
+  mrp: '299.00'
+  selling_price: '299.00'
+  is_batch_tracked: false
+  shelf_life_days: 730
+  supplier: S05
+  purchase_price: '255.2792'
+  pack_size: 6
+  moq_units: 0
+  term_lead_time_days: null
+  min_stock_qty: 1
+  is_seasonal: false
+  chronic: false
+  item_tag: ''
+  traits:
+    base_rate: 0.3654
+    q: 0.55
+    nb_size: 6.12
+    elasticity: 0.414
+    trend_pct_year: 15.55
+    event_jitter: 0.982
