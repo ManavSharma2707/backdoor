@@ -135,4 +135,4 @@ def test_migrate_command_builds_the_schema_from_nothing(
 
 def test_unknown_command_is_rejected() -> None:
     with pytest.raises(SystemExit):
-        run_module.main(["monday"])
+        run_module.main(["frobnicate"])

@@ -56,13 +56,20 @@ def hash_password(settings: Settings, password: str) -> str:
     return PasswordService(settings).hash(password)
 
 
-def weekly_budget(data: TenantData, factor: float, scale: float) -> str | None:
-    """Budget as a share of the weekly need. Need is estimated from the last 8 weeks of cost of
-    goods sold plus 10 percent for the festival run up. The engine in Prompt 4 re-checks the share."""
+# Measured on 2026-10-14 against the Prompt 4 engine (light profile, first plan of 2026-10-12):
+# the unconstrained need of the plan divided by the cost of goods estimate below. It puts the
+# budget at about 70 percent of the need for fmcg_a (scenario S08) and 105 percent for the others
+# (S09). Re-measure after a change to the engine's replenishment rules (`D-077`).
+ENGINE_NEED_CALIBRATION = {"fmcg_a": 1.158, "fmcg_b": 0.443, "med_a": 0.579, "med_b": 0.7525}
+
+
+def weekly_budget(data: TenantData, factor: float, scale: float, key: str = "") -> str | None:
+    """Budget as a share of the weekly need. The need is estimated from the last 8 weeks of cost of
+    goods sold plus 10 percent for the festival run up, then calibrated to what the engine plans."""
     weeks = data.weekly_cogs[-8:]
     if not weeks:
         return None
-    need = sum(weeks) / len(weeks) * 1.10
+    need = sum(weeks) / len(weeks) * 1.10 * ENGINE_NEED_CALIBRATION.get(key, 1.0)
     budget = max(5000.0 * scale, round(need * factor / 500.0) * 500.0)
     return f"{budget:.2f}"
 

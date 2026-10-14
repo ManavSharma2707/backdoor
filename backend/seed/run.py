@@ -76,7 +76,7 @@ def load_generated(
         "supplier_product_terms": static_rows.term_rows(catalog, gen.timelines, gen.plan),
         "promotions": static_rows.promotion_rows(catalog, gen.timelines, gen.plan),
     }
-    budget = accounts.weekly_budget(gen.data, gen.plan.budget_factor, budget_scale)
+    budget = accounts.weekly_budget(gen.data, gen.plan.budget_factor, budget_scale, gen.profile.key)
     timings = loader.load_tenant(
         conn,  # type: ignore[arg-type]
         catalog,

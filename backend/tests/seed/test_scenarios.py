@@ -7,6 +7,7 @@ import pytest
 import yaml
 from sqlalchemy import text
 
+from seed.accounts import ENGINE_NEED_CALIBRATION
 from seed.model import tenant_uuid
 from seed.profiles import PROFILES, SCENARIOS_PATH
 from tests.seed.conftest import END, START, Seeded
@@ -439,5 +440,5 @@ def test_budgets_follow_the_scenario(seeded: Seeded) -> None:
         budgets[key] = float(value)
     for key, gen in seeded.generated.items():
         cogs = gen.data.weekly_cogs[-8:]
-        need = sum(cogs) / len(cogs) * 1.10
+        need = sum(cogs) / len(cogs) * 1.10 * ENGINE_NEED_CALIBRATION[key]
         assert budgets[key] / need == pytest.approx(gen.plan.budget_factor, abs=0.15)

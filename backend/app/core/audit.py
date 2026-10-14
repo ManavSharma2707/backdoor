@@ -60,6 +60,15 @@ class AuditAction(StrEnum):
     BATCH_WRITE_OFF = "batch.write_off"
     STOCKOUT_RECORD = "stockout.record"
     RECONCILE_RUN = "inventory.reconcile"
+    PASSWORD_RESET = "auth.password_reset"  # noqa: S105
+    REPORT_GENERATE = "report.generate"
+    REPORT_EXPORT = "report.export"
+    REPORT_NOTE = "report.note"
+    DECISION_APPROVE = "decision.approve"
+    DECISION_EDIT = "decision.edit"
+    DECISION_REJECT = "decision.reject"
+    REPORT_PO_CREATE = "report.po_create"
+    DQ_RUN = "dq.run"
 
 
 @dataclass(frozen=True)

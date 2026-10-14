@@ -1,0 +1,2096 @@
+{
+ "lines": {
+  "FA-001": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "12.490",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "56.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "9.953",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-002": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "19.059",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "102.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "10.477",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-003": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "15.928",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "86.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "13.181",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-004": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "5.785",
+   "est_spend": null,
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "9.000",
+   "reason_codes": [
+    "MISSING_COST",
+    "SHORT_FOR_COVER",
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "5.766",
+   "sections": [
+    "buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "7.000"
+  },
+  "FA-005": {
+   "allocated_qty": "24.000",
+   "confidence": "low",
+   "demand_7d": "4.429",
+   "est_spend": "1428.35",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "3.929",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "24.000"
+  },
+  "FA-006": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "15.781",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "65.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "11.899",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-007": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "7.606",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "19.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.270",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-008": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "11.937",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "50.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "7.699",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-009": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "3.564",
+   "est_spend": "1276.13",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "7.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "3.796",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "15.000"
+  },
+  "FA-010": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "14.000",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "65.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "10.747",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-011": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "4.625",
+   "est_spend": "748.40",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "10.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "4.441",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "5.000"
+  },
+  "FA-012": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "5.727",
+   "est_spend": "742.14",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE",
+    "NEW_PRODUCT"
+   ],
+   "risk_level": "low",
+   "safety_stock": "4.814",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "new",
+   "suggested_qty": "5.000"
+  },
+  "FA-013": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "0.000",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "5.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "NON_MOVING",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "1.366",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "non_moving",
+   "suggested_qty": "0.000"
+  },
+  "FA-014": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "4.709",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "10.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "3.937",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-015": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "11.500",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "44.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "10.616",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-016": {
+   "allocated_qty": "8.000",
+   "confidence": "low",
+   "demand_7d": "3.212",
+   "est_spend": "5382.82",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 5,
+   "on_hand_usable": "3.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "medium",
+   "safety_stock": "3.303",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "8.000"
+  },
+  "FA-017": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "5.677",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 5,
+   "on_hand_usable": "26.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "5.977",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-018": {
+   "allocated_qty": "30.000",
+   "confidence": "low",
+   "demand_7d": "9.590",
+   "est_spend": "4734.68",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 5,
+   "on_hand_usable": "6.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "9.720",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "30.000"
+  },
+  "FA-019": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "4.048",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 5,
+   "on_hand_usable": "24.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.300",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-020": {
+   "allocated_qty": "36.000",
+   "confidence": "medium",
+   "demand_7d": "11.319",
+   "est_spend": "3389.30",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 5,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "FESTIVAL_UPLIFT",
+    "OUT_OF_STOCK_NOW"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "10.083",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "36.000"
+  },
+  "FA-021": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "18.750",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "83.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "13.123",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-022": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "19.409",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "99.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "8.776",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-023": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "7.500",
+   "est_spend": "1005.44",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "16.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "6.920",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "12.000"
+  },
+  "FA-024": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "14.125",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "93.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "11.589",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-025": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "10.750",
+   "est_spend": "420.96",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "21.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "7.045",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "6.000"
+  },
+  "FA-026": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "5.500",
+   "est_spend": "1230.68",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "8.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "4.034",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "18.000"
+  },
+  "FA-027": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "2.500",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "3.519",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-028": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "8.167",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "54.000",
+   "reason_codes": [
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.225",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-029": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "6.875",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "39.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "5.322",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-030": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "11.375",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "33.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "8.109",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-031": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "6.865",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "17.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.418",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-032": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "3.010",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 9,
+   "on_hand_usable": "15.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.682",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-033": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "6.900",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "18.000",
+   "reason_codes": [
+    "OVERDUE_ORDER_IGNORED",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "8.339",
+   "sections": [
+    "do_not_buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-034": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "5.182",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "14.000",
+   "reason_codes": [
+    "OVERDUE_ORDER_IGNORED",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.207",
+   "sections": [
+    "do_not_buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-035": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "3.642",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "6.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "10.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "5.366",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-036": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "16.733",
+   "est_spend": "600.72",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "24.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "10.970",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "72.000"
+  },
+  "FA-037": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "24.086",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "47.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "10.753",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-038": {
+   "allocated_qty": "144.000",
+   "confidence": "medium",
+   "demand_7d": "68.104",
+   "est_spend": "3054.64",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "29.060",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "144.000"
+  },
+  "FA-039": {
+   "allocated_qty": "72.000",
+   "confidence": "low",
+   "demand_7d": "23.271",
+   "est_spend": "1236.56",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "14.953",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "72.000"
+  },
+  "FA-040": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "31.314",
+   "est_spend": "424.80",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "49.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "15.208",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "24.000"
+  },
+  "FA-041": {
+   "allocated_qty": "84.000",
+   "confidence": "low",
+   "demand_7d": "39.232",
+   "est_spend": "4968.16",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "23.075",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "84.000"
+  },
+  "FA-042": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "42.914",
+   "est_spend": "1041.65",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "77.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "24.058",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "48.000"
+  },
+  "FA-043": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "23.676",
+   "est_spend": "350.91",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "34.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "10.641",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "12.000"
+  },
+  "FA-044": {
+   "allocated_qty": "72.000",
+   "confidence": "low",
+   "demand_7d": "42.844",
+   "est_spend": "3352.79",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "17.359",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "72.000"
+  },
+  "FA-045": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "27.179",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "76.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "15.192",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-046": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "12.532",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "84.595",
+   "reason_codes": [
+    "EXPIRY_LOSS_EXPECTED",
+    "LOW_CONFIDENCE",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "9.306",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-047": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "7.353",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "63.109",
+   "reason_codes": [
+    "EXPIRY_LOSS_EXPECTED",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.574",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-048": {
+   "allocated_qty": "48.000",
+   "confidence": "medium",
+   "demand_7d": "45.219",
+   "est_spend": "1737.47",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 2,
+   "on_hand_usable": "49.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING"
+   ],
+   "risk_level": "low",
+   "safety_stock": "19.335",
+   "sections": [
+    "buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "48.000"
+  },
+  "FA-049": {
+   "allocated_qty": "96.000",
+   "confidence": "medium",
+   "demand_7d": "41.607",
+   "est_spend": "1620.90",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "21.264",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "96.000"
+  },
+  "FA-050": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "7.650",
+   "est_spend": "1155.89",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "15.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "5.355",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "12.000"
+  },
+  "FA-051": {
+   "allocated_qty": "24.000",
+   "confidence": "low",
+   "demand_7d": "12.864",
+   "est_spend": "2502.65",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "2.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "6.441",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "24.000"
+  },
+  "FA-052": {
+   "allocated_qty": "36.000",
+   "confidence": "low",
+   "demand_7d": "3.395",
+   "est_spend": "5272.54",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "2.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "high",
+   "safety_stock": "3.522",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "36.000"
+  },
+  "FA-053": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "1.392",
+   "est_spend": "816.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "4.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "2.628",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "4.000"
+  },
+  "FA-054": {
+   "allocated_qty": "5.000",
+   "confidence": "low",
+   "demand_7d": "1.760",
+   "est_spend": "2932.50",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "1.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "2.627",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "5.000"
+  },
+  "FA-055": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "6.794",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "30.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "7.614",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-056": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "1.751",
+   "est_spend": "1734.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "4.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "low",
+   "safety_stock": "2.900",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "4.000"
+  },
+  "FA-057": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "12.446",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "144.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "23.000",
+   "reason_codes": [
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "7.605",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-058": {
+   "allocated_qty": "12.000",
+   "confidence": "low",
+   "demand_7d": "7.050",
+   "est_spend": "1246.81",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "6.000",
+   "reason_codes": [
+    "OVERDUE_ORDER_IGNORED",
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "medium",
+   "safety_stock": "5.493",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "12.000"
+  },
+  "FA-059": {
+   "allocated_qty": "48.000",
+   "confidence": "low",
+   "demand_7d": "29.936",
+   "est_spend": "1589.36",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "24.000",
+   "lead_time_days": 9,
+   "on_hand_usable": "22.000",
+   "reason_codes": [
+    "OVERDUE_ORDER_IGNORED",
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "medium",
+   "safety_stock": "14.700",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "48.000"
+  },
+  "FA-060": {
+   "allocated_qty": "168.000",
+   "confidence": "low",
+   "demand_7d": "101.227",
+   "est_spend": "2107.63",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "24.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "OVERDUE_ORDER_IGNORED",
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "25.876",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "168.000"
+  },
+  "FA-061": {
+   "allocated_qty": "48.000",
+   "confidence": "low",
+   "demand_7d": "18.362",
+   "est_spend": "4100.21",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW",
+    "LOW_CONFIDENCE",
+    "CHECK_BEFORE_DEAD"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "10.468",
+   "sections": [
+    "buy",
+    "watch",
+    "reduce"
+   ],
+   "stock_status": "unverified",
+   "suggested_qty": "48.000"
+  },
+  "FA-062": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "5.870",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "40.000",
+   "reason_codes": [
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.372",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-063": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "9.800",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "33.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "7.318",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-064": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "5.185",
+   "est_spend": "1585.48",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "6.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "4.627",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "12.000"
+  },
+  "FA-065": {
+   "allocated_qty": "36.000",
+   "confidence": "medium",
+   "demand_7d": "4.442",
+   "est_spend": "1836.82",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "4.152",
+   "sections": [
+    "buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "36.000"
+  },
+  "FA-066": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "8.098",
+   "est_spend": "2545.37",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "5.858",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "24.000"
+  },
+  "FA-067": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "7.745",
+   "est_spend": "1093.94",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "5.685",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "12.000"
+  },
+  "FA-068": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "6.205",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "20.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "5.187",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-069": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "7.146",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "46.208",
+   "reason_codes": [
+    "EXPIRY_LOSS_EXPECTED",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.600",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-070": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "15.346",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "38.000",
+   "reason_codes": [
+    "OVERDUE_ORDER_IGNORED",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "7.945",
+   "sections": [
+    "do_not_buy",
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-071": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "9.774",
+   "est_spend": "4093.45",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "16.755",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "EXPIRY_LOSS_EXPECTED",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "6.819",
+   "sections": [
+    "watch",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "72.000"
+  },
+  "FA-072": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "2.927",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "14.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "3.518",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-073": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "6.375",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "38.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.327",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-074": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "9.375",
+   "est_spend": "498.84",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "7.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED"
+   ],
+   "risk_level": "low",
+   "safety_stock": "6.129",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "6.000"
+  },
+  "FA-075": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "3.625",
+   "est_spend": "2354.37",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "3.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING",
+    "BUDGET_LIMITED",
+    "LOW_CONFIDENCE"
+   ],
+   "risk_level": "medium",
+   "safety_stock": "4.952",
+   "sections": [
+    "watch"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "36.000"
+  },
+  "FA-076": {
+   "allocated_qty": "6.000",
+   "confidence": "medium",
+   "demand_7d": "17.640",
+   "est_spend": "596.60",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "24.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "MOQ_APPLIED",
+    "PACK_ROUNDING"
+   ],
+   "risk_level": "low",
+   "safety_stock": "10.958",
+   "sections": [
+    "buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "6.000"
+  },
+  "FA-077": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "6.323",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "9.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "NEW_PRODUCT",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.159",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "new",
+   "suggested_qty": "0.000"
+  },
+  "FA-078": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "0.000",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "43.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "NON_MOVING",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "3.914",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "non_moving",
+   "suggested_qty": "0.000"
+  },
+  "FA-079": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "9.000",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "24.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "6.652",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-080": {
+   "allocated_qty": "18.000",
+   "confidence": "low",
+   "demand_7d": "8.624",
+   "est_spend": "1635.11",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "0.000",
+   "reason_codes": [
+    "SHORT_FOR_COVER",
+    "PACK_ROUNDING",
+    "OUT_OF_STOCK_NOW",
+    "LOW_CONFIDENCE",
+    "CHECK_BEFORE_DEAD"
+   ],
+   "risk_level": "critical",
+   "safety_stock": "5.057",
+   "sections": [
+    "buy",
+    "watch",
+    "reduce"
+   ],
+   "stock_status": "unverified",
+   "suggested_qty": "18.000"
+  },
+  "FA-081": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "3.136",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "8.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "6.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.231",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-082": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "5.096",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "12.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "2.000",
+   "reason_codes": [],
+   "risk_level": "none",
+   "safety_stock": "5.092",
+   "sections": [],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-083": {
+   "allocated_qty": "0.000",
+   "confidence": "medium",
+   "demand_7d": "4.535",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "19.000",
+   "reason_codes": [
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "5.098",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-084": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "0.000",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "32.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "NON_MOVING",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "0.944",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "non_moving",
+   "suggested_qty": "0.000"
+  },
+  "FA-085": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "4.398",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "12.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.895",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-086": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "6.733",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "74.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "5.024",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-087": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "17.975",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "86.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "15.029",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-088": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "3.668",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "3.036",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-089": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "4.790",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "48.000",
+   "reason_codes": [
+    "FESTIVAL_UPLIFT",
+    "LOW_CONFIDENCE",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.915",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-090": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "1.634",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "91.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "SLOW_MOVING",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "3.838",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "slow",
+   "suggested_qty": "0.000"
+  },
+  "FA-091": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "1.518",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 4,
+   "on_hand_usable": "9.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "4.926",
+   "sections": [
+    "do_not_buy"
+   ],
+   "stock_status": "normal",
+   "suggested_qty": "0.000"
+  },
+  "FA-092": {
+   "allocated_qty": "0.000",
+   "confidence": "low",
+   "demand_7d": "0.418",
+   "est_spend": "0.00",
+   "forecast_method": "moving_average",
+   "incoming_confirmed": "0.000",
+   "lead_time_days": 3,
+   "on_hand_usable": "11.000",
+   "reason_codes": [
+    "LOW_CONFIDENCE",
+    "SLOW_MOVING",
+    "EXCESS_STOCK",
+    "COVERED"
+   ],
+   "risk_level": "none",
+   "safety_stock": "1.773",
+   "sections": [
+    "do_not_buy",
+    "reduce"
+   ],
+   "stock_status": "slow",
+   "suggested_qty": "0.000"
+  }
+ },
+ "summary": {
+  "blocked_lines": 1,
+  "budget": "55000.00",
+  "budget_remaining": "274.10",
+  "confidence_mix": {
+   "high": 0,
+   "low": 59,
+   "medium": 33
+  },
+  "critical_count": 14,
+  "dq_errors": 3,
+  "dq_warnings": 36,
+  "expired_batches": 0,
+  "expired_value": "0.00",
+  "expiry_exposure_value": "14666.05",
+  "high_count": 1,
+  "lines_buy": 21,
+  "lines_do_not_buy": 51,
+  "lines_reduce": 17,
+  "lines_watch": 40,
+  "near_expiry_batches": 10,
+  "needed_spend": "78445.07",
+  "non_moving_value": "7307.34",
+  "planned_spend": "54725.90",
+  "shortfall": "23445.07",
+  "unverified_value": "0.00"
+ }
+}

@@ -75,6 +75,8 @@ ignore = ["RUF001", "RUF002", "RUF003"]
 "seed/**" = ["E501", "S311"]
 "app/core/messages.py" = ["E501", "S105"]
 "app/engine/dq.py" = ["E501"]
+"app/services/insight_service.py" = ["E501", "S608"]
+"app/services/export/pdf_export.py" = ["E501"]
 "app/engine/report_builder.py" = ["E501"]
 "alembic/versions/*" = ["E501", "S608", "RUF012"]
 
