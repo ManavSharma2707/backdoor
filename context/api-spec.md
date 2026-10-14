@@ -105,12 +105,14 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | GET `/inventory/batches?expiring_within_days=&product_id=&status=` | Batch list with FEFO order and days to expiry |
 | GET `/inventory/movements?product_id=&type=&from=&to=&page=` | Ledger |
 | POST `/inventory/adjustments` (I) | `{product_id, batch_id?, quantity_delta, reason_code, note?}` |
-| POST `/inventory/batches/{id}/write-off` | Writes off remaining expired or damaged quantity |
-| POST, GET `/inventory/counts`, GET `/inventory/counts/{id}` | Create draft (snapshot system quantities), list, detail |
+| POST `/inventory/batches/{id}/write-off` | `{reason: expired|damaged, note?}`. Writes off the remaining quantity and closes the batch (`D-063`) |
+| POST, GET `/inventory/counts`, GET `/inventory/counts/{id}` | Create draft (snapshot system quantities, scope all, category or products), list, detail |
 | PATCH `/inventory/counts/{id}/lines` | Enter counted quantities |
 | POST `/inventory/counts/{id}/post` | Post corrections |
 | GET, POST `/inventory/stockouts`, PATCH `/inventory/stockouts/{id}` | Recorded intervals |
-| POST `/inventory/reconcile` | Runs reconciliation queries, returns mismatches (owner) |
+| POST `/inventory/reconcile` | Runs reconciliation queries, returns `{ok, checked_at, mismatches}` (owner) |
+| GET `/products/{id}/stock` | Stock per batch with days to expiry |
+| POST `/suppliers/{id}/returns` (I) | `{note, credit_note_no?, lines:[{product_id, batch_id?, quantity}]}`. Stock sent back to a supplier, policy checked |
 
 ## 8. Reports and decisions
 

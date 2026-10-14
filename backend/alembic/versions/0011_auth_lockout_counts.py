@@ -24,10 +24,12 @@ def upgrade() -> None:
     op.alter_column(
         "stock_count_lines", "counted_qty", existing_type=sa.Numeric(14, 3), nullable=True
     )
+    op.execute("ALTER TABLE stock_count_lines ALTER COLUMN variance DROP NOT NULL")
 
 
 def downgrade() -> None:
     op.execute("UPDATE stock_count_lines SET counted_qty = system_qty WHERE counted_qty IS NULL")
+    op.execute("ALTER TABLE stock_count_lines ALTER COLUMN variance SET NOT NULL")
     op.alter_column(
         "stock_count_lines", "counted_qty", existing_type=sa.Numeric(14, 3), nullable=False
     )

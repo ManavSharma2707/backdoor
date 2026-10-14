@@ -45,6 +45,7 @@ TAGS_METADATA = [
     {"name": "suppliers", "description": "Suppliers and effective dated prices and terms."},
     {"name": "sales", "description": "Bills, voids, returns and sales totals."},
     {"name": "purchasing", "description": "Purchase orders and goods receipts."},
+    {"name": "inventory", "description": "Stock levels, batches, ledger, counts and adjustments."},
 ]
 
 

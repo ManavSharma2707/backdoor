@@ -25,7 +25,9 @@ from app.core.deps import TenantContext
 from app.core.errors import AppError
 from app.models.catalogue import Product
 from app.models.inventory import ProductBatch, StockBalance
+from app.schemas.inventory import CountCreate, CountLineEntry, CountLinesPatch
 from app.schemas.sales import ReturnCreate, ReturnLineIn, SaleCreate, SaleLineIn
+from app.services.inventory_service import InventoryService
 from app.services.ledger import InsufficientStockError, LedgerService, MovementEntry
 from app.services.reconciliation import find_mismatches
 from app.services.sales_service import SalesService
@@ -52,6 +54,7 @@ operation = st.one_of(
         st.integers(1, 100),
         st.sampled_from(["restock", "damaged", "expired"]),
     ),
+    st.tuples(st.just("count"), product_index, st.integers(-3, 3)),
     st.tuples(
         st.just("adjust"),
         product_index,
@@ -275,6 +278,27 @@ class World:
             if disposition == "restock":
                 self.expected[(item.product_id, item.batch_id)] += quantity
 
+    def count(self, p: int, shift: int) -> None:
+        """Count one product, finding `shift` more (or fewer) than the system says."""
+        counts = InventoryService(self.db, self.ctx)
+        try:
+            sheet = counts.create_count(
+                CountCreate(scope="products", product_ids=[self.products[p].id])
+            )
+        except AppError as exc:
+            if exc.code.value != "CONFLICT":  # a batch product with nothing in stock
+                raise
+            return
+        entries = [
+            CountLineEntry(line_id=item.id, counted_qty=max(D(item.system_qty) + shift, D(0)))
+            for item in sheet.lines
+        ]
+        counts.enter_counts(sheet.id, CountLinesPatch(lines=entries))
+        counts.post_count(sheet.id)
+        for item, entry in zip(sheet.lines, entries, strict=True):
+            assert entry.counted_qty is not None
+            self.expected[(item.product_id, item.batch_id)] = entry.counted_qty
+
     # ---- checks
 
     def check(self) -> None:
@@ -326,6 +350,8 @@ def test_any_sequence_of_valid_operations_keeps_the_ledger_consistent(
                 world.void(*args)
             case "return":
                 world.give_back(*args)
+            case "count":
+                world.count(*args)
             case "adjust":
                 world.adjust(*args)
         world.history.append(name)
