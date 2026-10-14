@@ -8,6 +8,10 @@ import { PageHeader } from "@/components/ui/display";
 
 const LoginPage = lazy(() => import("@/features/login/login-page"));
 const OverviewPage = lazy(() => import("@/features/overview/overview-page"));
+const ProductsPage = lazy(() => import("@/features/products/products-page"));
+const ProductFormPage = lazy(() => import("@/features/products/product-form-page"));
+const ProductDetailPage = lazy(() => import("@/features/products/product-detail-page"));
+const StockPage = lazy(() => import("@/features/stock/stock-page"));
 
 function Placeholder({ title, body }: { title: string; body: string }) {
   return (
@@ -48,6 +52,11 @@ export const routes: RouteObject[] = [
         element: <AppShell />,
         children: [
           { index: true, element: <OverviewPage /> },
+          { path: "products", element: <ProductsPage /> },
+          { path: "products/new", element: <ProductFormPage /> },
+          { path: "products/:id", element: <ProductDetailPage /> },
+          { path: "products/:id/edit", element: <ProductFormPage /> },
+          { path: "stock", element: <StockPage /> },
           {
             path: "plan/*",
             element: <Placeholder {...shell.placeholder.plan} />,
