@@ -1,0 +1,50 @@
+export const shell = {
+  nav: {
+    overview: "Overview",
+    plan: "Monday plan",
+    products: "Products",
+    sales: "Sales",
+    purchases: "Purchases",
+    stock: "Stock",
+    insights: "Trends",
+    settings: "Settings",
+    label: "Main",
+  },
+  demoLabel: "Demo data",
+  demoStrip: "Demo data. Everything here is simulated.",
+  weekOf: (date: string) => `Week of ${date}`,
+  search: {
+    button: "Search",
+    hint: "Search pages and products",
+    shortcut: "Ctrl K",
+  },
+  assistant: "Assistant",
+  menu: "Open the menu",
+  closeMenu: "Close the menu",
+  userMenu: "Account menu",
+  account: "Account",
+  signOut: "Sign out",
+  signedInAs: (name: string) => `Signed in as ${name}`,
+  serverDown: "We cannot reach the server.",
+  serverWaking: "The server is waking up. This can take up to a minute.",
+  retry: "Try again",
+  notFound: {
+    title: "We could not find that page.",
+    action: "Go to Overview",
+  },
+  placeholder: {
+    plan: {
+      title: "Monday plan",
+      body: "This screen is not available yet. The weekly plan is still created every Monday and its numbers are already stored.",
+    },
+    insights: {
+      title: "Trends",
+      body: "This screen is not available yet. Sales trends and forecast accuracy will appear here.",
+    },
+    assistant: {
+      title: "Assistant",
+      body: "The assistant is not available yet.",
+    },
+    action: "Go to Overview",
+  },
+};

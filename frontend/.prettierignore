@@ -1,0 +1,6 @@
+dist
+node_modules
+coverage
+screenshots
+src/types/api.d.ts
+package-lock.json

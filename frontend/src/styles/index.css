@@ -1,0 +1,232 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@theme {
+  /* The palette is closed: nothing from the default Tailwind colours is available. */
+  --color-*: initial;
+
+  /* surfaces */
+  --color-bg: #f5f3ee;
+  --color-surface: #ffffff;
+  --color-surface-2: #faf9f6;
+  --color-surface-3: #ece9e1;
+  --color-border: #e2ded4;
+  --color-border-strong: #cfc9bc;
+
+  /* text */
+  --color-text: #1e1d1a;
+  --color-text-2: #55524a;
+  --color-text-3: #6f6a5f;
+  --color-text-inverse: #ffffff;
+
+  /* brand and actions */
+  --color-primary: #1f5a45;
+  --color-primary-hover: #184a39;
+  --color-primary-soft: #e4efe9;
+  --color-link: #1f5a45;
+  --color-focus: #2b5c8a;
+
+  /* accent */
+  --color-accent: #b7791f;
+  --color-accent-soft: #f6ebd3;
+
+  /* semantic */
+  --color-critical: #a32a22;
+  --color-critical-soft: #fbe9e7;
+  --color-high: #b4530b;
+  --color-high-soft: #fdeedd;
+  --color-medium: #8a6a0b;
+  --color-medium-soft: #fbf3d6;
+  --color-ok: #2d6a4f;
+  --color-ok-soft: #e4efe9;
+  --color-info: #2b5c8a;
+  --color-info-soft: #e6eef6;
+
+  /* provenance tags */
+  --color-observed: #2b5c8a;
+  --color-calculated: #55524a;
+  --color-assumed: #8a6a0b;
+
+  /* charts */
+  --color-chart-1: #1f5a45;
+  --color-chart-2: #b7791f;
+  --color-chart-3: #2b5c8a;
+  --color-chart-4: #a32a22;
+  --color-chart-5: #7a6f5d;
+  --color-chart-6: #4d8f8b;
+  --color-chart-grid: #ece8de;
+  --color-festival-band: #f6ebd3;
+
+  /* type */
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --text-*: initial;
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 13px;
+  --text-sm--line-height: 18px;
+  --text-base: 14px;
+  --text-base--line-height: 20px;
+  --text-md: 16px;
+  --text-md--line-height: 24px;
+  --text-lg: 20px;
+  --text-lg--line-height: 28px;
+  --text-xl: 24px;
+  --text-xl--line-height: 32px;
+  --text-kpi: 28px;
+  --text-kpi--line-height: 32px;
+  --text-display: 36px;
+  --text-display--line-height: 40px;
+  --font-weight-*: initial;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* radius and shadow */
+  --radius-*: initial;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --shadow-*: initial;
+  --shadow-popover: 0 4px 16px rgba(30, 29, 26, 0.1);
+  --shadow-dialog: 0 12px 32px rgba(30, 29, 26, 0.16);
+
+  /* layout */
+  --spacing: 4px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--color-bg);
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+  /* 16px inputs on small screens stop the browser zooming in on focus. */
+  @media (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+  :where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    [tabindex],
+    [role="tab"],
+    [role="menuitem"]
+  ):focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .skeleton {
+    background: var(--color-surface-3);
+    border-radius: var(--radius-sm);
+    animation: slow-pulse 1.6s ease-in-out infinite;
+  }
+  .fade-in {
+    animation: fade-in 140ms ease-out;
+  }
+  .dialog-in {
+    animation: dialog-in 160ms ease-out;
+  }
+  .drawer-in {
+    animation: drawer-in 160ms ease-out;
+  }
+}
+
+@keyframes slow-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 8px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+@keyframes drawer-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .fade-in,
+  .dialog-in,
+  .drawer-in {
+    animation-duration: 0.08s;
+    animation-name: fade-in;
+    animation-iteration-count: 1;
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

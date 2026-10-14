@@ -32,6 +32,7 @@ services:
       APP_ENV: local
       DATABASE_URL: postgresql+psycopg://backroom:backroom@db:5432/backroom
       WATCHFILES_FORCE_POLLING: "true"
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
     ports:
       - "8000:8000"
     volumes:

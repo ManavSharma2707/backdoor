@@ -1,0 +1,17 @@
+export const login = {
+  title: "Sign in to your business.",
+  email: "Email",
+  password: "Password",
+  showPassword: "Show",
+  hidePassword: "Hide",
+  submit: "Sign in",
+  wrong: "Email or password is not right.",
+  locked: (wait: string) => `Too many attempts. Try again in ${wait}.`,
+  waking: "The server is waking up. This can take up to a minute.",
+  sessionEnded: "You were signed out. Sign in to continue.",
+  demoDivider: "Or look around with demo data",
+  demoFooter: "Demo data is simulated.",
+  emailRequired: "Enter your email.",
+  emailInvalid: "Enter an email like name@shop.com.",
+  passwordRequired: "Enter your password.",
+};
