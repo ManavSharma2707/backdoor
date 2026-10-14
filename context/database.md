@@ -290,3 +290,18 @@ These were needed to make the schema creatable and are logged in `memory.md`.
 | RLS step | Enabled on every table in `public` at migration time, including `alembic_version`. LangGraph checkpoint tables are created later by `PostgresSaver.setup()`, so P7 must run the same RLS statement after setup |
 | Supabase roles | The revoke step checks that `anon` and `authenticated` exist, so it is a no-op on plain local Postgres. `PUBLIC` keeps `USAGE` on schema `public` by default, which is why the migration revokes table, sequence and function grants and the test checks the explicit ACL |
 | Extensions | `vector`, `citext`, `pg_trgm`, `pgcrypto`. `gen_random_uuid()` is built in from PostgreSQL 13, `pgcrypto` stays for any later digest use |
+
+---
+
+## 11. As built in Prompt 2
+
+| Topic | What was built |
+|---|---|
+| Migration `0011` | `users.last_failed_login_at`, `stock_count_lines.counted_qty` and the generated `variance` nullable (`D-055`) |
+| Document numbers | Bills `B{YYMM}-{seq:05d}`, returns `R{YYMM}-{seq:04d}`, orders `PO{YYMM}-{seq:04d}`, receipts `GR{YYMM}-{seq:04d}`. A per tenant advisory lock serialises the next number |
+| Movement `source_type` and `source_id` | Sale: `sale`, the sale id. Void: `void`, the sale id. Return: `sale_return`, the return id. Receipt: `receipt`, the receipt id. Adjustment, write off and supplier return: `adjustment`, the `stock_adjustments` id. Count: `stock_count`, the count id |
+| Bill money | Prices include GST. `subtotal` is the sum of line amounts before discount, `total = subtotal - discount_total` and equals the sum of `line_total`. `tax_total` is the tax contained in the lines |
+| Expiry | A batch is sellable while `expiry_date > business date` (the expiry date is the first day it cannot be sold) |
+| Idempotency | `idempotency_keys` unique on tenant, key and scope (`POST /sales`, `POST /sales/<id>/returns` and so on). `sales.idempotency_key` stays null when an expired key is reused |
+| Reconciliation | `services/reconciliation.py` runs the three queries of section 6 plus a returned quantity check, scoped to a tenant |
+

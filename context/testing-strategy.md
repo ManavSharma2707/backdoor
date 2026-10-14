@@ -29,6 +29,9 @@ Tests are written with the code, not after. A feature is not done until its test
 - `rejected(db, exc, match)` asserts that the database refuses a block of statements without breaking the test transaction. Use it for constraint, trigger and RLS tests.
 - Source files must write the long dash characters as `\u2014` and `\u2013` escapes, because `scripts/check_copy.py` scans the source for the literal characters.
 
+- `committed` (in `tests/conftest.py`) gives sessions that really commit, for concurrency tests with threads, and deletes the tenants they made afterwards. `tests/api/helpers.py` has the stock and bill helpers.
+- Hypothesis tests that use the `db` fixture suppress the function scoped fixture health check and build fresh service objects for every step.
+
 ## 3. Mandatory invariants (property tests)
 
 Ledger:

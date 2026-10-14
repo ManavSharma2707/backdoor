@@ -210,6 +210,11 @@ Context: counts, adjustments, write offs and returns to suppliers need rules the
 Choice: an adjustment is one ledger movement plus one `stock_adjustments` row (the row's id is the movement's `source_id`). Reason decides the movement type (damage, expiry_writeoff and supplier_return keep their own types, the rest are `adjustment`), reasons that remove stock refuse a plus quantity and `found` refuses a minus one, `other` needs a note, batch tracked products need a batch and plain products refuse one. A count snapshots system quantities (batch products per batch with stock), lines start uncounted, posting writes `count_correction` movements for the saved difference (`counted - snapshot`) on counted lines only, and refuses with a 409 when a difference would take a balance below zero because stock moved after the snapshot. Write off takes the whole remaining batch quantity: reason `expired` needs `expiry_date <= today`, `damaged` is always allowed, the batch is then `closed`. A supplier return is a `supplier_return` adjustment per line, and an expired batch needs a supplier that accepts expiry returns, within `expiry_return_window_days` when set. Stock status is `out`, `low` (at or below `min_stock_qty`), `ok`, or `expired` (any expired stock on hand). `incoming` is the open quantity on sent or partly received orders that are not overdue, overdue orders are reported separately and never counted on. Out of stock periods you record cannot overlap each other, and inferred ones cannot be edited. Migration 0011 also drops NOT NULL on the generated `variance` column.
 Consequence: `services/inventory_service.py`, `api/v1/inventory.py`. `api-spec.md` amended.
 
+### D-064 (2026-10-14) Transactions, locking and the OpenAPI file
+Context: services must be atomic, concurrent requests must not oversell, and `architecture.md` names no path for the generated OpenAPI document.
+Choice: `core.db.transaction(session)` is a re-entrant context manager (commit at the outermost exit, roll back on any exception), `get_session` never commits. Refusals that must be remembered (failed logins, token reuse) finish their transaction and raise afterwards. `LedgerService` locks every balance row of the products involved in one ordered statement before it reads or writes, takes `populate_existing`, and dry runs a whole batch before writing, so a shortfall writes nothing. Sale, receipt and return numbers take a per tenant advisory lock so sequences cannot repeat. The OpenAPI document is `backend/openapi.json`, written by `python -m app.jobs.run openapi` (`make openapi`) and checked for staleness by `tests/api/test_contract.py`.
+Consequence: `architecture.md` repo layout amended.
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).
@@ -225,8 +230,8 @@ Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolve
 | psycopg | 3.3.6 | psycopg-binary 3.3.6, psycopg-pool 3.3.3 |
 | alembic | 1.20.0 |  |
 | pydantic | 2.14.1 | pydantic-settings 2.15.0 |
-| pyjwt | 2.15.1 | not used yet |
-| argon2-cffi | 25.1.0 | not used yet |
+| pyjwt | 2.15.1 | access tokens, time claims checked by our code (`D-056`) |
+| argon2-cffi | 25.1.0 | argon2id, t=3 m=64 MiB p=2 |
 | pandas | 3.0.6 |  |
 | numpy | 2.5.4 |  |
 | scikit-learn | 1.9.1 |  |
@@ -239,11 +244,11 @@ Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolve
 | google-genai | 2.30.0 |  |
 | pgvector (python) | 0.5.1 |  |
 | structlog | 26.1.0 |  |
-| slowapi | 0.1.10 | not used yet |
+| slowapi | 0.1.10 | per IP limits. `limits` 5.8.0 (its dependency) is used directly for per email and per user limits |
 | sse-starlette | 3.5.0 | not used yet |
 | tenacity | 9.1.4 | not used yet |
-| cachetools | 7.2.1 | not used yet |
-| email-validator | 2.3.0 | not used yet |
+| cachetools | 7.2.1 | failure counts for unknown emails (TTL) |
+| email-validator | 2.3.0 | `EmailStr` on auth and supplier bodies |
 | faker, pyyaml | 40.43.0, 6.0.3 | seed, Prompt 3 |
 | pytest, pytest-cov, hypothesis | 9.1.1, 7.1.0, 6.169.0 |  |
 | httpx, openpyxl, pypdf | 0.28.1, 3.1.5, 6.20.1 |  |
@@ -288,31 +293,48 @@ Found while building Prompt 1:
 - Text written through some editor and shell tools can turn a typed unicode escape for a long dash into the real character. Verify with `scripts/check_copy.py` after writing any source or doc that mentions the long dashes, and build such characters with `chr()` in scripts.
 - Apostrophes inside a shell heredoc can break the command wrapper. Write files with the editor tools.
 
+Found while building Prompt 2:
+
+- GNU Make is not installed on the dev machine. Run the underlying commands (`python -m uv run ...` from `backend/`, `docker compose exec api ...`) or install make as in the Prompt 1 notes. `make openapi` was added to the Makefile.
+- A method called `list` inside a service class shadows the builtin for every later `list[...]` annotation in that class body, which fails at import. Services use `list_all`, `search`, `list_links`.
+- A pydantic field written `x: date | None = Field(ge=..., le=...)` has no default and is therefore required. Always pass `default=None`.
+- Model level `@model_validator` errors have no field location, so the error envelope shows `request`. Use a `@field_validator` with `info.data` when the error belongs to one field (`selling_price` against `mrp`).
+- `jwt.decode` checks `exp`, `nbf` and `iat` with the system clock. Tests that move the clock must also sign a fresh access token after advancing it (15 minute life).
+- Test `db` fixture sessions use savepoints, so a refused request must not undo the test's own setup: the `app` fixture commits the session before every request. Hypothesis tests that use `db` need `suppress_health_check=[function_scoped_fixture]`, and services keep per request state (`LedgerService` caches locked balance rows), so build fresh service objects per step.
+- `SELECT ... FOR UPDATE` must use `populate_existing` so a waiting transaction sees the row the other one committed. Without it the ORM can reuse a stale object and oversell.
+- Text of a user facing message that lives in `core/messages.py` is scanned for banned words ("just", "simply", "smart"). Keep messages plain.
+- Heredocs with apostrophes or a stray terminator word break the shell wrapper. Write source files with the editor tool and run small edits as `python - <<'PYX'` scripts without any other text after the closing marker.
+- `ruff format` rewraps long lines, so a later `str.replace` on a one line string can silently miss. Edit by line number or re-read first.
+- A generated (stored) column inherits NOT NULL from its definition. `stock_count_lines.variance` needed `DROP NOT NULL` in migration 0011 as well as the nullable `counted_qty`.
+- Idempotency keys expire after 48 hours, but `sales.idempotency_key` has a partial unique index. A reused key leaves the sale column null so a legitimate second use does not hit the index.
+
 ## 7. Measurements (fill in as you go)
 
 | Item | Value | Date |
 |---|---|---|
-| Argon2 hash time on Render free | | |
+| Argon2 hash time at the spec parameters | 480 ms per hash in the local dev container (limit 800 ms). Render free still to be measured after deploy | 2026-10-14 |
 | API resident memory (idle, after export) | 178 MiB for the whole dev container (reload watcher plus worker), before any export. Budget is 400 MB | 2026-10-13 |
 | Full seed size (MB) | | |
 | Light pipeline time per tenant | | |
 | Full pipeline time per tenant | | |
 | Tenant WAPE vs baseline WAPE | | |
 | Agent eval grounding pass rate | | |
-| Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s | 2026-10-13 |
+| Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s. Prompt 2: 904 tests, 98 percent total, suite takes about 4.5 minutes (the 200 sequence property test is about 40 s, concurrency tests about 8 s). Auth: `auth_service` 95, `security` 98, `deps` 100, `ratelimit` 98, `audit` 98. Ledger: `ledger` 98, `ledger_rules` 100, `sales_math` 100 | 2026-10-14 |
 | API dev image size | 1.29 GB (includes ml and agents packages) | 2026-10-13 |
 | API runtime image size | 1.0 GB. Verified: runs as uid 10001, migrates on start, Docker healthcheck healthy, lightgbm imports (libgomp) | 2026-10-13 |
 | Migration upgrade from empty | about 3 s for 10 revisions | 2026-10-13 |
 
 ## 8. Session handoff (rewrite at the end of every session)
 
-- State: **Prompt 1 complete** (P1.01 to P1.16). `make up` starts Postgres (pgvector), the API and a placeholder web page. `make migrate` builds all 51 tables, RLS, views and reference data. Health endpoints respond. 352 tests, lint, strict types and the copy check are green. Nothing is pushed (there is no remote).
-- Last action: verification gate run on a fresh volume on 2026-10-13, then context files updated.
-- Next step: **Prompt 2, auth and transactional core**. Start with `progress.md` P2.01. The pieces it plugs into already exist: `TenantRepo`, `AppError` and the envelope, `create_app`, `api/v1/router.py` (add routers there), `tests/api/conftest.py` fixtures, `two_tenants` and the factories in `tests/factories.py` (users have a placeholder password hash today), `core/clock.py` for token times.
-- Open problems: none blocking. The host system drive is nearly full (see section 6), tell the human.
+- State: **Prompt 2 complete** (P2.01 to P2.18). Auth (login, refresh rotation with reuse detection and grace, logout, logout-all, me, change password, flagged register and demo login), rate limits, audit log, settings, catalogue, suppliers and terms, the stock ledger, sales with returns and voids, purchase orders and receipts, inventory (stock, batches, movements, adjustments, write off, counts, stockouts, reconcile, supplier returns) and idempotency all exist with 904 passing tests. `backend/openapi.json` is committed and a test keeps it current. Nothing is pushed.
+- Verified by hand on the docker stack: login, create category, product, supplier, terms, order, send, receive, sell, replay with the same key, void, oversell refusal, reconcile, 401 without a token.
+- Next step: **Prompt 3, seed data**. Write the generator so it loads through COPY but produces the same rows the services would: sales with `source = 'seed'`, movements with the types and sign rules in `engine/ledger_rules.py`, balances rebuilt from the ledger, batches as `receipt_lines` create them, `bill_no` as `B{YYMM}-{seq:05d}` (the service continues the sequence), PO numbers `PO{YYMM}-{seq:04d}`, receipts `GR{YYMM}-{seq:04d}`. Run `services/reconciliation.find_mismatches` as part of `seed.validate`. Create owner users with `PasswordService` from `core/security.py` (password from `DEMO_OWNER_PASSWORD`, 12 or more characters, not a common password) and a `business_settings` row per tenant.
+- Open problems: none blocking. The system drive is at 99 percent (3.8 GB free), tell the human. Prompt 3 must flip `is_verified` for the calendar (`D-047`).
 - Notes for the next session:
-  - Run commands from `backend/` with `UV_PROJECT_ENVIRONMENT` pointing outside OneDrive, or use `make ... UV="python -m uv"`.
-  - Never write the long dash characters literally in source or docs, use escapes (`D-052`).
-  - Prompt 3 must flip `is_verified` for the calendar in `app/jobs/reference_data.py` (`D-047`), and Prompt 7 must run the RLS statement from migration 0010 after `PostgresSaver.setup()`.
+  - Run commands from `backend/` with `UV_PROJECT_ENVIRONMENT=/c/Users/manav/.venvs/backroom` and `python -m uv run ...` (make is not installed here).
+  - Services open transactions with `core.db.transaction(session)`, which nests and commits only at the outermost level. Never call `session.begin()` in services.
+  - `run_idempotent` wraps a service call for POSTs that accept `Idempotency-Key`. Tests assert replay with the `Idempotent-Replay` header.
+  - Use `tests/api/helpers.py` (`stock_up`, `make_batch_with_stock`, `sale_payload`) and `two_tenants` (each bundle has `headers`) for API tests, `committed` for tests that need real concurrent transactions.
+  - Prompt 7 must run the RLS statement from migration 0010 after `PostgresSaver.setup()`.
   - The `frontend` CI job is switched off with `if: false` until P5.13.
   - `rejected(db, ...)` in `tests/conftest.py` is the way to assert database refusals.

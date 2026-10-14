@@ -2,13 +2,13 @@
 
 Single checklist for the whole build. Tick items as soon as they are done and verified, add the date. Add new items when you discover work (give them the next free id in the group). Do not delete items.
 
-Format: `- [ ] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`.
+Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`.
 
 **Status header (update every session)**
-- Current prompt: Prompt 1 complete, Prompt 2 (auth and transactional core) is next
-- Last commit: `b4b91bd` (last code commit), followed by the `docs(context)` commit that closes Prompt 1. Nothing pushed
-- Last updated: 2026-10-13 (Prompt 1 done: 352 tests green, `make up` and `make migrate` verified on a fresh volume)
-- Blockers: none. The host system drive is nearly full, see `memory.md` section 6
+- Current prompt: Prompt 2 complete (auth and transactional core), Prompt 3 (seed data) is next
+- Last commit: the `docs(context)` commit that closes Prompt 2, after `b5286ec` (inventory). Nothing pushed
+- Last updated: 2026-10-14 (Prompt 2 done: 904 tests green, auth and ledger coverage above 90 percent, smoke test on the docker stack passed)
+- Blockers: none. The host system drive is nearly full (3.8 GB free), see `memory.md` section 6
 
 ---
 
@@ -33,24 +33,24 @@ Format: `- [ ] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`
 
 ## Prompt 2: Auth and transactional core
 
-- [ ] P2.01 Password hashing, policy, common password list, lockout fields
-- [ ] P2.02 JWT access tokens (claims, validation), refresh token rotation, reuse detection, grace window, cookie handling
-- [ ] P2.03 Auth endpoints (login, refresh, logout, logout-all, me, change-password), registration and demo-login behind flags
-- [ ] P2.04 Rate limiting (slowapi), audit logging service, `require_role` dependency, `TenantContext`
-- [ ] P2.05 Auth tests (rotation, reuse, lockout, timing path, cookie attributes, flags default off)
-- [ ] P2.06 Settings endpoints and validation
-- [ ] P2.07 Categories, products (with prices, search), equivalents, tax rates endpoints and services
-- [ ] P2.08 Suppliers and effective-dated terms (primary uniqueness, lead time resolution helper)
-- [ ] P2.09 Ledger service (movements, balances with row locks, weighted average cost, FEFO allocator)
-- [ ] P2.10 Sales service and endpoints (create with idempotency, FEFO split, totals, void, duplicate warning)
-- [ ] P2.11 Returns service (dispositions, movement pairs, quantity limits)
-- [ ] P2.12 Purchasing service (POs, state machine, receipts, batches, exception rules, overdue)
-- [ ] P2.13 Inventory endpoints (stock, batches, movements, adjustments, write off, counts, stockout intervals, reconcile)
-- [ ] P2.14 Idempotency middleware and table use
-- [ ] P2.15 Property tests for ledger invariants (see `testing-strategy.md` section 3, items 1 to 5)
-- [ ] P2.16 API tests: 401, two-tenant matrix for every route, error envelope, idempotency
-- [ ] P2.17 Gate: coverage targets (auth 90, ledger 90), OpenAPI generated, lint and types green
-- [ ] P2.18 Context updates
+- [x] P2.01 Password hashing, policy, common password list, lockout fields (2026-10-14)
+- [x] P2.02 JWT access tokens (claims, validation), refresh token rotation, reuse detection, grace window, cookie handling (2026-10-14)
+- [x] P2.03 Auth endpoints (login, refresh, logout, logout-all, me, change-password), registration and demo-login behind flags (2026-10-14)
+- [x] P2.04 Rate limiting (slowapi), audit logging service, `require_role` dependency, `TenantContext` (2026-10-14)
+- [x] P2.05 Auth tests (rotation, reuse, lockout, timing path, cookie attributes, flags default off) (2026-10-14)
+- [x] P2.06 Settings endpoints and validation (2026-10-14)
+- [x] P2.07 Categories, products (with prices, search), equivalents, tax rates endpoints and services (2026-10-14)
+- [x] P2.08 Suppliers and effective-dated terms (primary uniqueness, lead time resolution helper) (2026-10-14)
+- [x] P2.09 Ledger service (movements, balances with row locks, weighted average cost, FEFO allocator) (2026-10-14)
+- [x] P2.10 Sales service and endpoints (create with idempotency, FEFO split, totals, void, duplicate warning) (2026-10-14)
+- [x] P2.11 Returns service (dispositions, movement pairs, quantity limits) (2026-10-14)
+- [x] P2.12 Purchasing service (POs, state machine, receipts, batches, exception rules, overdue) (2026-10-14)
+- [x] P2.13 Inventory endpoints (stock, batches, movements, adjustments, write off, counts, stockout intervals, reconcile) (2026-10-14)
+- [x] P2.14 Idempotency dependency (`run_idempotent`) and table use (2026-10-14)
+- [x] P2.15 Property tests for ledger invariants (see `testing-strategy.md` section 3, items 1 to 5) (2026-10-14)
+- [x] P2.16 API tests: 401, two-tenant matrix for every route, error envelope, idempotency (2026-10-14)
+- [x] P2.17 Gate: coverage targets (auth 90, ledger 90), OpenAPI generated, lint and types green (2026-10-14)
+- [x] P2.18 Context updates (2026-10-14)
 
 ## Prompt 3: Seed data
 

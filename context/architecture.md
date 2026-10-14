@@ -49,7 +49,7 @@ backroom/
   .github/workflows/ci.yml  monday-job.yml
   scripts/check_copy.py  db_dump.sh
   backend/
-    pyproject.toml  uv.lock  Dockerfile  start.sh  alembic.ini
+    pyproject.toml  uv.lock  Dockerfile  start.sh  alembic.ini  openapi.json (generated)
     alembic/env.py  alembic/versions/
     app/
       main.py version.py            app factory, middleware, router mount, version string
@@ -98,9 +98,9 @@ backroom/
 
 **Errors**: one envelope, see `api-spec.md`. Domain errors subclass `AppError(code, http_status, message)`. Never leak stack traces.
 
-**Transactions**: each service method is one transaction. Ledger writes (sale, return, receipt, adjustment, count) lock affected `stock_balances` rows with `SELECT ... FOR UPDATE` in primary key order to avoid deadlocks.
+**Transactions**: each service method is one transaction (`core.db.transaction`, re-entrant, commit at the outermost level). Ledger writes (sale, return, receipt, adjustment, count) lock affected `stock_balances` rows with `SELECT ... FOR UPDATE` in primary key order to avoid deadlocks.
 
-**Idempotency**: `POST /sales`, `/purchase-orders/{id}/receipts`, `/inventory/adjustments`, `/jobs/*` accept `Idempotency-Key`. Same key and same body returns the stored response. Same key and different body returns 422.
+**Idempotency**: `POST /sales`, `/sales/{id}/returns`, `/purchase-orders/{id}/receipts`, `/receipts`, `/inventory/adjustments`, `/suppliers/{id}/returns`, `/jobs/*` accept `Idempotency-Key` (`core/idempotency.py`). Same key and same body returns the stored response. Same key and different body returns 422.
 
 **Background work**: FastAPI `BackgroundTasks` for light jobs (report regenerate, agent actions). `job_runs` rows record status. Anything over about 60 seconds must be a script run in Actions.
 

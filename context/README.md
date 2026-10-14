@@ -42,3 +42,18 @@ Built in Prompt 1. Paths are from the repo root.
 | `backend/alembic/versions/0001` to `0010` | The schema. `0010` holds RLS, revokes and views |
 | `backend/app/jobs/` | `run.py` (CLI, only `migrate` so far), `migrate.py` (alembic under an advisory lock, `head_revision`), `reference_data.py` (GST slabs and the India calendar upsert) |
 | `backend/tests/conftest.py`, `backend/tests/factories.py` | Test database, rollback `db` fixture, `rejected()`, `scratch_database()`, `two_tenants`, plain factory functions |
+
+Built in Prompt 2.
+
+| File | What it is |
+|---|---|
+| `backend/openapi.json` | Generated API contract. `python -m app.jobs.run openapi` rewrites it, a test fails when it is stale |
+| `backend/app/core/security.py`, `deps.py`, `ratelimit.py`, `audit.py`, `idempotency.py`, `pagination.py` | Passwords and tokens, tenant context and `require_role`, limits, audit writer, idempotent POST wrapper, paging and sort helpers. `db.py` gained `transaction` and `advisory_lock` |
+| `backend/app/assets/common_passwords.txt` | Common password list used by the password policy |
+| `backend/app/engine/` | Pure rules: `ledger_rules` (signs, average cost, FEFO), `sales_math` (inclusive GST, discount split, refunds), `po_rules` (state machine, overdue, price variance), `lead_time`, `term_rules` |
+| `backend/app/services/` | `auth_service`, `settings_service`, `catalogue_service`, `supplier_service`, `ledger` (only writer of movements and balances), `sales_service`, `purchasing_service`, `inventory_service`, `reconciliation`, `common` |
+| `backend/app/api/v1/` | `auth`, `settings`, `catalogue`, `suppliers`, `sales`, `purchasing`, `inventory`, mounted in `router.py` |
+| `backend/app/schemas/` | Request and response models per domain, `common.py` has the money and quantity types |
+| `backend/tests/api/helpers.py` | Stock, batch and bill helpers for API tests. `conftest.py` has `committed` for concurrency tests |
+| `backend/tests/integration/test_ledger_properties.py` | 200 sequence stateful property test of the ledger invariants |
+
