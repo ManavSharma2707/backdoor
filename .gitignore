@@ -30,6 +30,9 @@ frontend/test-results/
 build/
 dist/
 reports/
+!backend/reports/
+backend/reports/*
+!backend/reports/synthetic_accuracy.md
 backend/tests/reports/
 
 # Backups and dumps
