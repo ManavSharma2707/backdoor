@@ -274,10 +274,9 @@ export default function ProductDetailPage() {
           value={money(p.selling_price, 2)}
           hint={`${copy.detail.mrp} ${money(p.mrp, 2)}`}
         />
-        <Stat
-          label={copy.detail.cover}
-          value={p.days_of_cover === null ? "" : quantity(p.days_of_cover)}
-        />
+        {p.days_of_cover === null ? null : (
+          <Stat label={copy.detail.cover} value={quantity(p.days_of_cover)} />
+        )}
         <Stat label={copy.detail.supplier} value={p.primary_supplier_name ?? ""} />
       </div>
       <Tabs

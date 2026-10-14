@@ -212,7 +212,7 @@ export default function PurchaseNewPage() {
                 className="px-0"
               />
             ) : (
-              <div className="overflow-x-auto rounded-md border border-border">
+              <div className="relative overflow-x-auto rounded-md border border-border">
                 <table className="w-full border-collapse text-sm">
                   <caption className="sr-only">{copy.newPage.lines}</caption>
                   <thead className="bg-surface-2 text-xs text-text-2">

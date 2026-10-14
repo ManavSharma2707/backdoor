@@ -61,9 +61,7 @@ jobs:
           python-version: "3.12"
       - run: python scripts/check_copy.py
 
-  # Switched on in Prompt 5 (P5.13) when the Vite project exists: replace `false` with `true`.
   frontend:
-    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:
@@ -79,6 +77,6 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
-      - run: npm run test -- --run
+      - run: npm run test
       - run: npm run build
       - run: npm audit --audit-level=high

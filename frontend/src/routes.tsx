@@ -12,6 +12,7 @@ const ProductsPage = lazy(() => import("@/features/products/products-page"));
 const ProductFormPage = lazy(() => import("@/features/products/product-form-page"));
 const ProductDetailPage = lazy(() => import("@/features/products/product-detail-page"));
 const StockPage = lazy(() => import("@/features/stock/stock-page"));
+const UiGallery = lazy(() => import("@/features/ui-gallery"));
 const SettingsPage = lazy(() => import("@/features/settings/settings-page"));
 const SalesPage = lazy(() => import("@/features/sales/sales-page"));
 const SaleEntryPage = lazy(() => import("@/features/sales/sale-entry-page"));
@@ -44,6 +45,8 @@ function NotFound() {
 }
 
 export const routes: RouteObject[] = [
+  // The component gallery exists only in development builds.
+  ...(import.meta.env.DEV ? [{ path: "/_ui", element: <UiGallery /> }] : []),
   {
     path: "/login",
     element: (

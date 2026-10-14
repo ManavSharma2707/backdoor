@@ -10,7 +10,7 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "typecheck": "tsc -b --noEmit",
-    "test": "vitest",
+    "test": "vitest run",
     "openapi-types": "openapi-typescript ../backend/openapi.json -o src/types/api.d.ts"
   },
   "dependencies": {

@@ -199,7 +199,7 @@ export default function PurchaseDetailPage() {
           </Banner>
         ) : null}
       </div>
-      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0 space-y-6">
           <DataTable
             caption={copy.detail.title(o.po_number)}

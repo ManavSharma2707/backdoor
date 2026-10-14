@@ -464,11 +464,11 @@ export default function OverviewPage() {
         <div className="space-y-6">
           <NeedsAttention summary={summary.data} />
           <Kpis summary={summary.data} />
-          <div className="grid items-start gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
             <TrendPanel />
             <CoverPanel />
           </div>
-          <div className="grid items-start gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
             <PlanPanel summary={summary.data} />
             <ActivityPanel />
           </div>

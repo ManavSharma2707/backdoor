@@ -259,10 +259,9 @@ export function refreshSession(): Promise<boolean> {
         accessToken = null;
         return false;
       } finally {
-        // Cleared on the next tick so callers that joined this flight all see the same result.
-        setTimeout(() => {
-          refreshing = null;
-        }, 0);
+        // Callers that joined this flight already hold the promise. A request that fails later
+        // sees the token has changed and retries without asking again.
+        refreshing = null;
       }
     })();
   }

@@ -72,7 +72,7 @@ export function DataTable<Row>({
           <ErrorBanner message={error} onRetry={onRetry} retryLabel={retryLabel} />
         </div>
       ) : null}
-      <div className="max-h-[70dvh] overflow-auto">
+      <div className="relative max-h-[70dvh] overflow-auto">
         <table className="w-full border-collapse text-sm">
           <caption className="sr-only">{caption}</caption>
           <thead className="sticky top-0 z-10 bg-surface-2">

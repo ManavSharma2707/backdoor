@@ -203,7 +203,8 @@ def scan(root: Path) -> list[Violation]:
             violations.extend(check_copy_file(path, display, text, patterns, copy=True))
 
     for path in iter_files(root / "frontend/src", {".ts", ".tsx"}):
-        if path in copy_paths or path.name.endswith((".test.ts", ".test.tsx", ".d.ts")):
+        in_test_helpers = path.relative_to(root / "frontend/src").parts[0] == "test"
+        if path in copy_paths or in_test_helpers or path.name.endswith((".test.ts", ".test.tsx", ".d.ts")):
             continue
         text = read(path)
         if text is not None:

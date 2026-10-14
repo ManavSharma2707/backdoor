@@ -225,7 +225,7 @@ export default function SaleEntryPage() {
           {copy.entry.duplicate}
         </Banner>
       ) : null}
-      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0 space-y-4">
           <div className="relative">
             <Search
@@ -302,7 +302,7 @@ export default function SaleEntryPage() {
             ) : null}
           </div>
 
-          <div className="overflow-x-auto rounded-md border border-border bg-surface">
+          <div className="relative overflow-x-auto rounded-md border border-border bg-surface">
             <table className="w-full border-collapse text-sm">
               <caption className="sr-only">{copy.entry.title}</caption>
               <thead className="bg-surface-2 text-xs text-text-2">
