@@ -37,6 +37,7 @@ from app.schemas.auth import (
     TenantOut,
     UserOut,
 )
+from app.schemas.common import ErrorEnvelope
 from app.services.auth_service import AuthService, IssuedSession
 
 REFRESH_COOKIE = "backroom_rt"
@@ -113,7 +114,7 @@ def _text(value: Decimal | None) -> str | None:
     "/login",
     response_model=LoginResponse,
     summary="Sign in",
-    responses={401: {"description": "Email or password is not right"}},
+    responses={401: {"model": ErrorEnvelope, "description": "Email or password is not right"}},
 )
 @limiter.limit(login_ip_limit)
 def login(
@@ -134,7 +135,10 @@ def login(
     response_model=LoginResponse,
     summary="Rotate the refresh token",
     dependencies=[CsrfDep],
-    responses={401: {"description": "Not signed in"}, 403: {"description": "Request refused"}},
+    responses={
+        401: {"model": ErrorEnvelope, "description": "Not signed in"},
+        403: {"model": ErrorEnvelope, "description": "Request refused"},
+    },
 )
 @limiter.limit(refresh_ip_limit)
 def refresh(

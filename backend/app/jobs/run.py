@@ -1,7 +1,7 @@
 """Command line entry point: `python -m app.jobs.run <command>`.
 
-Only `migrate` exists so far. The Monday pipeline, backfill, simulate-week and reset-password
-commands arrive in later prompts.
+`migrate` and `openapi` exist so far. The Monday pipeline, backfill, simulate-week and
+reset-password commands arrive in later prompts.
 """
 
 import argparse
@@ -19,6 +19,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="python -m app.jobs.run", description="Backroom jobs")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("migrate", help="alembic upgrade head, then refresh reference data")
+    commands.add_parser("openapi", help="write backend/openapi.json from the running app code")
     return parser
 
 
@@ -28,6 +29,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     configure_logging(settings.log_level, json_output=settings.is_production)
     if args.command == "migrate":
         run_migrations()
+        return 0
+    if args.command == "openapi":
+        from app.jobs.openapi import write_openapi
+
+        log.info("openapi.written", path=str(write_openapi()))
         return 0
     return 2  # pragma: no cover
 

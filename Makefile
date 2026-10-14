@@ -12,7 +12,7 @@ export UV_LINK_MODE ?= copy
 
 .PHONY: help up down logs migrate revision seed seed-reset job-monday \
 	test test-backend test-frontend lint lint-backend lint-frontend format typecheck \
-	check-copy openapi-types dump
+	check-copy openapi openapi-types dump
 
 help:
 	@echo "make up | down | logs        docker compose for db, api, web"
@@ -22,6 +22,7 @@ help:
 	@echo "make job-monday              run the Monday pipeline locally"
 	@echo "make test | test-backend | test-frontend"
 	@echo "make lint | format | typecheck | check-copy"
+	@echo "make openapi                  regenerate backend/openapi.json"
 	@echo "make openapi-types           regenerate frontend API types"
 	@echo "make dump                    pg_dump to ./backups"
 
@@ -83,6 +84,9 @@ typecheck:
 
 check-copy:
 	$(PYTHON) scripts/check_copy.py
+
+openapi:
+	cd backend && $(UV) run python -m app.jobs.run openapi
 
 openapi-types:
 	cd frontend && npx openapi-typescript http://localhost:8000/api/v1/openapi.json -o src/types/api.d.ts

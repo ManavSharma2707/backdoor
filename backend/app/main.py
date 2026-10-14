@@ -72,7 +72,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         openapi_url=f"{API_PREFIX}/openapi.json",
         lifespan=lifespan,
         responses={
+            401: {"model": ErrorEnvelope, "description": "Not signed in or token expired"},
+            403: {"model": ErrorEnvelope, "description": "Not allowed"},
+            404: {"model": ErrorEnvelope, "description": "Not found, or not yours"},
             422: {"model": ErrorEnvelope, "description": "Validation error"},
+            429: {"model": ErrorEnvelope, "description": "Too many requests, see Retry-After"},
             500: {"model": ErrorEnvelope, "description": "Unexpected error"},
         },
     )
