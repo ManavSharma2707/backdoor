@@ -307,3 +307,17 @@ def test_knowledge_is_stored_without_embeddings(seeded: Seeded) -> None:
     assert 20 <= global_chunks <= 60
     assert len(per_tenant) == 4
     assert all(n >= 15 for _, n in per_tenant)
+
+
+@pytest.mark.parametrize(
+    "table",
+    ["sale_lines", "sale_return_lines", "inventory_movements", "forecast_values", "agent_steps"],
+)
+def test_identity_sequences_are_past_the_loaded_ids(seeded: Seeded, table: str) -> None:
+    """Regression: COPY with explicit ids left the sequences at 1, so the first new bill failed."""
+    with seeded.session() as session:
+        largest = session.execute(text(f"SELECT COALESCE(MAX(id), 0) FROM {table}")).scalar_one()
+        issued = session.execute(
+            text("SELECT nextval(pg_get_serial_sequence(:table, 'id'))"), {"table": table}
+        ).scalar_one()
+    assert issued > largest

@@ -35,6 +35,27 @@ ROLLUP_INPUTS = (
     "promotions",
 )
 RESET_SKIP = frozenset({"audit_logs"})
+# COPY writes explicit ids, which leaves identity sequences at 1. Without a reset the first bill
+# saved through the API fails on a duplicate key.
+IDENTITY_TABLES = (
+    "sale_lines",
+    "sale_return_lines",
+    "inventory_movements",
+    "forecast_values",
+    "audit_logs",
+    "agent_steps",
+)
+
+
+def sync_identity_sequences(cur: psycopg.Cursor[Any]) -> None:
+    """Move every identity sequence past the largest id that was loaded."""
+    for table in IDENTITY_TABLES:
+        cur.execute(
+            sql.SQL(
+                "SELECT setval(pg_get_serial_sequence({name}, 'id'), "
+                "COALESCE(MAX(id), 1), COALESCE(MAX(id), 0) > 0) FROM {table}"
+            ).format(name=sql.Literal(table), table=sql.Identifier(table))
+        )
 
 
 def psycopg_url(database_url: str) -> str:
@@ -147,6 +168,7 @@ def load_tenant(
                 rows = data.rows[table]
             n = copy_rows(cur, table, rows)
             log.info("seed.copied", tenant=profile.key, table=table, rows=n)
+        sync_identity_sequences(cur)
         timings["copy"] = time.time() - t0
         t1 = time.time()
         rebuild_balances(cur, tid, data, catalog)
