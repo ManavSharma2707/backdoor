@@ -12,6 +12,7 @@ const ProductsPage = lazy(() => import("@/features/products/products-page"));
 const ProductFormPage = lazy(() => import("@/features/products/product-form-page"));
 const ProductDetailPage = lazy(() => import("@/features/products/product-detail-page"));
 const StockPage = lazy(() => import("@/features/stock/stock-page"));
+const SettingsPage = lazy(() => import("@/features/settings/settings-page"));
 const SalesPage = lazy(() => import("@/features/sales/sales-page"));
 const SaleEntryPage = lazy(() => import("@/features/sales/sale-entry-page"));
 const SaleDetailPage = lazy(() => import("@/features/sales/sale-detail-page"));
@@ -63,6 +64,7 @@ export const routes: RouteObject[] = [
           { path: "products/:id", element: <ProductDetailPage /> },
           { path: "products/:id/edit", element: <ProductFormPage /> },
           { path: "stock", element: <StockPage /> },
+          { path: "settings", element: <SettingsPage /> },
           { path: "sales", element: <SalesPage /> },
           { path: "sales/new", element: <SaleEntryPage /> },
           { path: "sales/:id", element: <SaleDetailPage /> },

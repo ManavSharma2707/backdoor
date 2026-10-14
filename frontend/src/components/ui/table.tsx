@@ -171,7 +171,7 @@ export function DataTable<Row>({
                         <td
                           key={column.key}
                           className={cn(
-                            "px-3 align-middle",
+                            "px-3 align-middle whitespace-nowrap",
                             column.numeric && "tabular text-right",
                             c === 0 &&
                               "sticky left-0 bg-surface group-hover:bg-surface-2 group-aria-selected:bg-surface-3",
