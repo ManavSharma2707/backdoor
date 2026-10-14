@@ -324,6 +324,31 @@ Found while building Prompt 2:
 | API runtime image size | 1.0 GB. Verified: runs as uid 10001, migrates on start, Docker healthcheck healthy, lightgbm imports (libgomp) | 2026-10-13 |
 | Migration upgrade from empty | about 3 s for 10 revisions | 2026-10-13 |
 
+### Prompt 3 verification log: festival dates (2026-10-14)
+
+Method: web search, two or more independent sources per event, majority wins, a one day disagreement keeps the wider window. Sources by name (all fetched on 14 Oct 2026): drikpanchang, smartpuja, indiabonds, bankbazaar, dekhopanchang, kissht, 101planners, shubhpanchang, hindutone, vedantu, patrika, sakshipost, thestatesman, kashmirreader, curlytales, krishijagran, etvbharat, business-standard, newsonair, hindupad (Marathi calendar), mypunepulse, outlookindia, goodreturns, narayanseva, cleartax (state holiday list).
+
+| Event | Outcome | Disagreement and handling |
+|---|---|---|
+| Bakri Eid 2025 | 7 Jun 2025, confirmed | Saudi Arabia 6 Jun (not relevant to India) |
+| Raksha Bandhan 2025 | 9 Aug, confirmed | none |
+| Ganesh Chaturthi 2025 | 27 Aug to 6 Sep, confirmed | one source a day earlier, window already wide |
+| Navratri and Dussehra 2025 | 22 Sep to 2 Oct, confirmed | spam pages ignored |
+| Diwali 2025 | Dhanteras 18, Lakshmi Puja 20, Bhai Dooj 23 Oct, confirmed | one source 21 Oct for Lakshmi Puja, window covers it |
+| Makar Sankranti 2026 | 14 Jan, confirmed | none |
+| Holi 2026 | **3 to 4 Mar** (changed, was 3 Mar only) | Holika Dahan 3 Mar, colour day 4 Mar. One SEO page said 10 to 11 Mar and was ignored |
+| Gudi Padwa 2026 | **19 to 20 Mar** (changed, was 19 Mar) | one state holiday list says 20 Mar, conservative window keeps both |
+| Eid al-Fitr 2026 | 21 Mar, confirmed | 20 Mar in Saudi Arabia, India 30th roza was 20 Mar |
+| Bakri Eid 2026 | 28 May, confirmed | 27 May in one region only |
+| Raksha Bandhan 2026 | 28 Aug, confirmed | one calendar said 30 Jul, ignored |
+| Ganesh Chaturthi 2026 | 14 Sep, Anant Chaturdashi 25 Sep, confirmed | one source 24 Sep, end kept at 25 Sep |
+| Navratri and Dussehra 2026 | Start 11 Oct, Dussehra 20 Oct. **End changed to 21 Oct** | one source says 12 Oct start and 21 Oct Dussehra, wider window kept |
+| Diwali 2026 | Dhanteras 6, Lakshmi Puja 8, Bhai Dooj 10 Nov, confirmed | bankbazaar pages show the 2025 dates and were ignored |
+| Christmas and New Year | fixed Gregorian dates, verified by convention | window length is a design choice |
+| 2027 rows | stay unverified, approximate | not checked |
+
+Code: `app/jobs/reference_data.py` (`EventRow.checked`), `is_verified` is true for every 2025 and 2026 festival. `tests/integration/test_reference_data.py` was changed to match.
+
 ## 8. Session handoff (rewrite at the end of every session)
 
 - State: **Prompt 2 complete** (P2.01 to P2.18). Auth (login, refresh rotation with reuse detection and grace, logout, logout-all, me, change password, flagged register and demo login), rate limits, audit log, settings, catalogue, suppliers and terms, the stock ledger, sales with returns and voids, purchase orders and receipts, inventory (stock, batches, movements, adjustments, write off, counts, stockouts, reconcile, supplier returns) and idempotency all exist with 904 passing tests. `backend/openapi.json` is committed and a test keeps it current. Nothing is pushed.

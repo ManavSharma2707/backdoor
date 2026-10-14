@@ -39,12 +39,13 @@ def test_every_calendar_row_from_the_spec_is_present(db: Session) -> None:
     assert event(db, "navratri_dussehra-2026").start_date == date(2026, 10, 11)
 
 
-def test_festival_dates_are_unverified_and_seasons_are_not(db: Session) -> None:
+def test_checked_festivals_are_verified_and_2027_rows_are_not(db: Session) -> None:
     events = db.execute(select(CalendarEvent)).scalars().all()
     festivals = [e for e in events if e.kind == "festival"]
     seasons = [e for e in events if e.kind == "season"]
     assert festivals
-    assert all(e.is_verified is False for e in festivals)
+    for e in festivals:
+        assert e.is_verified is (e.start_date.year <= 2026), e.slug
     assert seasons
     assert all(e.is_verified is True for e in seasons)
 

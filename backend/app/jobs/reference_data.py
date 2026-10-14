@@ -32,10 +32,10 @@ TAX_RATES: tuple[tuple[str, str, str], ...] = (
     ("GST40", "40.00", "GST 40%"),
 )
 
-NOTE_UNVERIFIED = "Best known value from planning. Not yet checked against two sources."
-NOTE_SEARCHED = "Matched one search on 13 Oct 2026. Still to be checked against two sources."
 NOTE_SEASON = "Seasonal window, a convention rather than a dated festival."
 NOTE_APPROX = "Approximate date for forecasts beyond 2026. Always unverified."
+NOTE_FIXED = "Fixed calendar dates, 24 Dec to 1 Jan. The window length is a design choice."
+CHECKED = "Checked 14 Oct 2026 against two independent sources."
 
 
 @dataclass(frozen=True)
@@ -50,6 +50,7 @@ class EventRow:
     delay: int
     note: str
     affects_hours: bool = False
+    checked: bool = False
 
     @property
     def slug(self) -> str:
@@ -57,11 +58,19 @@ class EventRow:
 
     @property
     def verified(self) -> bool:
-        return self.kind == "season"
+        return self.kind == "season" or self.checked
 
 
 def _festival(
-    key: str, name: str, start: str, end: str, pre: int, post: int, delay: int, note: str
+    key: str,
+    name: str,
+    start: str,
+    end: str,
+    pre: int,
+    post: int,
+    delay: int,
+    note: str,
+    checked: bool = True,
 ) -> EventRow:
     return EventRow(
         key,
@@ -74,6 +83,7 @@ def _festival(
         delay,
         note,
         affects_hours=key in {"diwali", "holi"},
+        checked=checked,
     )
 
 
@@ -94,10 +104,26 @@ def _season(key: str, name: str, start: str, end: str) -> EventRow:
 CALENDAR_EVENTS: tuple[EventRow, ...] = (
     # 2025, inside the simulated history that starts on 14 Apr 2025.
     _season("summer", "Summer", "2025-03-01", "2025-05-31"),
-    _festival("eid_adha", "Bakri Eid", "2025-06-07", "2025-06-07", 3, 1, 0, NOTE_UNVERIFIED),
+    _festival(
+        "eid_adha",
+        "Bakri Eid",
+        "2025-06-07",
+        "2025-06-07",
+        3,
+        1,
+        0,
+        f"{CHECKED} 7 Jun 2025 in India, a day earlier elsewhere (moon dependent).",
+    ),
     _season("monsoon", "Monsoon", "2025-06-10", "2025-09-30"),
     _festival(
-        "raksha_bandhan", "Raksha Bandhan", "2025-08-09", "2025-08-09", 7, 2, 0, NOTE_UNVERIFIED
+        "raksha_bandhan",
+        "Raksha Bandhan",
+        "2025-08-09",
+        "2025-08-09",
+        7,
+        2,
+        0,
+        f"{CHECKED} 9 Aug 2025.",
     ),
     _festival(
         "ganesh_chaturthi",
@@ -107,7 +133,7 @@ CALENDAR_EVENTS: tuple[EventRow, ...] = (
         10,
         3,
         1,
-        NOTE_UNVERIFIED,
+        f"{CHECKED} Chaturthi 27 Aug, Anant Chaturdashi 6 Sep 2025. One source was a day earlier.",
     ),
     _festival(
         "navratri_dussehra",
@@ -117,69 +143,156 @@ CALENDAR_EVENTS: tuple[EventRow, ...] = (
         5,
         2,
         1,
-        NOTE_UNVERIFIED,
+        f"{CHECKED} 22 Sep to 2 Oct 2025, Dussehra on 2 Oct.",
     ),
-    _festival("diwali", "Diwali", "2025-10-18", "2025-10-23", 14, 4, 2, NOTE_UNVERIFIED),
+    _festival(
+        "diwali",
+        "Diwali",
+        "2025-10-18",
+        "2025-10-23",
+        14,
+        4,
+        2,
+        f"{CHECKED} Dhanteras 18 Oct, Lakshmi Puja 20 Oct (one source said 21 Oct), "
+        "Bhai Dooj 23 Oct 2025. The window spans all of it.",
+    ),
     _season("winter", "Winter", "2025-11-15", "2026-02-15"),
     _festival(
-        "christmas_ny",
-        "Christmas and New Year",
-        "2025-12-24",
-        "2026-01-01",
-        7,
-        2,
-        0,
-        NOTE_UNVERIFIED,
+        "christmas_ny", "Christmas and New Year", "2025-12-24", "2026-01-01", 7, 2, 0, NOTE_FIXED
     ),
     # 2026
     _festival(
-        "makar_sankranti", "Makar Sankranti", "2026-01-14", "2026-01-14", 5, 1, 0, NOTE_UNVERIFIED
+        "makar_sankranti",
+        "Makar Sankranti",
+        "2026-01-14",
+        "2026-01-14",
+        5,
+        1,
+        0,
+        f"{CHECKED} 14 Jan 2026.",
     ),
-    _festival("holi", "Holi", "2026-03-03", "2026-03-03", 5, 2, 0, NOTE_UNVERIFIED),
-    _festival("gudi_padwa", "Gudi Padwa", "2026-03-19", "2026-03-19", 5, 2, 0, NOTE_UNVERIFIED),
-    _festival("eid_fitr", "Eid al-Fitr", "2026-03-21", "2026-03-21", 7, 2, 0, NOTE_UNVERIFIED),
+    _festival(
+        "holi",
+        "Holi",
+        "2026-03-03",
+        "2026-03-04",
+        5,
+        2,
+        0,
+        f"{CHECKED} Holika Dahan 3 Mar, colour day 4 Mar 2026. The window covers both days.",
+    ),
+    _festival(
+        "gudi_padwa",
+        "Gudi Padwa",
+        "2026-03-19",
+        "2026-03-20",
+        5,
+        2,
+        0,
+        f"{CHECKED} 19 Mar 2026 in most sources, a state holiday list says 20 Mar. "
+        "The window covers both days.",
+    ),
+    _festival(
+        "eid_fitr",
+        "Eid al-Fitr",
+        "2026-03-21",
+        "2026-03-21",
+        7,
+        2,
+        0,
+        f"{CHECKED} 21 Mar 2026 in India after the moon was not sighted on 19 Mar. "
+        "A day earlier in some countries.",
+    ),
     _season("summer", "Summer", "2026-03-01", "2026-05-31"),
-    _festival("eid_adha", "Bakri Eid", "2026-05-28", "2026-05-28", 3, 1, 0, NOTE_UNVERIFIED),
+    _festival(
+        "eid_adha",
+        "Bakri Eid",
+        "2026-05-28",
+        "2026-05-28",
+        3,
+        1,
+        0,
+        f"{CHECKED} 28 May 2026 in most of India, 27 May in one region.",
+    ),
     _season("monsoon", "Monsoon", "2026-06-10", "2026-09-30"),
     _festival(
-        "raksha_bandhan", "Raksha Bandhan", "2026-08-28", "2026-08-28", 7, 2, 0, NOTE_SEARCHED
+        "raksha_bandhan",
+        "Raksha Bandhan",
+        "2026-08-28",
+        "2026-08-28",
+        7,
+        2,
+        0,
+        f"{CHECKED} 28 Aug 2026.",
     ),
     _festival(
-        "ganesh_chaturthi", "Ganesh Chaturthi", "2026-09-14", "2026-09-25", 10, 3, 1, NOTE_SEARCHED
+        "ganesh_chaturthi",
+        "Ganesh Chaturthi",
+        "2026-09-14",
+        "2026-09-25",
+        10,
+        3,
+        1,
+        f"{CHECKED} Chaturthi 14 Sep 2026. Anant Chaturdashi 25 Sep, one source said 24 Sep.",
     ),
     _festival(
         "navratri_dussehra",
         "Navratri and Dussehra",
         "2026-10-11",
-        "2026-10-20",
+        "2026-10-21",
         5,
         2,
         1,
-        "Start date to verify. Dussehra is 20 Oct 2026 and one Maharashtra list says 21 Oct.",
+        f"{CHECKED} Starts 11 Oct, Dussehra 20 Oct 2026. One source says 12 Oct and 21 Oct, "
+        "so the window runs to 21 Oct.",
     ),
-    _festival("diwali", "Diwali", "2026-11-06", "2026-11-10", 14, 4, 2, NOTE_SEARCHED),
+    _festival(
+        "diwali",
+        "Diwali",
+        "2026-11-06",
+        "2026-11-10",
+        14,
+        4,
+        2,
+        f"{CHECKED} Dhanteras 6 Nov, Lakshmi Puja 8 Nov, Bhai Dooj 10 Nov 2026.",
+    ),
     _season("winter", "Winter", "2026-11-15", "2027-02-15"),
     _festival(
-        "christmas_ny",
-        "Christmas and New Year",
-        "2026-12-24",
-        "2027-01-01",
-        7,
-        2,
-        0,
-        NOTE_UNVERIFIED,
+        "christmas_ny", "Christmas and New Year", "2026-12-24", "2027-01-01", 7, 2, 0, NOTE_FIXED
     ),
     # 2027, approximate, always unverified.
     _festival(
-        "makar_sankranti", "Makar Sankranti", "2027-01-14", "2027-01-14", 5, 1, 0, NOTE_APPROX
+        "makar_sankranti",
+        "Makar Sankranti",
+        "2027-01-14",
+        "2027-01-14",
+        5,
+        1,
+        0,
+        NOTE_APPROX,
+        checked=False,
     ),
-    _festival("eid_fitr", "Eid al-Fitr", "2027-03-10", "2027-03-10", 7, 2, 0, NOTE_APPROX),
-    _festival("holi", "Holi", "2027-03-22", "2027-03-22", 5, 2, 0, NOTE_APPROX),
-    _festival("gudi_padwa", "Gudi Padwa", "2027-04-07", "2027-04-07", 5, 2, 0, NOTE_APPROX),
     _festival(
-        "ganesh_chaturthi", "Ganesh Chaturthi", "2027-09-04", "2027-09-14", 10, 3, 1, NOTE_APPROX
+        "eid_fitr", "Eid al-Fitr", "2027-03-10", "2027-03-10", 7, 2, 0, NOTE_APPROX, checked=False
     ),
-    _festival("diwali", "Diwali", "2027-10-29", "2027-11-02", 14, 4, 2, NOTE_APPROX),
+    _festival("holi", "Holi", "2027-03-22", "2027-03-22", 5, 2, 0, NOTE_APPROX, checked=False),
+    _festival(
+        "gudi_padwa", "Gudi Padwa", "2027-04-07", "2027-04-07", 5, 2, 0, NOTE_APPROX, checked=False
+    ),
+    _festival(
+        "ganesh_chaturthi",
+        "Ganesh Chaturthi",
+        "2027-09-04",
+        "2027-09-14",
+        10,
+        3,
+        1,
+        NOTE_APPROX,
+        checked=False,
+    ),
+    _festival(
+        "diwali", "Diwali", "2027-10-29", "2027-11-02", 14, 4, 2, NOTE_APPROX, checked=False
+    ),
 )
 
 

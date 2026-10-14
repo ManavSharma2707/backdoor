@@ -2,9 +2,28 @@
 
 Seeds `calendar_events` and drives festival and season logic. Region: Maharashtra flavour, but no location is shown in the product.
 
-Lunar festival dates move every year and some are decided by moon sighting. Several sources disagree by one day. Treat every date here as a **best known value**, store `is_verified = false` until confirmed, and show a small "dates may shift by a day" note on the Festival insights screen for unverified events.
+Lunar festival dates move every year and some are decided by moon sighting. Several sources disagree by one day. Treat dates as best known values, store `is_verified = false` until confirmed, and show a small "dates may shift by a day" note on the Festival insights screen for unverified events (all 2027 rows, and any row the owner adds).
 
-Verification step (Prompt 3, one time): for every row marked `verify`, check two independent official or panchang sources, correct the row, set `is_verified = true`, and log the change in `memory.md`. State sources in `source_note`. Searches done on 13 Oct 2026 confirmed: Ganesh Chaturthi 14 Sep 2026 (Anant Chaturdashi 25 Sep), Diwali Lakshmi Puja Sunday 8 Nov 2026 with Dhanteras 6 Nov and Bhai Dooj about 10 Nov, Dussehra 20 Oct 2026 (one Maharashtra list says 21 Oct), Raksha Bandhan 28 Aug 2026, Holi 3 Mar 2026, Gudi Padwa 19 Mar 2026 (a state list says 20 Mar), Eid al-Fitr 21 Mar 2026, Bakri Eid 27 or 28 May 2026.
+Verification step (Prompt 3, done 2026-10-14): every dated festival for 2025 and 2026 was checked against at least two independent sources (news reports, panchang and holiday calendar sites). Result: all 2025 and 2026 festivals are now `is_verified = true` with the findings in `source_note`. Where sources differ by a day, the window keeps the wider range. Fixed dates (Christmas and New Year) and season windows are conventions. The 2027 rows stay unverified and approximate.
+
+Results of the check (sources are listed in `memory.md`, Prompt 3 verification log):
+
+| Event | Result |
+|---|---|
+| Bakri Eid 2025 | 7 Jun 2025 in India (confirmed) |
+| Raksha Bandhan 2025 | 9 Aug 2025 (confirmed) |
+| Ganesh Chaturthi 2025 | 27 Aug, Anant Chaturdashi 6 Sep (confirmed, one source a day earlier) |
+| Navratri and Dussehra 2025 | 22 Sep to 2 Oct (confirmed) |
+| Diwali 2025 | Dhanteras 18 Oct, Lakshmi Puja 20 Oct (one source 21 Oct), Bhai Dooj 23 Oct (confirmed, window unchanged) |
+| Makar Sankranti 2026 | 14 Jan (confirmed) |
+| Holi 2026 | **Changed.** Holika Dahan 3 Mar, colour day 4 Mar. The row now runs 3 to 4 Mar |
+| Gudi Padwa 2026 | 19 Mar in most sources, a state holiday list says 20 Mar. **Changed:** the row runs 19 to 20 Mar |
+| Eid al-Fitr 2026 | 21 Mar in India (confirmed, a day earlier in some countries) |
+| Bakri Eid 2026 | 28 May in most of India (confirmed, 27 May in one region) |
+| Raksha Bandhan 2026 | 28 Aug (confirmed) |
+| Ganesh Chaturthi 2026 | 14 Sep, Anant Chaturdashi 25 Sep (confirmed, one source 24 Sep, end date kept at 25 Sep) |
+| Navratri and Dussehra 2026 | Start 11 Oct, Dussehra 20 Oct (confirmed). One source says 12 Oct and 21 Oct, so **the row now ends 21 Oct** |
+| Diwali 2026 | Dhanteras 6 Nov, Lakshmi Puja 8 Nov, Bhai Dooj 10 Nov (confirmed) |
 
 ---
 
@@ -16,32 +35,32 @@ Columns: `event_key`, start, end, pre window days, post window days, supplier de
 
 | event_key | Name | Start | End | Pre | Post | Delay | Kind | Status |
 |---|---|---|---|---|---|---|---|---|
-| `eid_adha` | Bakri Eid | 2025-06-07 | 2025-06-07 | 3 | 1 | 0 | festival | verify |
+| `eid_adha` | Bakri Eid | 2025-06-07 | 2025-06-07 | 3 | 1 | 0 | festival | verified |
 | `monsoon` | Monsoon | 2025-06-10 | 2025-09-30 | 0 | 0 | 0 | season | seasonal |
-| `raksha_bandhan` | Raksha Bandhan | 2025-08-09 | 2025-08-09 | 7 | 2 | 0 | festival | verify |
-| `ganesh_chaturthi` | Ganesh Chaturthi | 2025-08-27 | 2025-09-06 | 10 | 3 | 1 | festival | verify |
-| `navratri_dussehra` | Navratri and Dussehra | 2025-09-22 | 2025-10-02 | 5 | 2 | 1 | festival | verify |
-| `diwali` | Diwali | 2025-10-18 | 2025-10-23 | 14 | 4 | 2 | festival | verify |
+| `raksha_bandhan` | Raksha Bandhan | 2025-08-09 | 2025-08-09 | 7 | 2 | 0 | festival | verified |
+| `ganesh_chaturthi` | Ganesh Chaturthi | 2025-08-27 | 2025-09-06 | 10 | 3 | 1 | festival | verified |
+| `navratri_dussehra` | Navratri and Dussehra | 2025-09-22 | 2025-10-02 | 5 | 2 | 1 | festival | verified |
+| `diwali` | Diwali | 2025-10-18 | 2025-10-23 | 14 | 4 | 2 | festival | verified |
 | `winter` | Winter | 2025-11-15 | 2026-02-15 | 0 | 0 | 0 | season | seasonal |
-| `christmas_ny` | Christmas and New Year | 2025-12-24 | 2026-01-01 | 7 | 2 | 0 | festival | verify |
+| `christmas_ny` | Christmas and New Year | 2025-12-24 | 2026-01-01 | 7 | 2 | 0 | festival | verified |
 
 ### 2026
 
 | event_key | Name | Start | End | Pre | Post | Delay | Kind | Status |
 |---|---|---|---|---|---|---|---|---|
-| `makar_sankranti` | Makar Sankranti | 2026-01-14 | 2026-01-14 | 5 | 1 | 0 | festival | verify |
-| `holi` | Holi | 2026-03-03 | 2026-03-03 | 5 | 2 | 0 | festival | verify |
-| `gudi_padwa` | Gudi Padwa | 2026-03-19 | 2026-03-19 | 5 | 2 | 0 | festival | verify |
-| `eid_fitr` | Eid al-Fitr | 2026-03-21 | 2026-03-21 | 7 | 2 | 0 | festival | verify |
+| `makar_sankranti` | Makar Sankranti | 2026-01-14 | 2026-01-14 | 5 | 1 | 0 | festival | verified |
+| `holi` | Holi | 2026-03-03 | 2026-03-04 | 5 | 2 | 0 | festival | verified |
+| `gudi_padwa` | Gudi Padwa | 2026-03-19 | 2026-03-20 | 5 | 2 | 0 | festival | verified |
+| `eid_fitr` | Eid al-Fitr | 2026-03-21 | 2026-03-21 | 7 | 2 | 0 | festival | verified |
 | `summer` | Summer | 2026-03-01 | 2026-05-31 | 0 | 0 | 0 | season | seasonal |
-| `eid_adha` | Bakri Eid | 2026-05-28 | 2026-05-28 | 3 | 1 | 0 | festival | verify |
+| `eid_adha` | Bakri Eid | 2026-05-28 | 2026-05-28 | 3 | 1 | 0 | festival | verified |
 | `monsoon` | Monsoon | 2026-06-10 | 2026-09-30 | 0 | 0 | 0 | season | seasonal |
-| `raksha_bandhan` | Raksha Bandhan | 2026-08-28 | 2026-08-28 | 7 | 2 | 0 | festival | confirmed by search, re-check |
-| `ganesh_chaturthi` | Ganesh Chaturthi | 2026-09-14 | 2026-09-25 | 10 | 3 | 1 | festival | confirmed by search, re-check |
-| `navratri_dussehra` | Navratri and Dussehra | 2026-10-11 | 2026-10-20 | 5 | 2 | 1 | festival | verify start, Dussehra 20 Oct |
-| `diwali` | Diwali | 2026-11-06 | 2026-11-10 | 14 | 4 | 2 | festival | confirmed by search, re-check |
+| `raksha_bandhan` | Raksha Bandhan | 2026-08-28 | 2026-08-28 | 7 | 2 | 0 | festival | verified |
+| `ganesh_chaturthi` | Ganesh Chaturthi | 2026-09-14 | 2026-09-25 | 10 | 3 | 1 | festival | verified |
+| `navratri_dussehra` | Navratri and Dussehra | 2026-10-11 | 2026-10-21 | 5 | 2 | 1 | festival | verified |
+| `diwali` | Diwali | 2026-11-06 | 2026-11-10 | 14 | 4 | 2 | festival | verified |
 | `winter` | Winter | 2026-11-15 | 2027-02-15 | 0 | 0 | 0 | season | seasonal |
-| `christmas_ny` | Christmas and New Year | 2026-12-24 | 2027-01-01 | 7 | 2 | 0 | festival | verify |
+| `christmas_ny` | Christmas and New Year | 2026-12-24 | 2027-01-01 | 7 | 2 | 0 | festival | verified |
 
 The 2025 season rows `summer` for 2025 (1 Mar to 31 May 2025) exist for completeness but mostly fall before the history starts.
 
