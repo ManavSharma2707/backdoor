@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.api.v1 import auth, catalogue, health, sales, settings, suppliers
+from app.api.v1 import auth, catalogue, health, purchasing, sales, settings, suppliers
 
 api_router = APIRouter()
 api_router.include_router(health.router)
@@ -14,3 +14,5 @@ api_router.include_router(catalogue.tax_rates)
 api_router.include_router(suppliers.suppliers)
 api_router.include_router(suppliers.terms)
 api_router.include_router(sales.router)
+api_router.include_router(purchasing.orders)
+api_router.include_router(purchasing.receipts)

@@ -44,6 +44,7 @@ TAGS_METADATA = [
     {"name": "catalogue", "description": "Categories, products, prices, equivalents, GST rates."},
     {"name": "suppliers", "description": "Suppliers and effective dated prices and terms."},
     {"name": "sales", "description": "Bills, voids, returns and sales totals."},
+    {"name": "purchasing", "description": "Purchase orders and goods receipts."},
 ]
 
 

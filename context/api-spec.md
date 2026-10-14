@@ -92,7 +92,7 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | POST `/purchase-orders` | `{supplier_id, expected_date?, lines:[{product_id, quantity_ordered, unit_cost?}]}`. Defaults cost, pack and expected date from terms |
 | GET `/purchase-orders/{id}` | With lines, receipts, timeline |
 | PATCH `/purchase-orders/{id}` | Edit while `draft` |
-| POST `/purchase-orders/{id}/send`, `/cancel`, `/close` | State transitions, validated (`PO_STATE_INVALID`) |
+| POST `/purchase-orders/{id}/send`, `/cancel` (optional `{reason}`), `/close` | State transitions, validated (`PO_STATE_INVALID`, rules in `D-062`) |
 | POST `/purchase-orders/{id}/receipts` (I) | `{received_on, invoice_no?, invoice_total?, lines:[{po_line_id, quantity_received, unit_cost, batch_no?, expiry_date?, mrp?}], is_exception?, exception_note?}`. Creates batches, movements, updates balances and PO status |
 | POST `/receipts` (I) | Receipt without PO. Requires `is_exception=true` and a note |
 | GET `/receipts`, GET `/receipts/{id}` | List, detail |
