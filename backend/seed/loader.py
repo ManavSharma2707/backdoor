@@ -12,10 +12,12 @@ from typing import Any
 
 import psycopg
 from psycopg import sql
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 
 from app.core.logging import get_logger
+from app.services.rollup import RollupService
 from seed.model import Catalog, cost4, make_uuid, tenant_uuid
-from seed.rollup_sql import ROLLUP_PSYCOPG
 from seed.schema import COLUMNS, LOAD_ORDER
 from seed.sim import TenantData
 
@@ -125,6 +127,7 @@ def load_tenant(
     settings_row: tuple[Any, ...],
     start: date,
     end: date,
+    database_url: str,
 ) -> dict[str, float]:
     profile = catalog.profile
     tid = tenant_uuid(profile)
@@ -152,10 +155,9 @@ def load_tenant(
         # Fresh tables have no statistics, and without them the rollup picks a plan that runs for minutes.
         for table in ROLLUP_INPUTS:
             cur.execute(sql.SQL("ANALYZE {}").format(sql.Identifier(table)))
-        cur.execute("DELETE FROM daily_product_stats WHERE tenant_id = %s", (tid,))
-        cur.execute(ROLLUP_PSYCOPG, {"tid": tid, "start": start, "end": end})
-        timings["rollup"] = time.time() - t2
     conn.commit()
+    run_rollup(database_url, tid, start, end)
+    timings["rollup"] = time.time() - t2
     with conn.cursor() as cur:
         conn.autocommit = True
         for table in (
@@ -169,6 +171,18 @@ def load_tenant(
         conn.autocommit = False
     timings["total"] = time.time() - t0
     return timings
+
+
+def run_rollup(database_url: str, tid: uuid.UUID, start: date, end: date) -> int:
+    """Run the rollup service on its own connection, after the tenant rows are committed."""
+    engine = create_engine(database_url)
+    try:
+        with Session(engine) as session:
+            rows = RollupService(session, tid).rebuild(start, end).rows
+            session.commit()
+    finally:
+        engine.dispose()
+    return rows
 
 
 def rebuild_balances(

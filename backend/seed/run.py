@@ -65,6 +65,7 @@ def load_generated(
     end_date: date,
     knowledge: bool,
     base_seed: int,
+    database_url: str,
 ) -> dict[str, float]:
     catalog = gen.catalog
     static = {
@@ -87,6 +88,7 @@ def load_generated(
         accounts.settings_row(catalog, budget),
         history_start(end_date),
         end_date,
+        database_url,
     )
     if knowledge:
         docs = build_corpus(catalog, base_seed)
@@ -163,7 +165,15 @@ def seed_database(
             loader.reset_tenants(conn, ids)
         for gen in generated:
             timings = load_generated(
-                conn, gen, hashes[gen.profile.key], tax_ids, scale, end_date, knowledge, base_seed
+                conn,
+                gen,
+                hashes[gen.profile.key],
+                tax_ids,
+                scale,
+                end_date,
+                knowledge,
+                base_seed,
+                database_url,
             )
             out(
                 f"loaded {gen.profile.key}: "
