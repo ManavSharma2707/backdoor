@@ -14,6 +14,7 @@ from sqlalchemy import (
     Index,
     Text,
     UniqueConstraint,
+    text,
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
@@ -103,6 +104,12 @@ class InventoryMovement(TenantMixin, CreatedAtMixin, Base):
         ),
         Index("ix_inventory_movements_tenant_source", "tenant_id", "source_type", "source_id"),
         Index("ix_inventory_movements_tenant_batch", "tenant_id", "batch_id"),
+        Index(
+            "ix_inventory_movements_tenant_reverses",
+            "tenant_id",
+            "reverses_movement_id",
+            postgresql_where=text("reverses_movement_id IS NOT NULL"),
+        ),
     )
 
     id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True, sort_order=-100)
