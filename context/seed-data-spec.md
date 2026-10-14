@@ -316,11 +316,11 @@ All tables in `database.md` that apply: tenants, users, settings, categories, pr
 | S16 | Pack 48 (FMCG) or 100 (medical) with a minimum of two packs on slow products |
 | S17 | Three A class products left out of every count in the last 50 days |
 | S20 | Demand x1.5 from 190 days before the end, three other products get smaller steps |
-| S08, S09 | `business_settings.weekly_budget` is 70 percent (fmcg_a) or 105 percent of the last 8 weeks of cost of goods sold plus 10 percent. Prompt 4 checks the ratio against the engine (P4.25) |
+| S08, S09 | `business_settings.weekly_budget` is 70 percent (fmcg_a) or 105 percent of the last 8 weeks of cost of goods sold plus 10 percent. Prompt 4 checked the ratio against the engine (P4.25, `D-082`): the final budgets are 55,000, 139,500, 42,000 and 114,000 rupees, which gives about 79 percent of need for fmcg_a and 111 to 125 percent for the others |
 
 ### 16.4 What is not in the seed yet
 
 - The eight retrospective plans with synthetic decisions (section 12) need the engine, so they arrive in Prompt 4. The corpus types `decision_memory` and `report_narrative` follow them (P4.26).
 - Embeddings (`seed.ingest_knowledge`) arrive in Prompt 7. Chunks are stored with `embedding = NULL`: 117 chunks, of which 25 are global app knowledge.
-- The daily rollup is a SQL fallback (`seed/rollup_sql.py`) with the same rules as `engine-spec.md` section 3. P4.24 replaces it.
+- The daily rollup now runs through the rollup service (`services/rollup.py`, formerly the SQL fallback `seed/rollup_sql.py`) with the same rules as `engine-spec.md` section 3. P4.24 replaces it.
 - Tax rates use one mapping for the whole history, so sales before 22 Sep 2025 carry the new slab (representative data, not tax advice).

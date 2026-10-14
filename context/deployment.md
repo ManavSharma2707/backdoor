@@ -171,7 +171,7 @@ jobs:
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      APP_ENV: production
+      APP_ENV: local   # the job needs no production only startup checks (D-081)
       AGENTS_ENABLED: "true"
     steps:
       - uses: actions/checkout@v4

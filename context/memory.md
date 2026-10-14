@@ -270,6 +270,33 @@ Consequence: P4.24 replaces it.
 Context: products have a single tax rate and the slab table holds only the structure from 22 Sep 2025.
 Choice: sales before that date also carry the new slab. The data is representative, not tax advice (`D-042`).
 
+### D-075 (2026-10-14) Event effects need a significance test as well as the size gates
+Context: with only the size, consistency and product count gates about 200 effects per tenant were applied and most were noise. Choice: add a Stouffer z-test against the dispersion measured in the baseline weeks, then a Benjamini-Hochberg false discovery control at 10 percent (`EFFECT_FDR`). Alternatives: raise the shift threshold (hides real small effects as well). Consequence: far fewer spurious effects. Weak real effects are missed too, and the accuracy report says so.
+
+### D-076 (2026-10-14) Training window is 800 days
+Choice: `TRAINING_DAYS = 800` so two Diwalis and two Holis can be seen. The medical festival rule (two occurrences) still fails for Diwali in the demo data because the history holds one Diwali, so medical tenants show "not enough evidence" for it. This is expected.
+
+### D-077 (2026-10-14) Demand window and the risk medium rule
+The demand window for a plan made on `as_of` is `as_of ... as_of+L-1` (the spec said `as_of+1 ... as_of+L`, an off by one). Risk is medium at p of at least 0.10 or when p is above 1 minus the service level; the spec table implied both. Specs amended.
+
+### D-078 (2026-10-14) SES deseasonalises with the raw weekday index; selection is reused by the light profile
+SES divides by the raw weekday index. Selection metrics are quantised to the stored precision so a fresh and a reloaded selection give the same plan. The light profile reuses the stored selection, and with none stored it runs an in memory statistical backtest and stores it. The full profile runs the backtest and LightGBM.
+
+### D-079 (2026-10-14) Line section rules
+A line is `watch` if critical or high, PO_OVERDUE, low confidence with risk of at least medium, or it has a suggestion but no allocation and is not blocked. Lines without a unit cost are `blocked` (no allocation, PO draft returns 409 `MISSING_SUPPLIER_OR_COST`). Excess counts only from one unit.
+
+### D-080 (2026-10-14) Decisions, PO drafts and exports
+Decisions are append only (`superseded_at`). PO drafts group approved and edited lines by supplier and are idempotent. Exports are built from the saved snapshot. CSV cells starting with `= + - @` get a leading quote. Workbook formulas carry cached values and a check cell compares them with the engine total. Totals agree to the paisa in every format.
+
+### D-081 (2026-10-14) Jobs endpoint and Actions job
+`POST /jobs/monday-report` takes the tenant slug (exempt from the no tenant in the path rule) and an `X-Job-Token` header (`JobToken` security scheme). The Actions workflow sets `APP_ENV=local` so the job does not run the production only startup checks. `POST /reports/{id}/scenario` runs an Overrides dry run and never writes plan rows.
+
+### D-082 (2026-10-14) Rollup service replaces the SQL fallback; budgets calibrated
+The seed loader commits the tenant, then runs `RollupService` on a separate engine (a `database_url` parameter was added). Demo budgets are 55,000, 139,500, 42,000 and 114,000 rupees (`ENGINE_NEED_CALIBRATION` in `seed/accounts.py`). Measured on the final engine: need was 69,777 against 55,000 for fmcg_a (79 percent, S08 is the tight one) and the other three tenants are fully funded at 111 to 125 percent of need. S09 is therefore looser than the planned 105 percent. Left as is; changing it means a reseed.
+
+### D-083 (2026-10-14) Backfill design
+Eight Mondays before the plan week, planned oldest first with `live=False`. Synthetic owner: 70 percent approved, 20 percent edited (10 to 40 percent fewer packs) with a reason, 10 percent rejected, only for synthetic tenants. Reasons become `decision_memory` documents and each report gets a `report_narrative`. Embeddings stay empty until Prompt 7.
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).
@@ -375,6 +402,14 @@ Found while building Prompt 3:
 - A sleeping laptop shows up as a load step that took half an hour. Re-time on a quiet machine.
 - `DEMO_OWNER_PASSWORD` is read by `Settings` from `backend/.env`, so from `backend/` export it from the root `.env` (`set -a; . ../.env; set +a`). Inside compose the `env_file` already passes it.
 
+- Pipeline tests reseed a cached database `backroom_seeded_test` (about 4 minutes) whenever the seed package or migrations change; later runs reuse it. `UPDATE_GOLDEN=1` rewrites `tests/pipeline/golden/fmcg_a_light.json` after an intended change.
+- Windows: the venv `python.exe` is a launcher, so measuring peak memory from a parent process reports the launcher (5 MB). Measure inside the process.
+- Plan database rows add about 45 MB to the seed (404 MB on disk after `VACUUM FULL`, with 36 current reports and some superseded versions from forced runs). The 400 MB target is slightly exceeded in the dev database. Superseded versions can be deleted to get under it. Render and Supabase limits (500 MB) still hold.
+- Selection metrics must be quantised before comparing a fresh and a reloaded selection (D-078).
+- `.any()` on an ARRAY column fails under warnings as errors, use `literal(x) == any_(col)`.
+- The light and full profiles need the real `JOB_TOKEN` as a `SecretStr`, call `.get_secret_value()`.
+- Medical tenants show Diwali as "not enough evidence": only one Diwali is in the history (D-076).
+
 ## 7. Measurements (fill in as you go)
 
 | Item | Value | Date |
@@ -382,10 +417,12 @@ Found while building Prompt 3:
 | Argon2 hash time at the spec parameters | 480 ms per hash in the local dev container (limit 800 ms). Render free still to be measured after deploy | 2026-10-14 |
 | API resident memory (idle, after export) | 178 MiB for the whole dev container (reload watcher plus worker), before any export. Budget is 400 MB | 2026-10-13 |
 | Full seed size (MB) | 359.0 MB tables and indexes after compaction, 370 MB database on disk (473 MB before compaction). Rows: 164,297 bills, 324,446 sale lines, 345,850 movements, 279,552 daily stats, 279,552 true demand. Seed time: generation about 40 s, load about 110 s, `make seed-reset` 323 s quiet and 435 to 443 s under load. Seed tests: 110 tests in 86 to 108 s | 2026-10-14 |
-| Light pipeline time per tenant | | |
-| Full pipeline time per tenant | | |
-| Tenant WAPE vs baseline WAPE | | |
+| Light pipeline time per tenant | 8 to 15 s including the rollup update, peak 138 to 149 MB (Windows working set), fmcg_a 8.1 s, fmcg_b 11.1 s. A skipped (idempotent) run takes under 1 s | 2026-10-14 |
+| Full pipeline time per tenant | 65 s (fmcg_a), 102 s (fmcg_b), 112 s (med_a), 114 s (med_b), peak 375 to 472 MB. Close to the 512 MB Render limit, so the full profile runs in GitHub Actions only | 2026-10-14 |
+| Tenant WAPE vs baseline WAPE | Selected methods tie the 28 day moving average on true demand (within 0.3 points) and beat same weekday last week by 15 to 20 points. See `backend/reports/synthetic_accuracy.md` for the per tenant tables | 2026-10-14 |
 | Agent eval grounding pass rate | | |
+| LightGBM against the statistical winner (synthetic truth, last 4 origins) | fmcg_a 62.0 vs 64.3 percent WAPE, fmcg_b 51.2 vs 54.8, med_a 74.4 vs 74.8, med_b 93.2 vs 93.5. Better by 0.3 to 3.6 points, so the global model helps most for fmcg. These are simulated results, not customer results | 2026-10-14 |
+| Prompt 4 tests and coverage | 1,300 plus tests. Engine coverage 94 percent (`pytest --cov=app/engine`), mypy strict clean on `app/engine` and `app/core`. Pipeline suite takes about 6 minutes after the first reseed | 2026-10-14 |
 | Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s. Prompt 2: 904 tests, 98 percent total, suite takes about 4.5 minutes (the 200 sequence property test is about 40 s, concurrency tests about 8 s). Auth: `auth_service` 95, `security` 98, `deps` 100, `ratelimit` 98, `audit` 98. Ledger: `ledger` 98, `ledger_rules` 100, `sales_math` 100. Prompt 3: 1014 tests in total (110 in `tests/seed`, 86 to 108 s alone), the whole suite takes 6 minutes when the database is busy | 2026-10-14 |
 | API dev image size | 1.29 GB (includes ml and agents packages) | 2026-10-13 |
 | API runtime image size | 1.0 GB. Verified: runs as uid 10001, migrates on start, Docker healthcheck healthy, lightgbm imports (libgomp) | 2026-10-13 |
@@ -418,14 +455,14 @@ Code: `app/jobs/reference_data.py` (`EventRow.checked`), `is_verified` is true f
 
 ## 8. Session handoff (rewrite at the end of every session)
 
-- State: **Prompt 3 complete** (P3.01 to P3.13). Four synthetic tenants are generated deterministically, loaded through COPY and validated: 512 products, 164,297 bills, 324,446 sale lines, 345,850 movements, 78 weeks of history ending 2026-10-11, scenarios S01 to S21 in `backend/seed/scenarios.yaml`, a text only knowledge corpus (117 chunks), one owner per tenant (password from `DEMO_OWNER_PASSWORD`) and a weekly budget. Size 359.0 MB. `seed.validate` is green, two generation runs give identical checksums, owners log in through the real API. The festival calendar is verified and marked so in the reference data. Nothing is pushed.
-- Next step: **Prompt 4, intelligence engine and report**. Start with P4.01 and P4.24 together: the rollup service must produce the same `daily_product_stats` as `seed/rollup_sql.py` (compare them), then make `seed.run` call the service and delete the SQL fallback. The engine can read `synthetic_true_demand` only in evaluation scripts. Use `seed/scenarios.yaml` to find the planted products for the scenario tests, never hard coded ids.
-- Open problems: (1) the demo password is on the common password list (`D-070`), tell the human before any public demo. (2) Database headroom after the seed is about 41 MB, Prompt 4 tables must fit (P4.26). (3) The system drive is at 98 percent (about 5 GB free) and filled up once during this prompt, which hung Docker Desktop (see section 6). (4) S08 and S09 budgets are estimates (P4.25).
+- State: **Prompt 4 complete** (P4.01 to P4.26). `python -m app.jobs.run monday --tenant <slug>` writes a stored weekly report with exports, decisions and PO drafts behind the API. Eight backfilled plans with synthetic decisions exist for all four tenants in the dev database, plus the `decision_memory` and `report_narrative` corpus documents.
+- Next step: **Prompt 5, frontend foundation and core screens**. Generate API types from `backend/openapi.json` (`make openapi-types`). The report payload shape is in `report-spec.md`. Reports are at `/api/v1/reports`, the dashboard at `/api/v1/dashboard`.
+- Open problems: (1) the demo password is on the common password list (`D-070`). (2) The dev database is 404 MB on disk, slightly above the 400 MB target (see gotchas). (3) `simulate-week` is a stub that prints a message, it belongs to P8.03. (4) The S09 budget is about 125 percent of need for fmcg_b, not 105 percent (D-082). (5) Weak spots in `synthetic_accuracy.md`: selected methods only tie the moving average, weak festival effects are missed, new products rely on the category prior.
 - Notes for the next session:
-  - From `backend/`: `export UV_PROJECT_ENVIRONMENT=/c/Users/manav/.venvs/backroom; set -a; . ../.env; set +a`, then `python -m uv run python -m seed.run --tenants all --reset` (about 6 to 7 minutes, run it in the background). `python -m seed.validate`, `seed.size_report`, `seed.realism` and `seed.checksum --twice` follow.
-  - Seed tests: `python -m uv run pytest tests/seed -q` (about 90 seconds, creates and drops `backroom_seed_test`).
+  - From `backend/`: use the venv at `~/.venvs/backroom/Scripts` first on PATH.
+  - `python -m app.jobs.run backfill --tenant all --weeks 8` takes about 3.5 minutes. `monday --profile full` takes 1 to 2 minutes per tenant.
+  - Accuracy report: `python -m seed.accuracy --tenants all --with-lgbm` (slow).
   - Owners: `owner.fmcg-a@backroom-demo.com`, `owner.fmcg-b@backroom-demo.com`, `owner.med-a@backroom-demo.com`, `owner.med-b@backroom-demo.com`.
-  - `seed/realism_report.md` is generated and committed, regenerate it after changing the generator.
   - Prompt 7 must run the RLS statement from migration 0010 after `PostgresSaver.setup()`.
   - The `frontend` CI job is switched off with `if: false` until P5.13.
   - `rejected(db, ...)` in `tests/conftest.py` is the way to assert database refusals.

@@ -132,3 +132,10 @@ Rules: only approved and edited lines in `purchase_list.csv` when any decisions 
 - Open the XLSX with `openpyxl` in tests and verify sheet names, formulas present, number formats.
 - Extract PDF text in tests and verify business name, week, demo label, and a Rupee sign.
 - Regenerating the report for the same cutoff gives identical numbers.
+
+## 9. As built in Prompt 4
+
+- Reason sentences write whole numbers from 10 up and one decimal below that when needed. Days of cover above 365 read "more than a year".
+- Exports are built from the saved snapshot (`D-080`). The PDF `section` and `supplier_id` filters are applied to the snapshot lines.
+- Medical tenants show festival categories with the label "Not enough evidence to adjust the forecast" when fewer than two occurrences exist (`D-076`). The evidence sentence is still shown.
+- `watch` and `reduce` rules are in `D-079`.

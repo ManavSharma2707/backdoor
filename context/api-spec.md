@@ -128,6 +128,7 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | POST `/reports/{id}/decisions/bulk` | `{line_ids, decision, reason_code?, reason_text?}` |
 | POST `/reports/{id}/purchase-orders` (I) | Create draft POs from approved and edited lines grouped by supplier. 409 `MISSING_SUPPLIER_OR_COST` listing blocked lines |
 | GET, POST `/reports/{id}/notes` | Notes (user, chat pin, agent) |
+| POST `/reports/{id}/scenario` | Overrides dry run (`weekly_budget`, `service_level`, `demand_multiplier`, supplier delays and more). Returns the changed totals and lines. Never writes plan rows |
 | GET `/reports/{id}/export?format=pdf|xlsx|csv&section=&supplier_id=&kind=purchase_list|plan_lines` | File download |
 
 ## 9. Insights and dashboard
@@ -146,6 +147,8 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 | GET `/data-quality/issues?resolved=false` | Issues list. POST `/data-quality/run` to recompute |
 
 ## 10. Jobs and operations
+
+As built (`D-081`): `/jobs/monday-report` takes the tenant slug in the query (exempt from the no tenant in the request rule), authenticates with the `X-Job-Token` header (`JobToken` scheme in OpenAPI), and `/jobs/runs/{id}` accepts the job token or an owner token. `simulate-week` is not built yet (P8.03).
 
 | Method and path | Purpose |
 |---|---|

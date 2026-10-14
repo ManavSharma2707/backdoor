@@ -47,6 +47,13 @@ Built in Prompt 2.
 
 | File | What it is |
 |---|---|
+| `backend/app/engine/` (Prompt 4) | Also `rollup`, `demand_class`, `dq`, `methods/`, `event_effects`, `forecast`, `backtest`, `selection`, `inventory_state`, `expiry`, `replenishment`, `risk`, `budget`, `plan`, `report_builder`, `deadstock` |
+| `backend/app/services/` (Prompt 4) | `rollup`, `dq_service`, `plan_data`, `forecast_store`, `plan_compute`, `pipeline`, `backfill`, `backfill_docs`, `report_service`, `decision_service`, `insight_service`, `scenario`, `jobs`, `export/` (pdf, xlsx, csv) |
+| `backend/app/jobs/` (Prompt 4) | `run` (migrate, openapi, monday, backfill, simulate-week, reset-password), `monday`, `accounts` |
+| `backend/app/assets/fonts/` | IBM Plex fonts and the OFL licence for PDF export |
+| `backend/seed/accuracy.py`, `backend/reports/synthetic_accuracy.md` | Synthetic accuracy grading and its generated report |
+| `.github/workflows/monday-job.yml` | Scheduled full Monday run |
+| `backend/tests/pipeline/` | Pipeline, API, export and scenario tests on a cached seeded database, plus the golden file |
 | `backend/openapi.json` | Generated API contract. `python -m app.jobs.run openapi` rewrites it, a test fails when it is stale |
 | `backend/app/core/security.py`, `deps.py`, `ratelimit.py`, `audit.py`, `idempotency.py`, `pagination.py` | Passwords and tokens, tenant context and `require_role`, limits, audit writer, idempotent POST wrapper, paging and sort helpers. `db.py` gained `transaction` and `advisory_lock` |
 | `backend/app/assets/common_passwords.txt` | Common password list used by the password policy |
@@ -67,7 +74,7 @@ Built in Prompt 3. Everything is under `backend/seed/` (run with `python -m seed
 | `seed/realism_report.md` | Generated realism numbers per tenant (`python -m seed.realism`) |
 | `seed/run.py` | Seed CLI: generate in memory, then bulk load. `--tenants --scale --end-date --seed --reset --no-knowledge` |
 | `seed/generate.py`, `sim.py`, `demand.py`, `pricing.py`, `scenarios.py`, `traits.py`, `rng.py`, `model.py`, `profiles.py` | The generator: tenant profiles, seeded streams, category traits, price and promotion timelines, true demand, scenario planner, the day by day simulation |
-| `seed/loader.py`, `schema.py`, `static_rows.py`, `rollup_sql.py`, `accounts.py` | COPY loader, column orders, catalogue side rows, SQL rollup fallback (replaced in P4.24), owner users, settings and budgets |
+| `seed/loader.py`, `schema.py`, `static_rows.py`, `accounts.py` | COPY loader, column orders, catalogue side rows, SQL rollup fallback (replaced in P4.24), owner users, settings and budgets |
 | `seed/corpus/generator.py` | Knowledge corpus text from templates (supplier notes, medical operational notes, app glossary and guides) and the chunker |
 | `seed/validate.py`, `size_report.py`, `realism.py`, `checksum.py` | Validators, size table, realism report, determinism checksum |
 | `backend/tests/seed/` | Catalogue tests, and DB backed tests at scale 0.1 (session fixture seeds all four tenants into a throwaway database) |

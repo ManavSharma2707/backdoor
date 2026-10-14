@@ -70,32 +70,32 @@ Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`
 
 ## Prompt 4: Intelligence engine and report
 
-- [ ] P4.01 Rollup service (`daily_product_stats`) incremental and rebuildable
-- [ ] P4.02 DQ checks with all codes in `engine-spec.md` section 14
-- [ ] P4.03 Demand classification
-- [ ] P4.04 Forecast methods (seasonal naive, moving average, weekday profile, SES weekday, Croston SBA, category prior)
-- [ ] P4.05 LightGBM global model (lazy import, caps, fallback)
-- [ ] P4.06 Event effect learning and gate (festival, season, promotion), medical stricter gate
-- [ ] P4.07 Backtest runner, selection per segment, confidence labels
-- [ ] P4.08 Inventory state, overdue PO handling, FEFO expiry simulation
-- [ ] P4.09 Replenishment (lead time resolution, safety stock, MOQ, pack, expiry cap, spend)
-- [ ] P4.10 Risk model and levels
-- [ ] P4.11 Budget allocation and budget view
-- [ ] P4.12 Stock status (non-moving, unverified, slow, new), excess, ABC
-- [ ] P4.13 Report builder (sections, reason templates, provenance, snapshot JSON)
-- [ ] P4.14 Pipeline orchestrator (light and full profiles, idempotency, locks, force, retention) and job entry points (`python -m app.jobs.run monday|backfill|migrate|simulate-week|reset-password`)
-- [ ] P4.15 Scenario dry run (Overrides) for later use by agents
-- [ ] P4.16 Report, decision, notes and PO draft endpoints, insights and dashboard endpoints
-- [ ] P4.17 Exports: PDF (ReportLab with Plex fonts), Excel (XlsxWriter), CSV
-- [ ] P4.18 Backfill of 8 weekly plans with synthetic decisions
-- [ ] P4.19 Tests: engine properties (see `testing-strategy.md` 3.6 to 3.14), scenario tests S01 to S21, golden pipeline output, export tests
-- [ ] P4.20 Synthetic accuracy report (`synthetic_accuracy.md`) with honest findings
-- [ ] P4.21 `monday-job.yml` workflow
-- [ ] P4.22 Gate: full pipeline for all tenants within time budgets, coverage targets, lint and types green
-- [ ] P4.23 Context updates (thresholds, backtest results, timings)
-- [ ] P4.24 Replace `seed/rollup_sql.py` (the SQL fallback written in Prompt 3) with the rollup service of P4.01, and make `seed.run` call the service
-- [ ] P4.25 Check the planted budgets (S08 at 70 percent, S09 at 105 percent of need) against the engine's unconstrained need and adjust `accounts.weekly_budget` if the ratios differ
-- [ ] P4.26 Add the backfill documents to the corpus (`decision_memory`, `report_narrative`) when the eight retrospective plans exist, and keep the database under 400 MB (about 41 MB of headroom after the seed)
+- [x] P4.01 Rollup service (`daily_product_stats`) incremental and rebuildable (2026-10-14)
+- [x] P4.02 DQ checks with all codes in `engine-spec.md` section 14 (2026-10-14)
+- [x] P4.03 Demand classification (2026-10-14)
+- [x] P4.04 Forecast methods (seasonal naive, moving average, weekday profile, SES weekday, Croston SBA, category prior) (2026-10-14)
+- [x] P4.05 LightGBM global model (lazy import, caps, fallback) (2026-10-14)
+- [x] P4.06 Event effect learning and gate (festival, season, promotion), medical stricter gate (2026-10-14)
+- [x] P4.07 Backtest runner, selection per segment, confidence labels (2026-10-14)
+- [x] P4.08 Inventory state, overdue PO handling, FEFO expiry simulation (2026-10-14)
+- [x] P4.09 Replenishment (lead time resolution, safety stock, MOQ, pack, expiry cap, spend) (2026-10-14)
+- [x] P4.10 Risk model and levels (2026-10-14)
+- [x] P4.11 Budget allocation and budget view (2026-10-14)
+- [x] P4.12 Stock status (non-moving, unverified, slow, new), excess, ABC (2026-10-14)
+- [x] P4.13 Report builder (sections, reason templates, provenance, snapshot JSON) (2026-10-14)
+- [x] P4.14 Pipeline orchestrator (light and full profiles, idempotency, locks, force, retention) and job entry points (`python -m app.jobs.run monday|backfill|migrate|simulate-week|reset-password`) (2026-10-14)
+- [x] P4.15 Scenario dry run (Overrides) for later use by agents (2026-10-14)
+- [x] P4.16 Report, decision, notes and PO draft endpoints, insights and dashboard endpoints (2026-10-14)
+- [x] P4.17 Exports: PDF (ReportLab with Plex fonts), Excel (XlsxWriter), CSV (2026-10-14)
+- [x] P4.18 Backfill of 8 weekly plans with synthetic decisions (2026-10-14)
+- [x] P4.19 Tests: engine properties (see `testing-strategy.md` 3.6 to 3.14), scenario tests S01 to S21, golden pipeline output, export tests (2026-10-14)
+- [x] P4.20 Synthetic accuracy report (`synthetic_accuracy.md`) with honest findings (2026-10-14)
+- [x] P4.21 `monday-job.yml` workflow (2026-10-14)
+- [x] P4.22 Gate: full pipeline for all tenants within time budgets, coverage targets, lint and types green (2026-10-14)
+- [x] P4.23 Context updates (thresholds, backtest results, timings) (2026-10-14)
+- [x] P4.24 Replace `seed/rollup_sql.py` (the SQL fallback written in Prompt 3) with the rollup service of P4.01, and make `seed.run` call the service (2026-10-14)
+- [x] P4.25 Check the planted budgets (S08 at 70 percent, S09 at 105 percent of need) against the engine's unconstrained need and adjust `accounts.weekly_budget` if the ratios differ (2026-10-14)
+- [x] P4.26 Add the backfill documents to the corpus (`decision_memory`, `report_narrative`) when the eight retrospective plans exist, and keep the database under 400 MB (about 41 MB of headroom after the seed) (2026-10-14)
 
 ## Prompt 5: Frontend foundation and core screens
 

@@ -62,6 +62,8 @@ Segment key: `category_slug|class`. Selection and backtest scoring happen per se
 ## 5. Forecasting
 
 ### 5.1 Training series
+The window is the last 800 days (`TRAINING_DAYS`, `D-076`). The series is effect adjusted: history is divided by the applied multiplier and the forecast is multiplied back. Lag features of the global model use the same adjusted series.
+
 `y[t]` for trusted days, `NaN` for censored or promo days when `censor_policy = 'exclude'` (default) and `promo_policy = 'exclude'`. All statistical methods compute means over non-NaN values only. Optional `weekday_fill` policy replaces censored days with the weekday-profile estimate, applied only if explicitly set, and always flagged in the report.
 
 Never impute demand silently. If more than 30 percent of the last 56 days are censored, confidence drops one level and the line gets warning `CENSORED_HISTORY`.
@@ -73,7 +75,7 @@ Never impute demand silently. If more than 30 percent of the last 56 days are ce
 | `seasonal_naive` | `y[t-7]`, falling back to the weekday mean if missing | Baseline |
 | `moving_average` | Mean over last `w` trusted days, `w` in {14, 28, 56} (56 for intermittent) | Baseline, parsimony anchor |
 | `weekday_profile` | `level` = mean over last 8 weeks. `idx[d]` = mean(y on weekday d) / level, shrunk: `idx = 1 + (idx_raw - 1) * n_d / (n_d + 4)`. Forecast = `level * idx[weekday]` | Needs 6 or more weeks |
-| `ses_weekday` | Deseasonalise by `idx`, run simple exponential smoothing on the deseasonalised series, `alpha` from grid {0.05, 0.1, 0.2, 0.3, 0.5} by lowest one-step in-sample MAE, reseasonalise | Custom numpy, no statsmodels |
+| `ses_weekday` | Deseasonalise by `idx`, run simple exponential smoothing on the deseasonalised series, `alpha` from grid {0.05, 0.1, 0.2, 0.3, 0.5} by lowest one-step in-sample MAE, reseasonalise | Custom numpy, no statsmodels. Deseasonalises with the raw weekday index (`D-078`) |
 | `croston_sba` | Croston with Syntetos-Boylan bias correction (factor `1 - alpha/2`), `alpha = 0.1`, daily rate = size / interval | For intermittent and lumpy |
 | `lightgbm_global` | One model per tenant, features below | Full profile only |
 | `category_prior` | Category mean per product-day times 0.8 | Only for `new` and `no_history`, always `confidence = low`, provenance `assumed` |
@@ -105,7 +107,7 @@ Forecast `H = forecast_horizon_days` (28). Store `yhat`, `yhat_lower`, `yhat_upp
 2. Score = segment-level MAE (sum of absolute errors divided by number of points).
 3. Winner = lowest score. If the winner improves on `moving_average` by less than 3 percent, choose `moving_average` (parsimony). Record all scores in `forecast_backtests`, mark the winner `is_selected`.
 4. Segments with fewer than 3 products or fewer than 200 backtest points fall back to the tenant-level selection among the same class, then to `moving_average`.
-5. Selection is stored. Light profile reuses the last selection if it is less than 35 days old, otherwise falls back to the best non-LightGBM method of the stored scores.
+5. Selection is stored (metrics quantised to the stored precision, `D-078`). With no stored selection the light profile runs an in memory statistical backtest and stores it. Light profile reuses the last selection if it is less than 35 days old, otherwise falls back to the best non-LightGBM method of the stored scores.
 
 ### 6.3 Synthetic ground truth check
 For synthetic tenants only, `scripts` compare each selected forecast with `synthetic_true_demand` over the last 12 weeks and write a markdown table (`backend/tests/reports/synthetic_accuracy.md`). This shows how censoring affects measured accuracy. Report it honestly, including where the model loses to a baseline.
@@ -136,6 +138,7 @@ For each tenant, `event_key`, category, window:
 - `n_occurrences >= 1`, `n_products >= 3`, window length >= 3 days (during) or any for pre and post.
 - `abs(m - 1) >= 0.15`.
 - `consistency >= 0.60`.
+- **Significance** (added in Prompt 4, `D-075`): a Stouffer z-test of the product log ratios against the dispersion measured in the baseline weeks, then Benjamini-Hochberg false discovery control at 10 percent (`EFFECT_FDR`) across all effects of the tenant. Effects that fail are labelled "not enough evidence".
 - **Medical tenants**: festival events apply only if `origin = configured`, or learned with `n_occurrences >= 2` and `consistency >= 0.75`. Seasons follow the normal gate. This enforces "no blanket festival uplift for medicines".
 
 ### 7.3 Use
@@ -188,8 +191,8 @@ P         = L + R
 
 ### 10.2 Demand and position
 ```
-D_L = sum(forecast[as_of+1 ... as_of+L])                 demand before the new order can arrive
-D_P = sum(forecast[as_of+1 ... as_of+P])                 demand to cover
+D_L = sum(forecast[as_of ... as_of+L-1])                 demand before the new order can arrive
+D_P = sum(forecast[as_of ... as_of+P-1])                 demand to cover
 usable     = on_hand_sellable - expected_expiry_loss
 IP         = usable + incoming_confirmed - reserved
 ```
@@ -243,7 +246,7 @@ days_of_cover = usable / avg_daily_forecast over next 14 days (None if avg is 0)
 |---|---|
 | `critical` | out of stock now (usable = 0 and forecast > 0), or `p_stockout >= 0.60`, or projected stockout date <= A |
 | `high` | `0.30 <= p_stockout < 0.60` |
-| `medium` | `0.10 <= p_stockout < 0.30`, or IP < D_P + SS with `p_stockout < 0.10` |
+| `medium` | `0.10 <= p_stockout < 0.30`, or `p_stockout > 1 - service_level`, or IP < D_P + SS with `p_stockout < 0.10` |
 | `low` | `p_stockout < 0.10` and an order is suggested |
 | `none` | no order needed and `p_stockout < 0.10` |
 
@@ -323,7 +326,7 @@ A line shows only the issues that concern its product. Issues with no resolution
 run_pipeline(tenant_id, as_of, profile: light|full, overrides: Overrides | None, persist: bool)
 ```
 Steps:
-1. Lock: `pg_advisory_xact_lock(hash(tenant_id, as_of))`. Insert `job_runs` (key `monday_report:{as_of}`), skip with `skipped` if already `succeeded` and no `force`.
+1. Lock: session level `pg_try_advisory_lock` per tenant (a second run is skipped). The persist step is one transaction, `job_runs` rows are written in their own transactions. Insert `job_runs` (key `monday_report:{as_of}`), skip with `skipped` if already `succeeded` and no `force`.
 2. DQ checks (pre).
 3. Rollup up to `as_of - 1`.
 4. Refresh effects (learn) if older than 7 days or `full`.
