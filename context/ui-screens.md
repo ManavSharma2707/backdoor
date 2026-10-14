@@ -21,7 +21,7 @@ Routes:
 | `/sales`, `/sales/new`, `/sales/:id` | Sales |
 | `/purchases`, `/purchases/new`, `/purchases/:id` | Purchases |
 | `/stock` | Stock (tabs by `?tab=`) |
-| `/insights` | Insights (tabs by `?tab=`) |
+| `/insights` | Trends (tabs by `?tab=`), the sidebar label is Trends (`D-085`) |
 | `/settings` | Settings (tabs by `?tab=`) |
 | `/assistant` | Assistant full page |
 | `/_ui` | Component gallery (dev only) |
@@ -99,7 +99,7 @@ Decision persistence: optimistic update, then confirm. A decision on an old repo
 
 ## 4. Products (`/products`)
 
-List: search (name, SKU, brand, generic), filters (Category, Supplier, Status: Active, Not selling, Selling slowly, New, Inactive; Batch tracked), table columns: Product (name, SKU mono), Category, Unit and pack, Selling price, Stock, Days of cover, Plan status (chip: Buy, Watch, OK, Not selling), Supplier. Row click opens `/products/:id`. Buttons: "Add product". `apply_filters` keys: `q, category_id, supplier_id, status, batch_tracked`.
+List: search (name, SKU, brand, generic), filters (Category, Supplier, Status: Active, Inactive, All as the API offers them, plan statuses follow when the API fills them; Batch tracked), table columns: Product (name, SKU mono), Category, Unit and pack, Selling price, Stock, Days of cover, Plan status (chip: Buy, Watch, OK, Not selling), Supplier. Row click opens `/products/:id`. Buttons: "Add product". `apply_filters` keys: `q, category_id, supplier_id, status, batch_tracked`.
 
 Add and edit product: a page with sections Basic (name, SKU, brand, category, unit, pack label, barcode), Price and tax (MRP, selling price, GST rate), Stock rules (batch tracked, shelf life days, minimum display stock, seasonal, launch date), Medicine details (only for medical tenants: generic name, strength, form, manufacturer, schedule class flag labelled "Schedule (for your records)"), Supplier terms (primary supplier, purchase price, pack of, minimum order, delivery time), Notes. Validation inline.
 
@@ -113,7 +113,7 @@ Product detail (`/products/:id`): header with name, SKU, category, status chips,
 - Product search field focused on load (name, SKU, barcode, generic), results list with stock shown, Enter adds the first match. Barcode scanners type and press Enter, which works.
 - Lines table: Product, Batch (auto FEFO for tracked products, shown with expiry, changeable), Quantity (default 1), Price (default selling price, editable), Discount, Line total, remove. Stock warning inline ("Only 4 left").
 - Right panel (or bottom on mobile): total, payment mode (Cash, UPI, Card, Credit as a segmented control), "Save bill" (primary). `Ctrl+Enter` saves.
-- After save: toast "Bill saved." and the form clears with focus back on search. Possible duplicate shows a banner "A bill with the same items and total was saved a minute ago. Save anyway?" with Save anyway and Cancel.
+- After save: toast "Bill saved." and the form clears with focus back on search. The server saves a possible duplicate and returns a warning, so the banner comes after saving: "A bill with the same items and total was saved a minute ago." with Open the earlier bill, Void this bill and Keep both (`D-087`). Pressing Enter in an empty search box moves to the last quantity field, Enter in a quantity returns to search.
 - Idempotency key generated when the form opens and kept until saved.
 
 `/sales/:id` bill detail: lines, totals, returns made, actions: "Record return" (dialog: pick lines, quantities, reason, what to do with the stock: Put back on shelf, Damaged, Expired), "Void bill" (confirm dialog with reason).
@@ -155,7 +155,7 @@ Tabs: **Sales and trends**, **Movers**, **Forecast accuracy**, **Festival effect
 Tabs: **Business**, **Planning**, **Festival calendar**, **Account**, **About**.
 - **Business**: name (read only for now), timezone (read only), currency, demo data note.
 - **Planning**: weekly budget (optional, with "No limit" checkbox), service level (select: 90, 95, 97, 99 percent with the plain text "Higher means more buffer stock and more cash tied up"), review period (days), default delivery time (days), near-expiry window (days), not-selling period (days), slow cover days, extra stock horizon, stale count days, share of shelf life we plan to hold (percent), pack rounding (Round up, Round to nearest safe pack), priority weights (four sliders summing to 100 with plain labels: Chance of running out, Profit, Forecast confidence, Extra stock), "Use assistant" switch. Save button with a diff confirm. Changes apply from the next plan.
-- **Festival calendar**: table of events (name, dates, verified or "Dates may shift", before and after days, delivery delay days), add event dialog, edit unverified events, per category "Set my own change" entries list.
+- **Festival calendar**: read only table of events (name, kind, dates, confirmed or "Dates may shift", before and after days, delivery delay days). Events are shared by every business, so adding, editing or hiding them is not built (`D-084`, P5.18). Per category "Set my own change" entries come with the plan screens.
 - **Account**: change password form (current, new, confirm, rules text), "Sign out everywhere" button.
 - **About**: version, data cutoff of latest plan, model version, demo data statement, limitations in plain words (what the plan can and cannot do, not tax or compliance advice, medicines: stock and buying only).
 

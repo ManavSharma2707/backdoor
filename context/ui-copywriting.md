@@ -144,5 +144,5 @@ First sentence is the answer. Then the support in a few plain sentences. Say "I"
 
 ## 8. Enforcement
 
-- `scripts/check_copy.py` scans: `frontend/src/**/*.{ts,tsx}` (string literals and JSX text), `backend/app/**/*.py` message modules and templates, `backend/seed/corpus/**`. It also scans `context/**` and `CLAUDE.md`, but only for the two dash characters (these docs legitimately list banned words). Fails on dashes, banned words, emoji, exclamation marks in user-facing strings. It ignores code comments and URLs. Run in pre-commit hook configuration, `make check-copy` and CI.
+- `scripts/check_copy.py` scans: `frontend/src/**/*.{ts,tsx}` (string literals and JSX text), `backend/app/**/*.py` message modules and templates, `backend/seed/corpus/**`. It also scans `context/**` and `CLAUDE.md`, but only for the two dash characters (these docs legitimately list banned words). Fails on dashes, banned words, emoji, exclamation marks in user-facing strings. It ignores code comments, URLs, test files and `frontend/src/test` (the banned word list itself lives there). Run in pre-commit hook configuration, `make check-copy` and CI.
 - `app/core/text.py::humanize_text()` is applied to every model generated or template generated text before it is stored or sent.

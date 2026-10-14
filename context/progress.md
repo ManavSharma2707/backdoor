@@ -5,9 +5,9 @@ Single checklist for the whole build. Tick items as soon as they are done and ve
 Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`.
 
 **Status header (update every session)**
-- Current prompt: Prompt 3 complete (seed data), Prompt 4 (intelligence engine and report) is next
+- Current prompt: Prompt 5 complete (frontend foundation and everyday screens), Prompt 6 (Monday plan and insights screens) is next
 - Last commit: the `docs(context)` commit that closes Prompt 3, after the `feat(seed)` commits. Nothing pushed
-- Last updated: 2026-10-14 (Prompt 3 done: four tenants seeded at 359 MB, validation green, 110 seed tests in about 2 minutes)
+- Last updated: 2026-10-14 (Prompt 5 done: 106 frontend tests, initial JS 179 KB gzip, smoke flow green on the seeded stack)
 - Blockers: none. The host system drive is nearly full (about 5 GB free), see `memory.md` section 6
 
 ---
@@ -99,21 +99,25 @@ Format: `- [x] P2.04 Description` becomes `- [x] P2.04 Description (2026-10-15)`
 
 ## Prompt 5: Frontend foundation and core screens
 
-- [ ] P5.01 Vite React TypeScript project, Tailwind v4 tokens from `ui-design-system.md`, fonts, ESLint, Prettier, Vitest, MSW
-- [ ] P5.02 `lib/api.ts` (refresh single flight, error envelope), `lib/auth`, auth store, route guards, generated API types script
-- [ ] P5.03 `lib/format.ts` (money, quantity, dates, compact INR) with tests, `copy/en.ts` skeleton
-- [ ] P5.04 UI primitives (button, inputs, select, combobox, date picker, tabs, table, badge, dialog, drawer, tooltip, banner, empty state, skeleton, toast, pack stepper, command palette) and `/_ui` gallery
-- [ ] P5.05 App shell (sidebar, top bar, demo strip, responsive behaviour)
-- [ ] P5.06 Login screen with cold start handling and optional demo buttons
-- [ ] P5.07 Overview screen (except assistant nudge)
-- [ ] P5.08 Products list, add and edit, detail with tabs
-- [ ] P5.09 Sales list, fast entry screen, bill detail, return and void
-- [ ] P5.10 Purchases list, new order, detail, receipt form
-- [ ] P5.11 Stock screens (levels, batches and expiry, movements, counts, out-of-stock history, adjustment dialog)
-- [ ] P5.12 Settings screens (planning, calendar, account, about)
-- [ ] P5.13 Component tests, copy test, axe tests, `vercel.json`, CI frontend job enabled
-- [ ] P5.14 Gate: lint, types, tests, build green, anti-template review notes in memory
-- [ ] P5.15 Context updates
+- [x] P5.01 Vite React TypeScript project, Tailwind v4 tokens from `ui-design-system.md`, fonts, ESLint, Prettier, Vitest, MSW (2026-10-14)
+- [x] P5.02 `lib/api.ts` (refresh single flight, error envelope), `lib/auth`, auth store, route guards, generated API types script (2026-10-14)
+- [x] P5.03 `lib/format.ts` (money, quantity, dates, compact INR) with tests, `copy/en.ts` skeleton (2026-10-14)
+- [x] P5.04 UI primitives (button, inputs, select, combobox, date picker, tabs, table, badge, dialog, drawer, tooltip, banner, empty state, skeleton, toast, pack stepper, command palette) and `/_ui` gallery (2026-10-14)
+- [x] P5.05 App shell (sidebar, top bar, demo strip, responsive behaviour) (2026-10-14)
+- [x] P5.06 Login screen with cold start handling and optional demo buttons (2026-10-14)
+- [x] P5.07 Overview screen (except assistant nudge) (2026-10-14)
+- [x] P5.08 Products list, add and edit, detail with tabs (2026-10-14)
+- [x] P5.09 Sales list, fast entry screen, bill detail, return and void (2026-10-14)
+- [x] P5.10 Purchases list, new order, detail, receipt form (2026-10-14)
+- [x] P5.11 Stock screens (levels, batches and expiry, movements, counts, out-of-stock history, adjustment dialog) (2026-10-14)
+- [x] P5.12 Settings screens (planning, calendar read only, account, about) (2026-10-14)
+- [x] P5.13 Component tests, copy test, axe tests, `vercel.json`, CI frontend job enabled (2026-10-14)
+- [x] P5.14 Gate: lint, types, tests, build green, anti-template review notes in memory (2026-10-14)
+- [x] P5.15 Context updates (2026-10-14)
+
+- [x] P5.16 Backend support endpoints: auth config, calendar events, activity feed, bills by product (2026-10-14)
+- [x] P5.17 Fix: identity sequences after the seed bulk load (2026-10-14)
+- [ ] P5.18 Calendar toggle per business (needs a per tenant override table and engine support, see D-084)
 
 ## Prompt 6: Monday plan, insights and exports UI
 

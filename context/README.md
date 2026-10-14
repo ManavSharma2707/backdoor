@@ -31,10 +31,10 @@ Built in Prompt 1. Paths are from the repo root.
 | File | What it is |
 |---|---|
 | `Makefile` | Every developer command (`make help`). Host `uv` for lint, types and tests, `docker compose` for the stack |
-| `docker-compose.yml`, `backend/Dockerfile`, `backend/start.sh` | Local stack (db, api dev target, placeholder web) and the production image. `start.sh` runs `python -m app.jobs.run migrate`, then uvicorn |
+| `docker-compose.yml`, `backend/Dockerfile`, `backend/start.sh` | Local stack (db, api dev target, web) and the production image. `start.sh` runs `python -m app.jobs.run migrate`, then uvicorn |
 | `scripts/db_init.sql` | Creates `backroom_test` and the extensions when the db volume is first made |
 | `scripts/check_copy.py` | Copy rules: long dashes, banned words, exclamation marks, emoji. Runs in CI, pre-commit and `make check-copy`. Imports the banned list from `backend/app/core/text.py` |
-| `.pre-commit-config.yaml`, `.github/workflows/ci.yml` | Local hooks and the CI workflow (backend, copy, frontend switched off until P5.13) |
+| `.pre-commit-config.yaml`, `.github/workflows/ci.yml` | Local hooks and the CI workflow (backend, copy, frontend) |
 | `backend/pyproject.toml`, `backend/uv.lock` | Dependencies (runtime, `ml`, `agents`, `dev` groups), ruff, strict mypy for `app.core` and `app.engine`, pytest markers, coverage |
 | `backend/app/main.py` | `create_app(settings)` factory and the module level `app` |
 | `backend/app/core/` | `config` (settings, production checks), `logging` (JSON, redaction), `clock` (only reader of the system clock, `FakeClock`), `money`, `timeutil` (IST, Monday weeks), `text` (`humanize_text`, `BANNED_WORDS`), `errors` and `messages` (envelope, codes), `middleware` (request id, security headers, catch-all 500), `db` (engine, sessions), `repo` (`TenantRepo`) |
@@ -79,3 +79,20 @@ Built in Prompt 3. Everything is under `backend/seed/` (run with `python -m seed
 | `seed/validate.py`, `size_report.py`, `realism.py`, `checksum.py` | Validators, size table, realism report, determinism checksum |
 | `backend/tests/seed/` | Catalogue tests, and DB backed tests at scale 0.1 (session fixture seeds all four tenants into a throwaway database) |
 | `backend/alembic/versions/0012_movement_reversal_index.py` | Partial index on `inventory_movements.reverses_movement_id` (a reset took minutes without it) |
+
+Built in Prompt 5. Paths are from the repo root.
+
+| File | What it is |
+|---|---|
+| `frontend/package.json`, `vite.config.ts`, `eslint.config.js`, `vercel.json` | Vite 8, React 19, Tailwind 4. ESLint holds two house rules (`backroom/no-dash-characters`, `backroom/no-hex-colours`). `vercel.json` has the `/api` rewrite and the security headers |
+| `frontend/src/styles/index.css`, `fonts.css`, `src/assets/fonts/` | Design tokens in `@theme` (closed palette) and the self hosted Plex fonts |
+| `frontend/src/lib/` | `api.ts` (token in memory, single flight refresh, envelope, cold start), `auth.tsx` (provider, `RequireAuth`), `format.ts` (INR, IST dates), `decimal.ts` (exact bill arithmetic), `hooks.ts` (URL state, debounce), `queries.ts`, `forms.ts` |
+| `frontend/src/copy/` | All user text, one file per screen (`D-086`), plus `copy.test.ts` that scans them |
+| `frontend/src/components/ui/` | Primitives: `button`, `field`, `overlay`, `display`, `controls`, `table`, `pickers`. `components/shell/app-shell.tsx` is the shell, `product-search.tsx` and `search-box.tsx` are shared |
+| `frontend/src/features/` | One folder per screen: `login`, `overview`, `products`, `sales` (with `entry-model.ts`), `purchases`, `stock`, `settings`, and `ui-gallery.tsx` (dev only, route `/_ui`) |
+| `frontend/src/types/api.d.ts`, `models.ts` | Generated OpenAPI types and our short names for them (`npm run openapi-types`) |
+| `frontend/src/test/` | MSW server, fixtures for every read endpoint, `render.tsx` helpers, copy rules. `src/routes.test.tsx` renders every route and runs axe |
+| `frontend/scripts/screenshots.mjs`, `smoke.mjs` | Design review screenshots at 1440 and 390 px, and the end to end sale, order and adjustment flow against the running stack |
+| `backend/app/api/v1/calendar.py` | `GET /calendar/events`. `auth.py` gained `GET /auth/config`, `insights.py` gained `GET /dashboard/activity`, `GET /sales` gained `product_id` (`D-084`) |
+| `backend/tests/api/test_screens_support.py` | Tests for those four additions |
+

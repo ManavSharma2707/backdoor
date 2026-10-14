@@ -97,7 +97,7 @@ Rules: risk is always text plus colour, never colour alone. Primary green is for
 
 ## 4. Typography
 
-Families: **IBM Plex Sans** (UI), **IBM Plex Mono** (SKU codes, batch numbers, bill numbers). Self hosted via `@fontsource`. Weights used: 400, 500, 600 only. Numbers use `font-variant-numeric: tabular-nums` everywhere in tables and KPIs.
+Families: **IBM Plex Sans** (UI), **IBM Plex Mono** (SKU codes, batch numbers, bill numbers). Self hosted: woff2 files (latin and latin-ext, which hold the Rupee sign) live in `src/assets/fonts` and `src/styles/fonts.css` declares them. Weights used: 400, 500, 600 only. Numbers use `font-variant-numeric: tabular-nums` everywhere in tables and KPIs.
 
 | Token | Size / line | Weight | Use |
 |---|---|---|---|
@@ -124,7 +124,7 @@ Letter spacing normal (no tracking tweaks). Sentence case everywhere. No all cap
 
 - Grid: 12 columns, gutter 24, max content width 1360 px, centred only at very wide screens (left aligned inside the content area otherwise).
 - **Shell**: fixed left sidebar 224 px (surface colour, right border), top bar 56 px (surface, bottom border), content area on `--color-bg`.
-- Sidebar items (in order): Overview, Monday plan, Products, Sales, Purchases, Stock, Insights, Settings. 40 px rows, 16 px icon (lucide, stroke 1.5), label 14 px 500. Active item: `primary-soft` background, `primary` text, 2 px left bar. Business name and a small "Demo data" label at the top of the sidebar.
+- Sidebar items (in order): Overview, Monday plan, Products, Sales, Purchases, Stock, Trends, Settings. The route is `/insights`, the label is Trends because the copy rules ban the word insights (`D-085`). 40 px rows, 16 px icon (lucide, stroke 1.5), label 14 px 500. Active item: `primary-soft` background, `primary` text, 2 px left bar. Business name and a small "Demo data" label at the top of the sidebar.
 - Top bar: page search field (opens command palette), Assistant button (text "Assistant" with a chat bubble icon), user menu (name, Account, Sign out).
 - Breakpoints: `sm 640`, `md 768`, `lg 1024`, `xl 1280`. Below `lg` the sidebar becomes a slide-over opened from a menu button. Below `md` tables get horizontal scroll with the first column sticky, and key screens (Overview, Monday plan, Stock) have a stacked variant. Mobile is supported for reading the plan and recording a sale, not as the only interface.
 - Page header: title (`text-xl`), one line of context in `text-2`, actions right aligned. 24 px below.
@@ -137,7 +137,7 @@ Build as wrappers around Radix primitives in `components/ui/`. Each has all stat
 | Component | Spec |
 |---|---|
 | **Button** | Variants: primary (filled green, white text), secondary (white, border-strong, text), ghost (text only, hover surface-2), destructive (white with critical text and border, becomes filled critical only inside the confirm dialog). Sizes 32, 36 (default), 40. Loading shows a 14 px spinner and keeps width. Icon buttons need `aria-label` and a tooltip |
-| **Input, Select, Textarea, Combobox** | 36 px height, border-strong, radius-sm, label above (`text-sm` 500), helper text below in `text-3`, error text below in `critical` with the field outlined in critical. No asterisks: mark optional fields with the word "Optional" next to the label. Inline validation on blur, summary on submit |
+| **Input, Select, Textarea, Combobox** | Select is a native `<select>` with a custom caret (`D-086`). 36 px height, border-strong, radius-sm, label above (`text-sm` 500), helper text below in `text-3`, error text below in `critical` with the field outlined in critical. No asterisks: mark optional fields with the word "Optional" next to the label. Inline validation on blur, summary on submit |
 | **Number input** | Right aligned, tabular, unit suffix shown inside the field (for example "packs"), steppers only where a pack step matters |
 | **Date picker** | Popover calendar (Radix popover plus a small calendar built with date-fns), text input accepts `12 Oct 2026` and `12/10/2026` |
 | **Checkbox, Radio, Switch** | Standard sizes 16, switch 36 by 20. Labels clickable |
@@ -208,6 +208,7 @@ PDF and Excel follow the same tokens where possible (fonts, colours for risk wor
 
 ## 14. Implementation notes
 
-- Tokens live in `src/styles/index.css` (`@theme`), nothing hard codes hex values in components (lint rule: grep for `#[0-9a-fA-F]{3,6}` in `src/components` and `src/features` outside the chart helpers fails the check).
-- Storybook is not used. Create a hidden route `/_ui` (dev only) that renders every component and state for visual review.
+- Tokens live in `src/styles/index.css` (`@theme`), nothing hard codes hex values in components (the ESLint rule `backroom/no-hex-colours` covers `src/components` and `src/features`). The theme removes the default Tailwind colours, type sizes, radii and shadows, so only tokens exist.
+- Scroll containers around tables are `position: relative`, and grids that switch to columns at `lg` start with `grid-cols-1`, otherwise a wide table widens the whole page on a phone.
+- Storybook is not used. The hidden route `/_ui` (dev builds only, `features/ui-gallery.tsx`) renders every component and state for visual review.
 - One screenshot review per screen against section 2 before marking a UI task done (store notes in `memory.md`).

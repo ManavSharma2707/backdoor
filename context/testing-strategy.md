@@ -95,7 +95,7 @@ One test per planted scenario with the expected engine output (festival learned 
 - Sale entry: keyboard flow (search, Enter adds, Ctrl+Enter saves), stock warning, duplicate warning.
 - Plan: filters sync with URL, decision change updates totals, pack stepper math display, bulk actions.
 - Copy test: renders every route with MSW data and asserts the DOM text has no dash characters, no banned words, no exclamation marks.
-- Accessibility: `jest-axe` on main screens (add `jest-axe` as a dev dependency) with zero violations.
+- Accessibility: `jest-axe` on login, overview, products and sale entry with zero violations. jsdom cannot compute colour contrast, so that rule is off and contrast is checked from the tokens and by screenshot review.
 - E2E (Playwright): run with the seeded stack in CI using a reduced scale seed.
 
 ## 9. CI (`.github/workflows/ci.yml`)

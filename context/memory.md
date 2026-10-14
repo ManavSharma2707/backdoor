@@ -303,6 +303,29 @@ Choice: `GET /auth/config` (public, demo profiles only when the flag is on), `GE
 Alternatives: toggle `is_active` globally (wrong for other businesses), a new per tenant override table plus engine support (a migration and engine change that belongs to a later prompt), `GET /audit` for recent activity (sparse on seeded data).
 Consequence: `api-spec.md` amended. `test_contract.py` lists `/auth/config` as public. Tests in `tests/api/test_screens_support.py`.
 
+### D-085 (2026-10-14) The sidebar item "Insights" is labelled "Trends"
+Context: `ui-design-system.md` names the sidebar item Insights, but `ui-copywriting.md` bans the word and `check_copy.py` enforces it.
+Choice: the label and page title are "Trends". The route stays `/insights`.
+Alternatives: exempt the word in one file (weakens the check).
+Consequence: `ui-design-system.md` section 6 and `ui-screens.md` amended. Spec change.
+
+### D-086 (2026-10-14) Frontend choices that differ from `libraries.md`
+Context: building the primitives showed three places where the library notes were not the simplest fit.
+Choice: (1) `Select` is a native `<select>`: reliable on phones, works in jsdom, no extra weight. (2) No `@tanstack/react-table`: tables are server paged and sorted, so a small `DataTable` with column definitions is enough and keeps the bundle small. (3) Fonts are woff2 files copied into `src/assets/fonts` (latin and latin-ext subsets, which include the Rupee sign) with our own `@font-face`, instead of the `@fontsource` packages. Copy text is split by screen under `src/copy/*.ts` and imported from there, not one `en.ts` file (check_copy scans the folder). Money in the bill form uses exact bigint arithmetic (`lib/decimal.ts`) only to preview totals, the server prices every bill.
+Alternatives: Radix Select (heavier, awkward to test), TanStack Table (no client side features needed yet).
+Consequence: `libraries.md` amended.
+
+### D-087 (2026-10-14) Duplicate bill warning comes after saving
+Context: `ui-screens.md` asks for "Save anyway?" before saving, but the server saves a possible duplicate and returns a `POSSIBLE_DUPLICATE` warning (`D-061`).
+Choice: the bill is saved, then a banner says a bill with the same items and total was saved a minute ago, with "Open the earlier bill", "Void this bill" and "Keep both".
+Alternatives: a dry run endpoint before saving (more API for little gain).
+Consequence: `ui-screens.md` section 5 amended.
+
+### D-088 (2026-10-14) Local compose sets CORS_ORIGINS, and a bulk load must reset identity sequences
+Context: the refresh endpoint refuses browser requests whose Origin is not in `CORS_ORIGINS`, and the local `.env` has none, so sign in worked but a page reload signed the person out. Separately, the seed `COPY` wrote explicit ids and left the identity sequences at 1, so the first bill saved through the API failed.
+Choice: `docker-compose.yml` sets `CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173` for the api service. `seed/loader.py` calls `sync_identity_sequences` after each tenant load, with a regression test.
+Consequence: a database seeded before this fix needs the sequences moved once (done for the dev database with `setval`).
+
 ## 5. Pinned versions
 
 Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolved lock file (`D-053`).
@@ -311,7 +334,7 @@ Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolve
 |---|---|---|
 | python | 3.12.15 | Docker image python:3.12-slim, host uv python |
 | uv | 0.13.0 | Docker image pinned. Host 0.13.0 |
-| node | 22 (image node:22-alpine) | Host 22.13.1. Frontend arrives in Prompt 5 |
+| node | 22 (image node:22-alpine) | Host 22.13.1, npm 10.9.2 |
 | postgres (pgvector/pgvector:pg16) | 16.15, pgvector 0.8.7 | citext 1.6, pg_trgm 1.6, pgcrypto 1.3 |
 | fastapi | 0.143.0 | starlette 1.8.0, uvicorn 0.54.0 |
 | sqlalchemy | 2.1.4 |  |
@@ -342,7 +365,23 @@ Exact versions are in `backend/uv.lock`. Recorded on 2026-10-13 from the resolve
 | httpx, openpyxl, pypdf | 0.28.1, 3.1.5, 6.20.1 |  |
 | ruff, mypy | 0.17.0, 2.4.0 |  |
 | pre-commit, pip-audit | 4.7.0, 2.10.1 | pip-audit found no known vulnerabilities on 2026-10-13 |
-| react, vite, tailwindcss, @tanstack/react-query, recharts, zod, react-router |  | Prompt 5 |
+| react, react-dom | 19.3.0 | |
+| vite, @vitejs/plugin-react | 8.3.4, 6.1.2 | `@/` alias set in `vite.config.ts` (tsconfig paths alone are not enough) |
+| tailwindcss, @tailwindcss/vite | 4.3.3 | closed palette: `--color-*: initial` in `@theme` |
+| typescript | 5.9.3 | pinned `~5.9.0`: `typescript-eslint` and `openapi-typescript` do not accept 6 or 7 yet |
+| eslint, @eslint/js | 9.39.5 | pinned to 9: `eslint-plugin-jsx-a11y` does not accept 10. npm prints a support warning |
+| react-router | 7.18.4 | |
+| @tanstack/react-query | 5.104.2 | |
+| react-hook-form, @hookform/resolvers, zod | 7.90.0, 5.9.1, 3.25.76 | zod 3 API (`z.string().email()`) |
+| radix-ui | 1.8.1 | unified package |
+| recharts | 3.10.1 | lazy loaded chunk, only the overview uses it |
+| lucide-react, sonner, cmdk, date-fns, clsx, tailwind-merge, class-variance-authority | 1.57.0, 2.0.8, 1.1.1, 4.4.0, 2.1.1, 3.7.0, 0.7.1 | |
+| vitest, @vitest/coverage-v8 | 5.0.4 | `npm test` runs once (`vitest run`) |
+| msw | 3.0.3 | `server.listen({ onUnhandledFrame: "error" })`, not `onUnhandledRequest` |
+| @testing-library/react, dom, user-event, jest-dom | 16.3.3, 10.4.2, 14.6.8, 7.0.1 | |
+| jest-axe, jsdom | 11.0.0, 29.1.1 | color contrast rule is off in jsdom, see section 6 |
+| prettier, openapi-typescript, @playwright/test | 3.9.10, 7.13.0, 1.64.0 | Playwright drives the installed Chrome (`channel: "chrome"`) |
+| IBM Plex Sans and Mono | woff2 copied from @fontsource 5.3 | `src/assets/fonts`, package removed |
 
 ## 6. Known issues and gotchas
 
@@ -416,6 +455,22 @@ Found while building Prompt 3:
 - The light and full profiles need the real `JOB_TOKEN` as a `SecretStr`, call `.get_secret_value()`.
 - Medical tenants show Diwali as "not enough evidence": only one Diwali is in the history (D-076).
 
+Found while building Prompt 5:
+
+- Git Bash rewrites an argument that looks like a path (`/` becomes `C:/Program Files/Git/`). Run scripts that take routes with `MSYS_NO_PATHCONV=1`.
+- Vite does not read `paths` from tsconfig. The `@/` alias must also be in `vite.config.ts` (`resolve.alias`).
+- `npm install` fails on peer ranges: eslint 10, typescript 6 and 7 all conflict with plugins. See the pinned versions.
+- A hidden table caption or header (`sr-only` is `position: absolute`) escapes `overflow-x-auto` unless the scroll container is `position: relative`, and then widens the whole page on phones. Scroll containers carry `relative`.
+- A grid with `lg:grid-cols-...` has an `auto` single column below `lg`, which grows to fit a wide table. Add `grid-cols-1` so the column is `minmax(0, 1fr)`.
+- Radix and cmdk popovers re-render while results load, so Playwright `click` on an option can time out as "not stable". Press Enter on the cmdk item instead.
+- A combobox trigger button takes its accessible name from the field label, not from its visible text. Query it with `getByLabel`.
+- react-hook-form `watch()` trips the React Compiler lint rule. Use `useWatch({ control, name })`.
+- `react-hooks/rules-of-hooks` flags test helpers named `useXxx` that are not hooks. They are `mockSignedIn` and `mockSignedOut`.
+- A module level promise cleared on a timer can leak into the next test. The refresh promise is cleared as soon as it settles.
+- axe cannot compute colour contrast in jsdom, so that rule is disabled in the tests. Contrast comes from the tokens, which were chosen for AA, and from the screenshot review.
+- Windows: Playwright uses the installed Chrome (`channel: "chrome"`), no browser download is needed.
+- Heredocs with apostrophes break the shell wrapper (again). Write patch scripts with the editor tool and run them.
+
 ## 7. Measurements (fill in as you go)
 
 | Item | Value | Date |
@@ -430,6 +485,8 @@ Found while building Prompt 3:
 | LightGBM against the statistical winner (synthetic truth, last 4 origins) | fmcg_a 62.0 vs 64.3 percent WAPE, fmcg_b 51.2 vs 54.8, med_a 74.4 vs 74.8, med_b 93.2 vs 93.5. Better by 0.3 to 3.6 points, so the global model helps most for fmcg. These are simulated results, not customer results | 2026-10-14 |
 | Prompt 4 tests and coverage | 1,300 plus tests. Engine coverage 94 percent (`pytest --cov=app/engine`), mypy strict clean on `app/engine` and `app/core`. Pipeline suite takes about 6 minutes after the first reseed | 2026-10-14 |
 | Test counts and coverage per prompt | Prompt 1: 352 tests, 99 percent total, 95 to 100 percent per `app.core` module, suite takes about 75 s. Prompt 2: 904 tests, 98 percent total, suite takes about 4.5 minutes (the 200 sequence property test is about 40 s, concurrency tests about 8 s). Auth: `auth_service` 95, `security` 98, `deps` 100, `ratelimit` 98, `audit` 98. Ledger: `ledger` 98, `ledger_rules` 100, `sales_math` 100. Prompt 3: 1014 tests in total (110 in `tests/seed`, 86 to 108 s alone), the whole suite takes 6 minutes when the database is busy | 2026-10-14 |
+| Frontend initial JS (Prompt 5) | 179 KB gzip (index 98.1, shared chunk 76.6, clsx 4.6) plus 7.6 KB CSS. The recharts chunk (103 KB gzip) loads only on the overview. Target was 250 KB | 2026-10-14 |
+| Frontend tests (Prompt 5) | 106 tests in 8 files, about 30 s. Backend after the Prompt 5 endpoints: `tests/api` 411 passed plus 6 new, seed identity test 5 passed | 2026-10-14 |
 | API dev image size | 1.29 GB (includes ml and agents packages) | 2026-10-13 |
 | API runtime image size | 1.0 GB. Verified: runs as uid 10001, migrates on start, Docker healthcheck healthy, lightgbm imports (libgomp) | 2026-10-13 |
 | Migration upgrade from empty | about 3 s for 10 revisions | 2026-10-13 |
@@ -459,16 +516,61 @@ Method: web search, two or more independent sources per event, majority wins, a 
 
 Code: `app/jobs/reference_data.py` (`EventRow.checked`), `is_verified` is true for every 2025 and 2026 festival. `tests/integration/test_reference_data.py` was changed to match.
 
+### Prompt 5 design review (2026-10-14)
+
+Screens reviewed at 1440 and 390 px with `frontend/scripts/screenshots.mjs` (login, overview, products, product detail and form, stock, sales, sale entry, purchases, new order, receipt dialog, settings). Walked against the anti-template checklist in `ui-design-system.md` section 2:
+
+| # | Check | Result |
+|---|---|---|
+| 1 | gradients, glass, glow | none, all colours are tokens, the palette is closed in `@theme` |
+| 2 | hero block | none, page titles are plain |
+| 3 | three feature cards | none |
+| 4 | large radii and soft shadows | radius 4, 6 and 8 only, shadows only on popovers and dialogs |
+| 5 | emoji, sparkle icons, AI badges | none, the Assistant button is text with a speech bubble icon |
+| 6 | default zinc or Tailwind blue | not possible, default colours are removed |
+| 7 | Inter, huge headings | IBM Plex, weights 400 to 600, page title 24 px |
+| 8 | everything as cards | tables and lists, panels only group blocks |
+| 9 | pill badges | risk is dot plus word, filled chips only for statuses |
+| 10 | centred layout | left aligned grid, the login block is left aligned |
+| 11 | stat tiles with sparklines | one KPI strip in a single panel, no deltas |
+| 12 | marketing words | check_copy, a copy module scan and a rendered page scan all pass |
+| 13 | long dashes | none, an ESLint rule and the copy tests enforce it |
+| 14 | illustrated empty states | one sentence, a hint, one button |
+| 15 | shimmer skeletons | static blocks with a 1.6 s opacity pulse |
+| 16, 18 | equal weight and spacing | one primary button per view, groups 8 to 12 px apart and blocks 24 px apart |
+| 17 | rainbow charts | one series in chart-1, festival bands in the festival token |
+
+Problems found by looking at the screenshots, and the fixes:
+
+- Overview chart and cover panels stretched to equal height and left empty space: grids use `items-start`.
+- Panel titles had a large gap above the content: header padding reduced.
+- Festival band labels overlapped or were cut off at the right edge, and a one week festival had no width: the x axis uses a band scale, labels show only for bands of two or more weeks, and a caption lists every shaded week with its dates.
+- The top bar squeezed the business name to one letter on a phone: the user menu shows an initial below `md` and the name takes the free space.
+- Segmented control labels wrapped ("30 days" on two lines): `whitespace-nowrap`.
+- Table cells wrapped dates and order numbers on a phone: cells do not wrap, tables scroll sideways.
+- The page was wider than the phone on the sale entry and order screens: see the gotchas on `relative` and `grid-cols-1`.
+- The value column of the cover bars wrapped "211.1 days": column widened.
+
+Known visual gaps (honest list):
+
+- On a phone the sale entry lines table scrolls sideways. Entry works (search, Enter, Save bill) but price and discount are off screen until scrolled.
+- Product list columns Days of cover and Plan status are hidden when the API returns null for every row, which is the case today (`GET /products` fills them with null, `D-059`).
+- The calendar tab is read only (`D-084`).
+- "Lines likely to run out" on the overview is the sum of critical and high lines per category from `cover-by-category`, because the dashboard KPI holds critical only.
+- Needs attention shows up to 8 rows. With 14 critical lines the order, expiry and data rows share that space with the first critical lines.
+- No Explain buttons or assistant nudge yet (Prompt 7).
+- Colour contrast is verified by token choice and by eye, not by axe.
+
 ## 8. Session handoff (rewrite at the end of every session)
 
-- State: **Prompt 4 complete** (P4.01 to P4.26). `python -m app.jobs.run monday --tenant <slug>` writes a stored weekly report with exports, decisions and PO drafts behind the API. Eight backfilled plans with synthetic decisions exist for all four tenants in the dev database, plus the `decision_memory` and `report_narrative` corpus documents.
-- Next step: **Prompt 5, frontend foundation and core screens**. Generate API types from `backend/openapi.json` (`make openapi-types`). The report payload shape is in `report-spec.md`. Reports are at `/api/v1/reports`, the dashboard at `/api/v1/dashboard`.
-- Open problems: (1) the demo password is on the common password list (`D-070`). (2) The dev database is 404 MB on disk, slightly above the 400 MB target (see gotchas). (3) `simulate-week` is a stub that prints a message, it belongs to P8.03. (4) The S09 budget is about 125 percent of need for fmcg_b, not 105 percent (D-082). (5) Weak spots in `synthetic_accuracy.md`: selected methods only tie the moving average, weak festival effects are missed, new products rely on the category prior.
+- State: **Prompt 5 complete** (P5.01 to P5.17). `frontend/` is a Vite React 19 app with the design tokens, self hosted fonts, an API client with single flight refresh, auth with route guards, all primitives and a `/_ui` gallery (dev only), the shell, login, overview, products, sales (fast entry), purchases (with the receipt form), stock (five tabs) and settings. The Monday plan, trends and assistant routes are plain placeholders in `routes.tsx`.
+- Next step: **Prompt 6, Monday plan and trends screens**. Replace the placeholders for `/plan/*` and `/insights` in `frontend/src/routes.tsx`. The report endpoints are in `api-spec.md` section 8 and the payload shape in `report-spec.md`. Reuse `DataTable`, `Pagination`, `Tabs`, `StatusChip`, `RiskText`, `ProvenanceTag`, `PackStepper`, `ConfirmDialog` and `useQueryParams`. Charts go in a lazy loaded file next to `features/overview/charts.tsx`. The overview already links to `/plan`, `/plan?tab=data-notes` and `/products?q=SKU`.
+- Extension points for Prompt 7: the top bar Assistant button goes to `/assistant` (placeholder). There is no Explain button yet, add one next to `KpiStrip` and the chart panels. The nudge panel belongs at the top of `overview-page.tsx`.
+- Open problems: (1) the demo password is still on the common password list (`D-070`). (2) The dev database is a little above 400 MB. (3) The calendar toggle needs a per business override (P5.18). (4) The sale entry table on phones scrolls sideways. (5) eslint 9 prints an end of support warning, `npm audit` reports 0 problems. (6) `GET /products` still returns null for days of cover and plan status. (7) The smoke runs added a few real demo records (bills, orders, a count of zero) to the dev database.
 - Notes for the next session:
-  - From `backend/`: use the venv at `~/.venvs/backroom/Scripts` first on PATH.
-  - `python -m app.jobs.run backfill --tenant all --weeks 8` takes about 3.5 minutes. `monday --profile full` takes 1 to 2 minutes per tenant.
-  - Accuracy report: `python -m seed.accuracy --tenants all --with-lgbm` (slow).
-  - Owners: `owner.fmcg-a@backroom-demo.com`, `owner.fmcg-b@backroom-demo.com`, `owner.med-a@backroom-demo.com`, `owner.med-b@backroom-demo.com`.
-  - Prompt 7 must run the RLS statement from migration 0010 after `PostgresSaver.setup()`.
-  - The `frontend` CI job is switched off with `if: false` until P5.13.
-  - `rejected(db, ...)` in `tests/conftest.py` is the way to assert database refusals.
+  - From `frontend/`: `npm run dev` (proxy to `localhost:8000`), `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`, `npm run openapi-types` (reads `../backend/openapi.json`, so run `python -m app.jobs.run openapi` first when the API changes).
+  - `scripts/screenshots.mjs` and `scripts/smoke.mjs` need the stack up, the Vite dev server on 5173 and `DEMO_OWNER_PASSWORD` exported (`set -a; . ../.env; set +a`). Run them with `MSYS_NO_PATHCONV=1`. The smoke script writes real demo records.
+  - Tests: `src/test/fixtures.ts` holds the MSW data for every read endpoint, `src/test/render.tsx` renders a route signed in, and `src/routes.test.tsx` renders every route. Add a case there for each new screen and a handler in `fixtures.ts` for each new endpoint (unhandled requests fail the test).
+  - The demo owners are as before (`owner.fmcg-a@backroom-demo.com` and three more). The login demo buttons stay hidden until `DEMO_LOGIN_ENABLED=true`.
+  - The `frontend` CI job is on.
+  - `rejected(db, ...)` in `backend/tests/conftest.py` is still the way to assert database refusals.
