@@ -77,10 +77,10 @@ Cookie: name `backroom_rt`, `HttpOnly`, `Secure` (off only when `APP_ENV=local`)
 
 | Method and path | Purpose |
 |---|---|
-| POST `/sales` (I) | `{sold_at?, payment_mode, lines:[{product_id, quantity, unit_price?, discount_amount?, batch_id?}], bill_no?}`. Server allocates FEFO batches, computes totals, writes movements. Returns the bill. 409 `INSUFFICIENT_STOCK` lists short products. Soft warning field `warnings:[{"code":"POSSIBLE_DUPLICATE"}]` |
+| POST `/sales` (I) | `{sold_at?, payment_mode, lines:[{product_id, quantity, unit_price?, discount_amount?, batch_id?}], bill_no?}`. Server allocates FEFO batches, computes totals, writes movements. Returns the bill. 409 `INSUFFICIENT_STOCK` lists short products. Soft warning field `warnings:[{"code":"POSSIBLE_DUPLICATE","message","sale_id"}]`, the bill is saved either way. Prices include GST, `tax_total` is the tax contained (`D-061`) |
 | GET `/sales?from=&to=&q=&status=&page=` | List |
 | GET `/sales/{id}` | Bill with lines and returns |
-| POST `/sales/{id}/void` | `{reason}`. Whole bill. Reversal movements |
+| POST `/sales/{id}/void` | `{reason}`. Whole bill. Reversal movements. 409 when the bill has returns or is already void |
 | POST `/sales/{id}/returns` (I) | `{reason, lines:[{sale_line_id, quantity, disposition}]}` |
 | GET `/sales/summary?from=&to=&group=day|week` | Totals for charts |
 

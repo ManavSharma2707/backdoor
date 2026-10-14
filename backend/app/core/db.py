@@ -5,12 +5,14 @@ connections and Render free has 512 MB. With a transaction pooler (port 6543) pr
 statements must be off, which `DATABASE_TRANSACTION_POOLER=true` does.
 """
 
+import hashlib
+import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
 from functools import lru_cache
 from typing import Any
 
-from sqlalchemy import Engine, create_engine
+from sqlalchemy import Engine, create_engine, text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings, get_settings
@@ -83,6 +85,17 @@ def transaction(session: Session) -> Iterator[Session]:
         raise
     finally:
         session.info[_DEPTH_KEY] = depth
+
+
+def advisory_lock(session: Session, *parts: str | uuid.UUID) -> None:
+    """Hold a transaction scoped lock named by `parts`.
+
+    Serialises things that must not run twice at once for one tenant (document numbers,
+    replays of one idempotency key) without blocking other tenants.
+    """
+    digest = hashlib.sha256("|".join(str(part) for part in parts).encode()).digest()
+    key = int.from_bytes(digest[:8], "big", signed=True)
+    session.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": key})
 
 
 def dispose_engine() -> None:

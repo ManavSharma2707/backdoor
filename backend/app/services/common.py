@@ -1,21 +1,32 @@
 """Small helpers shared by the services: errors with a consistent voice, slugs, numbering."""
 
-import hashlib
 import re
 import uuid
 from collections.abc import Sequence
 from datetime import date
 from typing import Any
 
-from sqlalchemy import select, text
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import ColumnElement
 
+from app.core.db import advisory_lock
 from app.core.errors import AppError
 from app.core.messages import ErrorCode
 from app.schemas.common import ErrorDetail
 
 SLUG_UNSAFE = re.compile(r"[^a-z0-9]+")
+
+__all__ = [
+    "advisory_lock",
+    "conflict",
+    "escape_like",
+    "first_or_none",
+    "invalid",
+    "next_number",
+    "not_found",
+    "slugify",
+]
 
 
 def not_found(what: str, *, field: str | None = None) -> AppError:
@@ -43,14 +54,6 @@ def slugify(value: str, *, fallback: str = "item", limit: int = 40) -> str:
 def escape_like(term: str) -> str:
     """Make `%`, `_` and the escape character literal inside a LIKE pattern."""
     return term.replace("\\", "\\\\").replace("%", r"\%").replace("_", r"\_")
-
-
-def advisory_lock(session: Session, *parts: str | uuid.UUID) -> None:
-    """Hold a transaction scoped lock named by `parts`. Serialises number generation and
-    idempotent replays for one tenant without touching other tenants."""
-    digest = hashlib.sha256("|".join(str(part) for part in parts).encode()).digest()
-    key = int.from_bytes(digest[:8], "big", signed=True)
-    session.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": key})
 
 
 def next_number(

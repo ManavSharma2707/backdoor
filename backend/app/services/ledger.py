@@ -119,6 +119,26 @@ class LedgerService:
         self.lock_products([product_id])
         return [row for (pid, _), row in self._balances.items() if pid == product_id]
 
+    def _pick_up_new_rows(self, entries: Sequence[MovementEntry]) -> None:
+        """Another service in the same transaction may have created a balance row after this
+        instance locked its product. Load such rows so their stock is not mistaken for zero."""
+        missing = {entry.key for entry in entries} - set(self._balances)
+        for key in missing:
+            row = self.session.execute(
+                select(StockBalance)
+                .where(
+                    StockBalance.tenant_id == self.tenant_id,
+                    StockBalance.product_id == key[0],
+                    StockBalance.batch_id.is_(None)
+                    if key[1] is None
+                    else StockBalance.batch_id == key[1],
+                )
+                .with_for_update()
+                .execution_options(populate_existing=True)
+            ).scalar_one_or_none()
+            if row is not None:
+                self._balances[key] = row
+
     def _ensure_row(self, key: BalanceKey) -> StockBalance:
         """The locked balance row for `key`, created empty when it does not exist yet."""
         existing = self._balances.get(key)
@@ -161,6 +181,7 @@ class LedgerService:
                 raise LedgerRuleError("Quantities have at most 3 decimal places")
 
         self.lock_products(entry.product_id for entry in entries)
+        self._pick_up_new_rows(entries)
         self._check_no_overdraw(entries)
 
         movements: list[InventoryMovement] = []

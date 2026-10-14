@@ -43,6 +43,7 @@ TAGS_METADATA = [
     {"name": "settings", "description": "Business settings that shape the weekly plan."},
     {"name": "catalogue", "description": "Categories, products, prices, equivalents, GST rates."},
     {"name": "suppliers", "description": "Suppliers and effective dated prices and terms."},
+    {"name": "sales", "description": "Bills, voids, returns and sales totals."},
 ]
 
 
