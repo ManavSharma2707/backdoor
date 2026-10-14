@@ -214,6 +214,26 @@ def select_methods(
                 method, m.n_points, m.mae, m.rmse, m.wape, m.mean_actual, m.coverage
             )
     selection.tenant = tenant_scores(data, classes, chosen)
+    return quantised(selection)
+
+
+def quantised(selection: Selection) -> Selection:
+    """Round every stored number the way `forecast_store` keeps it."""
+    for info in [*selection.segments.values(), *selection.classes.values()]:
+        info.scores = {m: sc.stored() for m, sc in info.scores.items()}
+    selection.tenant = {k: m.stored() for k, m in selection.tenant.items()}
+    selection.products = {
+        k: ProductScore(
+            p.method,
+            p.n_points,
+            round(p.mae, 4),
+            round(p.rmse, 4),
+            None if p.wape is None else round(p.wape, 4),
+            round(p.mean_actual, 4),
+            round(p.coverage, 3),
+        )
+        for k, p in selection.products.items()
+    }
     return selection
 
 

@@ -36,6 +36,19 @@ class Metrics:
     mean_actual: float
     coverage: float
 
+    def stored(self) -> "Metrics":
+        """The metrics as the database keeps them (4 places, coverage 3). A fresh backtest and a
+        reloaded one then give the same plan to the last digit."""
+        return Metrics(
+            self.n_points,
+            round(self.mae, 4),
+            round(self.rmse, 4),
+            None if self.wape is None else round(self.wape, 4),
+            None if self.bias is None else round(self.bias, 4),
+            round(self.mean_actual, 4),
+            round(self.coverage, 3),
+        )
+
     @property
     def mae_ratio(self) -> float | None:
         """MAE over the mean actual demand, the scale free error of intermittent products."""
